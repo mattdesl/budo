@@ -2,10 +2,9 @@
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-This is a browserify dev server based on watchify. Like [wzrd](https://github.com/maxogden/wzrd), but focused on incremental bundling for larger applications. 
+This is a browserify dev server based on watchify. Like [wzrd](https://github.com/maxogden/wzrd), but focused on incremental bundling and live-reloading for larger JS/HTML/CSS applications. Also tinkering with hot-reloading in Chrome.
 
-
-```mystc index --chrome -o bundle.js | wtch **/*.{css,html} ```
+EXPERIMENTAL WORK IN PROGRESS
 
 ## Usage
 
