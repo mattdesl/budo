@@ -84,3 +84,19 @@ function render(dt) {
 ```
 
 In some cases, if your bundle only includes "state" and no render or update functions, it may get collected and not appear at all during remote script parsing. 
+
+## faster watchify builds
+
+Watchify includes a 600ms delay by default, for better cross-platform support. Some systems (tested on OSX Yosemite) can get by without this delay, which makes script injection much more satisfying to work with.
+
+I've exposed this in a branch of watchify:
+
+```sh
+npm install mattdesl/watchify#feature-opts --save-dev
+```
+
+Now when you run `budo`, include the `--delay` option with your desired time in milliseconds:
+
+```sh
+budo-chrome index.js --delay 0 --open | garnish
+```
