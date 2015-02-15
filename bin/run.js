@@ -67,7 +67,7 @@ module.exports = function(baseArgs, opt) {
 
                 emitter.emit('connect', uri)
 
-                if (argv.live || argv.l || opt.chrome)
+                if (argv.live || opt.chrome)
                     startLive(uri, output)
             })
     }
