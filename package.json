@@ -1,6 +1,6 @@
 {
   "name": "mystc",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "a browserify server for rapid prototyping",
   "main": "index.js",
   "bin": {
