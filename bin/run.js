@@ -4,17 +4,19 @@ require('bole').output({
     level: 'debug'
 })
 
+var log = require('bole')('mystc')
 var minimist = require('minimist')
 var portfinder = require('portfinder')
+var path = require('path')
+var xtend = require('xtend')
+var Emitter = require('events/')
+
+var getOutput = require('../lib/get-output')
 var watchify = require('../lib/watchify')
 var http = require('../lib/server').http
 var live = require('../lib/live')
 var chrome = require('../lib/chrome-remote')
 var tmpdir = require('../lib/tmpdir')
-var path = require('path')
-var xtend = require('xtend')
-var log = require('bole')('mystc')
-var Emitter = require('events/')
 
 module.exports = function(baseArgs, opt) {
     opt = opt||{}
@@ -23,58 +25,27 @@ module.exports = function(baseArgs, opt) {
     var watchifyArgs = baseArgs
     var argv = minimist(baseArgs)
 
-    argv.path = argv.path || process.cwd()
-    argv.port = argv.port || argv.p || 9966
-
-
-    //once tmpdir is a bit more stable, we 
-    //can start allowing no outfile args
-    if (!argv.o && !argv.outfile)  {
-        // console.error("Error: Must provide --outfile argument!")
-        // process.exit(1)
+    if (argv._.length === 0) {
+        console.error("No entry scripts specified!")
+        process.exit(1)
     }
 
+    argv.path = argv.path || process.cwd()
+    argv.port = argv.port || 9966
+
     portfinder.basePort = argv.port
-    getOutput(function(err, output) {
+    getOutput(argv, function(err, output) {
         if (err) {
             console.error("Error: Could not create temp bundle.js directory")
             process.exit(1)
         }
+
         //patch watchify args with new outfile
         setOutfile(watchifyArgs, output.from)
         portfinder.getPort(start.bind(null, output))
     })
 
     return emitter
-
-    //get an output directory, from user or tmp dir
-    function getOutput(cb) {
-        var output
-        var outfile = argv.o || argv.outfile
-        if (!outfile) {
-            var to = 'bundle.js'
-            tmpdir(function(err, filedir) {
-                if (!err) {
-                    var file = path.join(filedir, to)
-                    output = { 
-                        tmp: true, 
-                        from: file, 
-                        to: to, 
-                        dir: filedir 
-                    }
-                }
-                cb(err, output)
-            })
-        } else {
-            var from = path.join(argv.path, outfile)
-            output = { 
-                from: from, 
-                to: outfile, 
-                dir: argv.path
-            }
-            cb(null, output)
-        }
-    }
 
     function start(output, err, port) {
         watchify(watchifyArgs)
@@ -114,20 +85,29 @@ module.exports = function(baseArgs, opt) {
 
     function startLive(uri, output) {
         var hot = opt.chrome
-        var watchArgs = { poll: Boolean(output.tmp) }
+        var watchArgs = {}
         var reloader
         if (hot) {
-            watchArgs = { ignoreReload: output.from }
+            watchArgs = xtend(watchArgs, { ignoreReload: output.from })
+
+            var delay = argv.open ? 1000 : 0
             //Wait for chrome to boot up before 
             //starting debugger
             setTimeout(function() {
                 reloader = chrome({ 
                     uri: uri 
                 })
-            }, 1000)
+            }, delay)
         }
-        
-        live(output.from, watchArgs)
+
+        //bug with chokidar@1.0.0-rc3
+        //anything in OSX tmp dirs need a wildcard
+        //to work with fsevents
+        var glob = output.tmp 
+            ? path.join(output.dir, '**.js')
+            : output.from
+
+        live(glob, watchArgs)
             .on('watch', function(event, file) {
                 if (reloader 
                       && file === output.from 
