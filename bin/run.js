@@ -4,7 +4,7 @@ require('bole').output({
     level: 'debug'
 })
 
-var log = require('bole')('mystc')
+var log = require('bole')('budo')
 var minimist = require('minimist')
 var portfinder = require('portfinder')
 var path = require('path')

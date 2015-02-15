@@ -1,11 +1,11 @@
 {
-  "name": "mystc",
+  "name": "budo",
   "version": "0.1.7",
   "description": "a browserify server for rapid prototyping",
   "main": "index.js",
   "bin": {
-    "mystch": "./bin/chrome.js",
-    "mystc": "./bin/cmd.js"
+    "budo-chrome": "./bin/chrome.js",
+    "budo": "./bin/cmd.js"
   },
   "license": "MIT",
   "author": {
@@ -45,10 +45,10 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git://github.com/mattdesl/mystc.git"
+    "url": "git://github.com/mattdesl/budo.git"
   },
-  "homepage": "https://github.com/mattdesl/mystc",
+  "homepage": "https://github.com/mattdesl/budo",
   "bugs": {
-    "url": "https://github.com/mattdesl/mystc/issues"
+    "url": "https://github.com/mattdesl/budo/issues"
   }
 }
