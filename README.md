@@ -28,7 +28,7 @@ To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bi
 mystc index.js -o bundle.js | garnish --level debug
 ```
 
-More info coming soon on "script injection" in Chrome and other experimental features.
+More docs to come soon, including the "script injection" in Chrome and other experimental features.
 
 This is still highly experimental, and so far only tested on OSX. PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/caspervonb) for the early groundwork.
 
