@@ -16,19 +16,21 @@ Simple uses:
 
 ```sh
 #run watchify on port 8000
-mystc index.js --port 8000
+mystc index.js -o bundle.js --port 8000
 
 #run watchify and trigger LiveReload events on update
-mystc index.js --live
+mystc index.js -o bundle.js --live
 ```
 
 To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](ndjson.org)-based stream can be used.
 
 ```sh
-mystc index.js | garnish --level debug
+mystc index.js -o bundle.js | garnish --level debug
 ```
 
-This is still experimental, and so far only tested on OSX. PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/caspervonb) for the early groundwork.
+More info coming soon on "script injection" in Chrome and other experimental features.
+
+This is still highly experimental, and so far only tested on OSX. PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/caspervonb) for the early groundwork.
 
 ## Usage
 
