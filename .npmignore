@@ -3,7 +3,7 @@ node_modules
 *.log
 .DS_Store
 bundle.js
-test
+test/
 test.js
 demo/
 .npmignore

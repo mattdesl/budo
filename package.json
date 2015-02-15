@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "a browserify server for rapid prototyping",
   "main": "index.js",
+  "bin": {
+    "mystch": "./bin/chrome.js",
+    "mystc": "./bin/cmd.js"
+  },
   "license": "MIT",
   "author": {
     "name": "Matt DesLauriers",
