@@ -43,7 +43,7 @@ This is still highly experimental, and so far only tested on OSX. PRs/suggestion
 
 [![NPM](https://nodei.co/npm/budo.png)](https://www.npmjs.com/package/budo)
 
-Details for `budo` command-line interface. Aside from the following options, all others are sent to browserify/watchify.
+Details for `budo` command-line interface. Other options are sent to browserify/watchify. 
 
 ```sh
 Usage:
