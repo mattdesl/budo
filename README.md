@@ -18,7 +18,7 @@ Simple use, which builds to `bundle.js` on filesave:
 
 ```sh
 #run watchify on port 9966
-budo index.js -o bundle.js
+budo index.js --outfile bundle.js --verbose
 ```
 
 Now open `localhost:9966` to see the content in action.
@@ -38,6 +38,33 @@ This is still highly experimental, and so far only tested on OSX. PRs/suggestion
 - [basic usage](docs/basics.md)
 - [experimental features](docs/experimental-features.md)
 - [comparisons](docs/comparisons.md)
+
+## usage
+
+Details for `budo` command-line interface. Aside from the following options, all others are sent to browserify/watchify.
+
+```sh
+Usage:
+    budo [entries] [opts]
+
+Options:
+    --outfile, -o   path to output bundle
+    --port          the port to run, default 9966
+    --live          enable LiveReload integration
+```
+
+Installing budo also comes with a `budo-chrome` binary for script injection. It is still [experimental](docs/experimental-features.md). 
+
+```sh
+Usage:
+    budo-chrome [entries] [opts]
+
+Options:
+    --outfile, -o   path to output bundle
+    --open          open a new instance of Chrome
+    --port          port to serve content, default 9966
+    --remote-port   remote debugging port, default 9222
+```
 
 ## License
 
