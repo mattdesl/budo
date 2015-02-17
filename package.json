@@ -45,7 +45,7 @@
     "tape": "^3.5.0",
     "through2": "^0.6.3",
     "tree-kill": "0.0.6",
-    "watchify": "^2.3.0",
+    "watchify": "git://github.com/mattdesl/watchify#fast",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
