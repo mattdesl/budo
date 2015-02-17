@@ -31,20 +31,20 @@
     "canvas-testbed": "^1.0.3",
     "concat-stream": "^1.4.7",
     "garnish": "^2.0.1",
+    "ndjson": "^1.3.0",
     "npm-execspawn": "^1.0.6",
     "request": "^2.53.0",
     "tape": "^3.5.0",
     "through2": "^0.6.3",
     "tree-kill": "0.0.6",
-    "watchify": "git://github.com/mattdesl/watchify#feature-opts",
+    "watchify": "^2.3.0",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
-    "test": "node test.js",
-    "basic": "./bin/cmd.js test/app.js --path test -v -o bundle.js | garnish",
-    "live": "./bin/cmd.js test/app.js --path test --delay 0 -o bundle.js --live | garnish -l debug",
-    "live2": "./bin/cmd.js test/app.js --path test --delay 0 --live | garnish",
-    "chrome": "./bin/chrome.js test/app.js --path test --delay 0 -o bundle.js --open | garnish"
+    "test": "node test/test-simple.js",
+    "start": "./bin/cmd.js test/app.js --dir test | garnish -v",
+    "live": "./bin/cmd.js test/app.js --dir test --live | garnish -v",
+    "live-plugin": "./bin/cmd.js test/app.js --dir test --live-plugin | garnish -v"
   },
   "keywords": [],
   "repository": {

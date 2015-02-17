@@ -18,12 +18,12 @@ module.exports = function(args, cb) {
         process.exit(1)
     }
 
+    argv.dir = argv.dir || process.cwd()
     getOutput(argv, function(err, output) {
         if (err) {
             console.error("Error: Could not create temp bundle.js directory")
             process.exit(1)
         }
-
         //determine next port    
         portfinder.basePort = argv.port
         portfinder.getPort(function(err, port) {
