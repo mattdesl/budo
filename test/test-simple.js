@@ -2,11 +2,13 @@ var rimraf = require('rimraf')
 var fs = require('fs')
 var path = require('path')
 var spawn = require('win-spawn')
+var npmSpawn = require('npm-execspawn')
 var kill = require('tree-kill')
 
 var ndjson = require('ndjson')
 var test = require('tape')
 var concat = require('concat-stream')
+var request = require('request')
 
 var cliPath = path.resolve(__dirname, '..', 'bin', 'cmd.js')
 
@@ -14,7 +16,6 @@ var cliPath = path.resolve(__dirname, '..', 'bin', 'cmd.js')
 // --dir
 // --live
 // --live-plugin
-// --serves proper JS bundle
 
 test('should fail without scripts', function(t) {
     t.plan(1)
@@ -23,7 +24,6 @@ test('should fail without scripts', function(t) {
         t.equal(str.toString().trim(), 'No entry scripts specified!')
     }))
 })
-
 
 test('should run on 9966', function(t) {
     t.plan(1)
@@ -40,6 +40,67 @@ test('should run on 9966', function(t) {
             t.fail(err)
             kill(proc.pid)
         })
+})
+
+//see if it serves bundle.js
+test('should get a bundle.js', function(t) {
+    t.plan(1)
+    var foundMsg = false
+    var bundle = path.join(__dirname, 'bundle.js')
+    var bundleExpected = path.join(__dirname, 'bundle-expected.js')
+
+    //the expected bundle
+    var watchifyProc = npmSpawn('watchify app.js -v -o bundle-expected.js', [], { cwd: __dirname, env: process.env })
+    watchifyProc.stderr.on('data',watchifyDone)
+    watchifyProc.stdout.on('data',watchifyDone)
+
+    function watchifyDone(msg) {
+        var suc = msg.toString().indexOf('bundle-expected.js')
+        if (suc === -1)
+            t.fail('watchify process gave unexpected stdout/stderr message')
+        kill(watchifyProc.pid)
+
+        var expected = fs.readFile(bundleExpected, 'utf8', function(err, data) {
+            if (err)
+                t.fail(err)
+            budoMatches(data)
+        })
+    }
+
+    function budoMatches(source) {
+        var proc = spawn(cliPath, ['app.js', '-o', 'bundle.js'], { cwd: __dirname, env: process.env })
+        proc.on('exit', cleanup)
+        proc.stdout.pipe(ndjson.parse())
+            .on('data', function(data) {
+                var msg = (data.message||'').toLowerCase()
+                var running = 'server running at '
+                var idx = msg.indexOf(running)
+                if (idx >= 0) {
+                    foundMsg = true
+                    setTimeout(function() { //let bundling finish
+                        var serverUrl = msg.substring(idx+running.length)
+                        request.get({
+                            uri: serverUrl + '/bundle.js'
+                        }, function(err, resp, data) {
+                            t.equal(data, source, 'bundle matches')
+                            kill(proc.pid)
+                        })
+                    }, 1000)
+                } else if (!foundMsg) {
+                    t.fail('no server running message in '+ msg)
+                    kill(proc.pid)
+                }
+            })
+    }
+
+    function cleanup() {
+        rimraf(bundleExpected, function(err) {
+            if (err) console.error(err)
+        })
+        rimraf(bundle, function(err) {
+            if (err) console.error(err)
+        })
+    }
 })
 
 test('should create and destroy tmpdir', function(t) {

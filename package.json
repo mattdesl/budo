@@ -42,10 +42,11 @@
     "ndjson": "^1.3.0",
     "npm-execspawn": "^1.0.6",
     "request": "^2.53.0",
+    "tap-finished": "0.0.1",
     "tape": "^3.5.0",
     "through2": "^0.6.3",
     "tree-kill": "0.0.6",
-    "watchify": "git://github.com/mattdesl/watchify#fast",
+    "watchify": "^2.3.0",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
