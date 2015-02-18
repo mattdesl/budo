@@ -17,7 +17,8 @@ module.exports = function(args, cb) {
         console.error("No entry scripts specified!")
         process.exit(1)
     }
-
+    
+    argv.port = argv.port || 9966
     argv.dir = argv.dir || process.cwd()
     getOutput(argv, function(err, output) {
         if (err) {
@@ -37,7 +38,7 @@ module.exports = function(args, cb) {
                 port: port,
                 output: output
             })).on('error', function(err) {
-                console.error("Error running budo:", err)
+                console.error("Error running budo on", port, err)
                 process.exit(1)
             }).on('exit', function() {
                 log.info('closing')

@@ -13,7 +13,6 @@ var request = require('request')
 var cliPath = path.resolve(__dirname, '..', 'bin', 'cmd.js')
 
 //Some other tests needed:
-// --dir
 // --live
 // --live-plugin
 
@@ -25,15 +24,15 @@ test('should fail without scripts', function(t) {
     }))
 })
 
-test('should run on 9966', function(t) {
+test('should run on available port', function(t) {
     t.plan(1)
     var proc = spawn(cliPath, ['app.js', '-o', 'bundle.js'], { cwd: __dirname, env: process.env })
-    var expected = 'Server running at http://localhost:9966/'
+    var expected = 'Server running at'
 
     proc.stdout.pipe(ndjson.parse())
         .on('data', function(data) {
-            t.equal(data && data.message,
-                expected, 'starts server')
+            var msg = (data && data.message)||''
+            t.ok(msg.indexOf(expected)>=0, 'starts server')
             kill(proc.pid)
         })
         .on('error', function(err) {
@@ -42,22 +41,41 @@ test('should run on 9966', function(t) {
         })
 })
 
-//see if it serves bundle.js
 test('should get a bundle.js', function(t) {
+    var cwd = path.resolve(__dirname, '..')
+    runBundleMatch(t, { 
+        watchify: ['app.js', '-v', '-o', 'bundle-expected.js'],
+        budo: ['app.js', '-o', 'bundle.js']
+    })
+})
+
+test('should get a bundle.js with --dir', function(t) {
+    var cwd = path.resolve(__dirname, '..')
+    runBundleMatch(t, { 
+        cwd: cwd,
+        watchify: ['test/app.js', '-v', '-o', 'test/bundle-expected.js'],
+        budo: ['test/app.js', '-o', 'bundle.js', '--dir', 'test']
+    })
+})
+
+function runBundleMatch(t, opt) {
+    opt = opt||{}
+
     t.plan(1)
+    var cwd = opt.cwd || __dirname
     var foundMsg = false
     var bundle = path.join(__dirname, 'bundle.js')
     var bundleExpected = path.join(__dirname, 'bundle-expected.js')
-
+    
     //the expected bundle
-    var watchifyProc = npmSpawn('watchify app.js -v -o bundle-expected.js', [], { cwd: __dirname, env: process.env })
+    var watchifyProc = npmSpawn('watchify '+ opt.watchify.join(' '), { cwd: cwd, env: process.env })
     watchifyProc.stderr.on('data',watchifyDone)
     watchifyProc.stdout.on('data',watchifyDone)
 
     function watchifyDone(msg) {
         var suc = msg.toString().indexOf('bundle-expected.js')
         if (suc === -1)
-            t.fail('watchify process gave unexpected stdout/stderr message')
+            t.fail('watchify process gave unexpected stdout/stderr message' )
         kill(watchifyProc.pid)
 
         var expected = fs.readFile(bundleExpected, 'utf8', function(err, data) {
@@ -68,7 +86,7 @@ test('should get a bundle.js', function(t) {
     }
 
     function budoMatches(source) {
-        var proc = spawn(cliPath, ['app.js', '-o', 'bundle.js'], { cwd: __dirname, env: process.env })
+        var proc = spawn(cliPath, opt.budo, { cwd: cwd, env: process.env })
         proc.on('exit', cleanup)
         proc.stdout.pipe(ndjson.parse())
             .on('data', function(data) {
@@ -101,7 +119,7 @@ test('should get a bundle.js', function(t) {
             if (err) console.error(err)
         })
     }
-})
+}
 
 test('should create and destroy tmpdir', function(t) {
     t.plan(2)

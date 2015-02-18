@@ -51,9 +51,9 @@
   },
   "scripts": {
     "test": "node test/test-simple.js",
-    "start": "./bin/cmd.js test/app.js --dir test | garnish -v",
-    "live": "./bin/cmd.js test/app.js --dir test --live | garnish -v",
-    "live-plugin": "./bin/cmd.js test/app.js --dir test --live-plugin | garnish -v"
+    "start": "./bin/cmd.js examples/app.js --dir examples | garnish -v",
+    "live": "./bin/cmd.js examples/app.js --dir examples --live | garnish -v",
+    "live-plugin": "./bin/cmd.js examples/app.js --dir examples --live-plugin | garnish -v"
   },
   "keywords": [],
   "repository": {
