@@ -51,9 +51,9 @@
   },
   "scripts": {
     "test": "node test/test-simple.js | tap-spec",
-    "start": "./bin/cmd.js examples/app.js --dir examples --verbose | garnish",
-    "live": "./bin/cmd.js examples/app.js --dir examples --live | garnish -v",
-    "live-plugin": "./bin/cmd.js examples/app.js --dir examples --live-plugin | garnish -v"
+    "start": "./bin/cmd.js example/app.js --dir example --verbose | garnish",
+    "live": "./bin/cmd.js example/app.js --dir example --live | garnish -v",
+    "live-plugin": "./bin/cmd.js example/app.js --dir example --live-plugin | garnish -v"
   },
   "keywords": [
     "browserify",

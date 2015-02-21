@@ -6,5 +6,7 @@ bundle.js
 test/
 test.js
 demo/
+docs/
+example/
 .npmignore
 LICENSE.md
