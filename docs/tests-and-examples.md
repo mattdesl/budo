@@ -10,7 +10,7 @@ npm install
 
 The tasks are run with the `"scripts"` field in [package.json](https://github.com/mattdesl/budo/blob/master/package.json).
 
-## tests
+## running tests
 
 Now you can run the following to see the unit tests:
 
@@ -18,9 +18,9 @@ Now you can run the following to see the unit tests:
 npm test
 ```
 
-## example
+## running the example
 
-### basic
+#### basic
 
 To run the example:
 
@@ -30,7 +30,7 @@ npm start
 
 Now when you open `localhost:9966` you should see a simple 2D canvas scene with an image. If you update the `example/index.js` source, you will see watchify emitting logs in the console. Refreshing the page will show the new bundle.
 
-### live reload
+#### live reload
 
 To run the example with live reloading:
 

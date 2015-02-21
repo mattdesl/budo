@@ -32,7 +32,7 @@ budo index.js --outfile bundle.js | garnish
 
 ## index.html
 
-Notice we haven't had to write any HTML! If you want to, though, you can drop one in the same folder that you are serving budō from, and it will use that instead of a dynamically generated index.
+Notice we haven't had to write any HTML! If you want to, though, you can drop `index.html` in the same folder that you are serving budō from (or `--dir` folder), and it will use that instead of a dynamically generated index.
 
 ## local installation
 
