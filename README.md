@@ -20,7 +20,7 @@ The simplest use cases will start up a server with a default `index.html` and in
 #run watchify on port 9966
 budo index.js
 
-#run watchify with local output file 
+#run watchify with explicit output file 
 budo index.js --outfile bundle.js --verbose
 
 #run watchify with some options and trigger LiveReload on change
@@ -49,7 +49,7 @@ PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/cas
 
 [![NPM](https://nodei.co/npm/budo.png)](https://www.npmjs.com/package/budo)
 
-Details for `budo` command-line interface. Other options are sent to browserify/watchify. 
+Details for `budo` command-line interface. Other options like `--verbose` and `--transform` are sent to browserify/watchify. 
 
 ```sh
 Usage:
