@@ -2,11 +2,7 @@
 
 [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 
-[![screenshot](http://i.imgur.com/LJP7d9I.png)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)
-
-<sup>[(click for demo)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)</sup>
-
-This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and other experimental features down the road.
+This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and other [experimental features](#script-injection) down the road.
 
 Note that budo needs a copy of `watchify` installed. It can be either local (preferred) or global.
 
@@ -39,11 +35,12 @@ See [docs](#docs) for more features.
 
 PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/caspervonb) for the early groundwork.
 
-## docs
+## about
 
 - [basic usage](docs/basics.md)
-- [experimental features](docs/experimental-features.md)
 - [comparisons](docs/comparisons.md)
+- [running tests and examples](docs/tests-and-examples.md)
+- [script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
 
 ## usage
 
@@ -64,6 +61,15 @@ Options:
     --live-plugin   enable LiveReload but do not inject script tag
     --live-port     the LiveReload port, default 35729
 ```
+
+## Script Injection
+
+[![screenshot](http://i.imgur.com/LJP7d9I.png)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)
+
+The original motivation for making budo was to build a simple tool around Chrome Script Injection. This has since split off into its own repository: [budo-chrome](https://github.com/mattdesl/budo-chrome). 
+
+<sup>[(click for demo)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)</sup>
+
 
 ## License
 
