@@ -2,18 +2,6 @@
 
 These features are likely to change and may not be fully stable. 
 
-## temporary outfile
-
-If you run budō without an `--outfile`, it will send a `bundle.js` to a temporary directory that gets removed on process exit. This is useful for quick prototyping, but it is less stable across platforms and thus not recommended for local installs. 
-
-Example:
-
-```sh
-budo index.js | garnish
-```
-
-Now you can start developing the `index.js` file. This should also work with the `--live` and experimental Chrome features.
-
 ## script injection (Chrome)
 
 [(demo in action)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)
