@@ -66,7 +66,7 @@ Options:
 
 [![screenshot](http://i.imgur.com/LJP7d9I.png)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)
 
-The original motivation for making budo was to build a simple tool around Chrome Script Injection. This has since split off into its own repository: [budo-chrome](https://github.com/mattdesl/budo-chrome). 
+The original motivation for making budō was to build a simple tool around Chrome Script Injection. This has since split off into its own repository: [budo-chrome](https://github.com/mattdesl/budo-chrome) to maintain a small scope for budō.
 
 <sup>[(click for demo)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)</sup>
 
