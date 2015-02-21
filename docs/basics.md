@@ -30,29 +30,9 @@ Earlier we installed [garnish](https://github.com/mattdesl/garnish), which will 
 budo index.js --outfile bundle.js | garnish
 ```
 
-## live reload
-
-budō also includes some support for [LiveReload](livereload.com).
-
-First, install the LiveReload plugin for your browser of choice (e.g. [Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en)). 
-
-Now, run budō with the `--live` option:
-
-```sh
-budo index.js --outfile bundle.js --live | garnish
-```
-
-Open `localhost:9966` and enable LiveReload by clicking the plugin. The center circle will turn black. You may need to refresh the page first.
-
-![Click to enable](http://i.imgur.com/YdCgusY.png)
-
-Now when you save the `index.js` file, it will trigger a live-reload event on your `localhost:9966` tab after watchify has finished bundling. It also listens to HTML and CSS reload, and injects stylesheets without a page refresh. 
-
-You can also use a [script snippet](http://feedback.livereload.com/knowledgebase/articles/87979-how-do-i-choose-the-best-integration-method-) instead of the LiveReload browser extension. 
-
 ## index.html
 
-Up until now, we haven't had to write any HTML! If you want to, though, you can drop one in the same folder that you are serving budō from, and it will use that instead of a dynamically generated index.
+Notice we haven't had to write any HTML! If you want to, though, you can drop `index.html` in the same folder that you are serving budō from (or `--dir` folder), and it will use that instead of a dynamically generated index.
 
 ## local installation
 
@@ -82,3 +62,25 @@ Now users cloning your repo can run the following to start serving the file:
 npm install
 npm run dev
 ```
+
+## temp directory
+
+If you don't specify an `--outfile` or `-o` argument, budō will save a `bundle.js` to a temporary directory that gets destroyed upon closing the server. 
+
+```sh
+budo index.js --verbose | garnish
+```
+
+This is good for quick prototyping, but the `--outfile` approach is more robust and cross-platform, and thus preferred when delivering budō as a local dependency.
+
+## live reload
+
+budō also includes support for [LiveReload](livereload.com). The `--live` argument injects a script tag into your HTML file so you can reload across many devices and browsers.
+
+```sh
+budo index.js --outfile bundle.js --live | garnish
+```
+
+Now when you save the `index.js` file, it will trigger a live-reload event on your `localhost:9966` tab after watchify has finished bundling. It also listens to HTML and CSS reload, and injects stylesheets without a page refresh. 
+
+Alternatively, you can use `--live-plugin` if you want to enable LiveReload through the browser extension (e.g. [for Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en)). In this case, no script is injected into the HTML, and you need to [enable LiveReload manually](https://github.com/mattdesl/wtch#setup).

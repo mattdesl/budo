@@ -1,12 +1,8 @@
 # budō
 
-[![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
+[![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 
-[![screenshot](http://i.imgur.com/LJP7d9I.png)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)
-
-<sup>[(click for demo)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)</sup>
-
-This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and JavaScript injection (Chrome only).
+This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and other [experimental features](#script-injection) down the road.
 
 Note that budo needs a copy of `watchify` installed. It can be either local (preferred) or global.
 
@@ -14,14 +10,20 @@ Note that budo needs a copy of `watchify` installed. It can be either local (pre
 npm install budo watchify -g
 ```
 
-Simple use, which builds to `bundle.js` on filesave:
+The simplest use cases will start up a server with a default `index.html` and incrementally bundle your source on filesave. Examples:
 
 ```sh
 #run watchify on port 9966
+budo index.js
+
+#run watchify with explicit output file 
 budo index.js --outfile bundle.js --verbose
+
+#run watchify with some options and trigger LiveReload on change
+budo index.js --live --transform brfs
 ```
 
-Now open `localhost:9966` to see the content in action.
+You can open `localhost:9966` to see the content in action.
 
 To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](ndjson.org)-based stream can be used.
 
@@ -29,21 +31,22 @@ To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bi
 budo index.js -o bundle.js | garnish
 ```
 
-See [docs](#docs) for more features including Chrome script injection.
+See [docs](#docs) for more features.
 
-This is still highly experimental, and so far only tested on OSX. PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/caspervonb) for the early groundwork.
+PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/caspervonb) for the early groundwork.
 
-## docs
+## about
 
 - [basic usage](docs/basics.md)
-- [experimental features](docs/experimental-features.md)
 - [comparisons](docs/comparisons.md)
+- [running tests and examples](docs/tests-and-examples.md)
+- [script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
 
 ## usage
 
 [![NPM](https://nodei.co/npm/budo.png)](https://www.npmjs.com/package/budo)
 
-Details for `budo` command-line interface. Other options are sent to browserify/watchify. 
+Details for `budo` command-line interface. Other options like `--verbose` and `--transform` are sent to browserify/watchify. 
 
 ```sh
 Usage:
@@ -52,21 +55,21 @@ Usage:
 Options:
     --outfile, -o   path to output bundle
     --port          the port to run, default 9966
+    --host          the host, default "localhost"
+    --dir           the directory to serve, and the base for --outfile
     --live          enable LiveReload integration
+    --live-plugin   enable LiveReload but do not inject script tag
+    --live-port     the LiveReload port, default 35729
 ```
 
-Installing budo also comes with a `budo-chrome` binary for script injection. It is still [experimental](docs/experimental-features.md). 
+## Script Injection
 
-```sh
-Usage:
-    budo-chrome [entries] [opts]
+[![screenshot](http://i.imgur.com/LJP7d9I.png)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)
 
-Options:
-    --outfile, -o   path to output bundle
-    --open          open a new instance of Chrome
-    --port          port to serve content, default 9966
-    --remote-port   remote debugging port, default 9222
-```
+The original motivation for making budō was to build a simple tool around Chrome Script Injection. This has since split off into its own repository: [budo-chrome](https://github.com/mattdesl/budo-chrome) to maintain a small scope for budō.
+
+<sup>[(click for demo)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)</sup>
+
 
 ## License
 
