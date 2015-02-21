@@ -14,14 +14,17 @@ Note that budo needs a copy of `watchify` installed. It can be either local (pre
 npm install budo watchify -g
 ```
 
-Simple uses:
+The simplest use cases will start up a server with a default `index.html` and incrementally bundle your source on filesave. Examples:
 
 ```sh
 #run watchify on port 9966
+budo index.js
+
+#run watchify with local output file 
 budo index.js --outfile bundle.js --verbose
 
-#run watchify and trigger LiveReload on change
-budo index.js --outfile bundle.js --live
+#run watchify with some options and trigger LiveReload on change
+budo index.js --live --transform brfs
 ```
 
 You can open `localhost:9966` to see the content in action.
