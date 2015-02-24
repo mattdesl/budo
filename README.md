@@ -35,7 +35,7 @@ See [docs](#docs) for more features.
 
 PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/caspervonb) for the early groundwork.
 
-## about
+## docs
 
 - [basic usage](docs/basics.md)
 - [comparisons](docs/comparisons.md)
