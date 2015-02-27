@@ -6,7 +6,7 @@
 
 ## beefy
 
-[Beefy](https://github.com/chrisdickinson/beefy) is a feature-rich dev tool for browserify, and much of the inspiration for this project. However, it currently has some shortcomings[<sup>[1]</sup>](https://github.com/chrisdickinson/beefy/issues/49)[<sup>[2]</sup>](https://github.com/chrisdickinson/beefy/issues/63) and often feels clunky to deliver as a local dependency. It also takes a different approach to bundling, by using watchify's programmatic API rather than [execspawn](https://www.npmjs.com/package/npm-execspawn). 
+[Beefy](https://github.com/chrisdickinson/beefy) is a feature-rich dev tool for browserify, and much of the inspiration for this project. It has a wide scope, encompassing browserify and watchify, and takes a different approach to bundling by using watchify's programmatic API rather than [execspawn](https://www.npmjs.com/package/npm-execspawn). 
 
 ```sh
 #example ...
@@ -15,9 +15,9 @@ beefy index.js --open
 
 ## wzrd
 
-[wzrd](https://github.com/maxogden/wzrd) is a tiny spin-off of beefy that is ideal for [local dependencies](https://github.com/stackgl/learning-webgl-03/blob/db8f36a534b2a184924f8b890014ff3dd9a5b391/package.json#L6-L9). It introduces some novel ideas like entry mapping and ndjson output with tools like [garnish](https://github.com/mattdesl/garnish).
+[wzrd](https://github.com/maxogden/wzrd) is a tiny spin-off of beefy that is ideal for [local dependencies](https://github.com/stackgl/learning-webgl-03/blob/db8f36a534b2a184924f8b890014ff3dd9a5b391/package.json#L6-L9). It has a small and focused scope, and encourages composition and diversity with other tools (e.g. [garnish](https://github.com/mattdesl/garnish) for pretty-printing).
 
-However, incremental bundling is likely outside of its scope.
+Incremental bundling is likely outside of its scope.
 
 ```sh
 #example ...
