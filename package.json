@@ -52,7 +52,8 @@
     "test": "node test/test-simple.js | tap-spec",
     "start": "./bin/cmd.js example/app.js --dir example --verbose | garnish",
     "live": "./bin/cmd.js example/app.js --dir example --live | garnish -v",
-    "live-plugin": "./bin/cmd.js example/app.js --dir example --live-plugin | garnish -v"
+    "live-plugin": "./bin/cmd.js example/app.js --dir example --live-plugin | garnish -v",
+    "remap": "./bin/cmd.js example/app:bundle2.js --dir example --live | garnish -v"    
   },
   "keywords": [
     "browserify",

@@ -20,7 +20,9 @@ module.exports = function(args, cb) {
     
     argv.port = argv.port || 9966
     argv.dir = argv.dir || process.cwd()
-    getOutput(argv, function(err, output) {
+
+    var outOpts = xtend(argv, { __to: entryMapping() })
+    getOutput(outOpts, function(err, output) {
         if (err) {
             console.error("Error: Could not create temp bundle.js directory")
             process.exit(1)
@@ -49,4 +51,21 @@ module.exports = function(args, cb) {
             })
         })
     })
+
+    function entryMapping() {
+        var mapTo
+        var first = argv._[0] 
+        var parts = first.split(':')
+        if (parts.length > 1) {
+            var from = parts[0]
+            var to = parts[1]
+            argv._[0] = from
+            //clean up original arguments for watchify
+            var idx = args.indexOf(first)
+            if (idx>=0) 
+                args[idx] = from
+            mapTo = to
+        }
+        return mapTo   
+    }
 }
