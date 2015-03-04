@@ -71,6 +71,12 @@ If you don't specify an `--outfile` or `-o` argument, budō will save a `bundle.
 budo index.js --verbose | garnish
 ```
 
+You can also change the mapping like so, which allows you to specify a different entry point in your `index.html`:
+
+```sh
+budo index.js:static.js | garnish
+```
+
 This is good for quick prototyping, but the `--outfile` approach is more robust and cross-platform, and thus preferred when delivering budō as a local dependency.
 
 ## live reload
