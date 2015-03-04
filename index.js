@@ -56,7 +56,7 @@ module.exports = function(args, cb) {
         var mapTo
         var first = argv._[0] 
         var parts = first.split(':')
-        if (parts.length > 1) {
+        if (parts.length > 1 && parts[1].length > 0) {
             var from = parts[0]
             var to = parts[1]
             argv._[0] = from
