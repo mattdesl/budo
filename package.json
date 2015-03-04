@@ -1,6 +1,6 @@
 {
   "name": "budo",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "a browserify server for rapid prototyping",
   "main": "index.js",
   "bin": {
@@ -53,7 +53,7 @@
     "start": "./bin/cmd.js example/app.js --dir example --verbose | garnish",
     "live": "./bin/cmd.js example/app.js --dir example --live | garnish -v",
     "live-plugin": "./bin/cmd.js example/app.js --dir example --live-plugin | garnish -v",
-    "remap": "./bin/cmd.js example/app:bundle2.js --dir example --live | garnish -v"    
+    "remap": "./bin/cmd.js example/app:bundle2.js --dir example --live | garnish -v"
   },
   "keywords": [
     "browserify",
