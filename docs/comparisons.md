@@ -2,7 +2,7 @@
 
 ## budō
 
-[budō](https://github.com/mattdesl/budo) lies somewhere between the rich feature set of [Beefy](#beefy) and the small focus of [wzrd](#wzrd). It spawns a watchify process, produces ndjson logs, and includes some more experimental features for live-reloading, [script injection](https://github.com/mattdesl/budo-chrome), and rapid prototyping. 
+[budō](https://github.com/mattdesl/budo) lies somewhere between the rich feature set of [Beefy](#beefy) and the small focus of [wzrd](#wzrd). It spawns a watchify process, produces ndjson logs, and integrates with LiveReload (including CSS injection). It is also the base for more experimental features like [Chrome script injection](https://github.com/mattdesl/budo-chrome), and rapid prototyping. 
 
 ## beefy
 
