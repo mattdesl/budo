@@ -63,6 +63,8 @@ Options:
     --live-port     the LiveReload port, default 35729
 ```
 
+By default, the `--debug` option will be sent to watchify (for source maps). If this is unwanted, you can use `--no-debug` or `--debug=false` to disable source maps.
+
 ## Script Injection
 
 [![screenshot](http://i.imgur.com/LJP7d9I.png)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)
