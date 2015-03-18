@@ -44,7 +44,7 @@ test('should run on available port', function(t) {
 test('should get a bundle.js', function(t) {
     var cwd = path.resolve(__dirname, '..')
     runBundleMatch(t, { 
-        watchify: ['app.js', '-v', '-o', 'bundle-expected.js'],
+        watchify: ['app.js', '-v', '-o', 'bundle-expected.js', '-d'],
         budo: ['app.js'],
     })
 })
@@ -52,7 +52,7 @@ test('should get a bundle.js', function(t) {
 test('entry mapping to bundle2.js', function(t) {
     var cwd = path.resolve(__dirname, '..')
     runBundleMatch(t, { 
-        watchify: ['app', '-v', '-o', 'bundle-expected.js'],
+        watchify: ['app', '-v', '-o', 'bundle-expected.js', '-d'],
         budo: ['app:bundle2.js'],
         to: 'bundle2.js'
     })
@@ -61,8 +61,16 @@ test('entry mapping to bundle2.js', function(t) {
 test('should get a bundle.js with --outfile', function(t) {
     var cwd = path.resolve(__dirname, '..')
     runBundleMatch(t, { 
-        watchify: ['app.js', '-v', '-o', 'bundle-expected.js'],
+        watchify: ['app.js', '-v', '-o', 'bundle-expected.js', '-d'],
         budo: ['app.js', '-o', 'bundle.js']
+    })
+})
+
+test('should disable source maps with --no-debug', function(t) {
+    var cwd = path.resolve(__dirname, '..')
+    runBundleMatch(t, { 
+        watchify: ['app.js', '-v', '-o', 'bundle-expected.js'],
+        budo: ['app.js', '-o', 'bundle.js', '--no-debug']
     })
 })
 
@@ -70,7 +78,7 @@ test('should get a bundle.js with --dir', function(t) {
     var cwd = path.resolve(__dirname, '..')
     runBundleMatch(t, { 
         cwd: cwd,
-        watchify: ['test/app.js', '-v', '-o', 'test/bundle-expected.js'],
+        watchify: ['test/app.js', '-v', '-o', 'test/bundle-expected.js', '-d'],
         budo: ['test/app.js', '-o', 'bundle.js', '--dir', 'test']
     })
 })
