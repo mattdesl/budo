@@ -39,6 +39,7 @@ PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/cas
 
 - [basic usage](docs/basics.md)
 - [comparisons](docs/comparisons.md)
+- [error reporting](docs/errors.md)
 - [running tests and examples](docs/tests-and-examples.md)
 - [script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
 - [rapid prototyping with budō and wzrd](http://mattdesl.svbtle.com/rapid-prototyping)
