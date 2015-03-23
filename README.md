@@ -42,11 +42,14 @@ PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/cas
 - [error reporting](docs/errors.md)
 - [running tests and examples](docs/tests-and-examples.md)
 - [script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
+- [programmatic usage (Gulp, Grunt)](docs/programmatic-usage.md)
 - [rapid prototyping with budō and wzrd](http://mattdesl.svbtle.com/rapid-prototyping)
 
 ## usage
 
 [![NPM](https://nodei.co/npm/budo.png)](https://www.npmjs.com/package/budo)
+
+### CLI
 
 Details for `budo` command-line interface. Other options like `--verbose` and `--transform` are sent to browserify/watchify. 
 
@@ -65,6 +68,27 @@ Options:
 ```
 
 By default, the `--debug` option will be sent to watchify (for source maps). If this is unwanted, you can use `--no-debug` or `--debug=false` to disable source maps.
+
+*Note:* The `--outfile` is relative to the specified `--dir`. 
+
+### API
+
+The API mirrors the CLI except you must provide a `stream` for logging, and it does not attempt to auto-portfind. 
+
+
+```js
+var budo = require('budo')
+
+budo('./src/index.js', {
+  live: true,             //live reload
+  stream: process.stdout, //log to stdout
+  port: 8000              //use this port
+}).on('connnect', function(ev) {
+  //...
+})
+```
+
+See [API usage](docs/programmatic-usage.md) for more details.
 
 ## Script Injection
 

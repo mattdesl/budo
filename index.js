@@ -1,71 +1,90 @@
-var log = require('bole')('budo')
-var minimist = require('minimist')
-var portfinder = require('portfinder')
+var bole = require('bole')
+var log = bole('budo')
 var xtend = require('xtend')
 var assign = require('xtend/mutable')
-
+var Emitter = require('events/')
 var getOutput = require('./lib/get-output')
+var wtch = require('wtch')
+
+var defaultGlob = '**/*.{html,css}'
 
 var budo = require('./lib/budo')
-var noop = function(){}
 
-module.exports = function(args, cb) {
-    cb = cb||noop
+module.exports = function(entry, opts) {
+    var argv = assign({}, opts)
 
-    var argv = minimist(args)
-    if (argv._.length === 0) {
-        console.error("No entry scripts specified!")
-        process.exit(1)
+    if (argv.stream) {
+        bole.output({
+            stream: argv.stream,
+            level: 'debug'
+        })
     }
-    
-    argv.port = argv.port || 9966
-    argv.dir = argv.dir || process.cwd()
 
+    var emitter = new Emitter()
+    var watcher
+
+    var entries = Array.isArray(entry) ? entry : [ entry ]
+    entries = entries.filter(Boolean)
+    if (entries.length === 0) {
+        bail("No entry scripts specified!")
+        return emitter
+    }
+
+    argv.port = typeof argv.port === 'number' ? argv.port : 9966
+    argv.dir = argv.dir || process.cwd()
     var outOpts = xtend(argv, { __to: entryMapping() })
+
     getOutput(outOpts, function(err, output) {
         if (err) {
-            console.error("Error: Could not create temp bundle.js directory")
-            process.exit(1)
+            bail("Error: Could not create temp bundle.js directory")
+            return emitter
         }
-        //determine next port    
-        portfinder.basePort = argv.port
-        portfinder.getPort(function(err, port) {
-            if (err) {
-                console.error("Error: Could not get available port")
-                process.exit(1)
-            }
 
-            //run watchify server
-            var emitter = budo(args, xtend(argv, { 
-                port: port,
-                output: output
-            })).on('error', function(err) {
-                console.error("Error running budo on", port, err)
-                process.exit(1)
-            }).on('exit', function() {
+        //run watchify server
+        var app = budo(entries, output, argv)
+            .on('error', function(err2) {
+                var msg = "Error running budo on " + argv.port + ': ' + err2
+                bail(msg)
+            })
+            .on('exit', function() {
                 log.info('closing')
+                emitter.emit('exit')
+                if (watcher)
+                    watcher.close()
             })
-
-            emitter.on('connect', function(result) {
-                cb(result)
+            .on('connect', function() {
+                //setup live reload
+                if (argv.live || argv['live-plugin']) {
+                    var liveOptions = { 
+                        port: argv['live-port']
+                    }
+                    
+                    //dispatches watch and LiveReload events
+                    watcher = wtch([defaultGlob, app.glob], liveOptions)
+                    watcher.on('watch', emitter.emit.bind(emitter, 'watch'))
+                    watcher.on('reload', emitter.emit.bind(emitter, 'reload'))
+                }
+                emitter.emit('connect', app)
             })
-        })
     })
 
+    return emitter
+
     function entryMapping() {
-        var mapTo
-        var first = argv._[0] 
+        var to
+        var first = entries[0]
         var parts = first.split(':')
         if (parts.length > 1 && parts[1].length > 0) {
             var from = parts[0]
-            var to = parts[1]
-            argv._[0] = from
-            //clean up original arguments for watchify
-            var idx = args.indexOf(first)
-            if (idx>=0) 
-                args[idx] = from
-            mapTo = to
+            to = parts[1]
+            entries[0] = from
         }
-        return mapTo   
+        return to
+    }
+
+    function bail(msg) {
+        process.nextTick(function() {
+            emitter.emit('error', new Error(msg))
+        })
     }
 }
