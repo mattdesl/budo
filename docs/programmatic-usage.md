@@ -51,6 +51,14 @@ Called once the budo server connects. The callback is passed an `event` object t
 
 It's recommended to use `glob` instead of `from` if you intend to watch the `bundle.js` for file changes (e.g. determining when the bundle is ready to launch the browser). This is due to some issues with OSX temp dir file watching.
 
+#### `b.on('watch')`
+
+If `live` or `live-plugin` options were passed, this event will be triggered after a file change or addition is made (such as bundle.js or themes.css). The parameters will be `(eventType, file)` where `eventType` is typically "add" or "change".
+
+#### `b.on('reload')
+
+If `live` or `live-plugin` options were passed, this event will be triggered after the LiveReload has been sent. The parameter is `file`, the file path being submitted to the LiveReload server.
+
 # gulp & grunt
 
 Budo works without gulp and grunt, but you may want to wrap it within the same build environment for consistency.
