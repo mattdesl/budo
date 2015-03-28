@@ -3,25 +3,24 @@
 //Starts up budo with some logging,
 //also listens for live reload events
 
-require('bole').output({
-    stream: process.stdout,
-    level: 'debug'
-})
-
 var args = process.argv.slice(2)
 var opts = require('minimist')(args)
-var wtch = require('wtch')
+var portfinder = require('portfinder')
 
-var defaultGlob = '**/*.{html,css}'
+var entries = opts._
+opts.stream = process.stdout
+delete opts._
 
-require('../')(args, function(budo) {
-    var watcher
-    if (opts.live || opts['live-plugin']) {
-        watcher = wtch([defaultGlob, budo.output.glob])
+portfinder.basePort = opts.port || opts.p || 9966
+portfinder.getPort(function(err, port) {
+    if (err) {
+        console.error("Could not find port", err)
+        process.exit(1)
     }
-
-    budo.on('exit', function() {
-        if (watcher)
-            watcher.close()
-    })
+    opts.port = port
+    require('../')(entries, opts)
+        .on('error', function(err2) {
+            console.error(err2.message)
+            process.exit(1)
+        })
 })

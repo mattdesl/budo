@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "bole": "^2.0.0",
+    "dargs": "^4.0.0",
     "ecstatic": "^0.5.8",
     "events": "^1.0.2",
     "inject-lr-script": "^1.0.0",
@@ -26,7 +27,7 @@
     "shell-quote": "^1.4.3",
     "through2": "^0.6.3",
     "tmp": "0.0.24",
-    "wtch": "^3.1.0",
+    "wtch": "^3.2.0",
     "xtend": "^4.0.0"
   },
   "devDependencies": {
@@ -46,11 +47,11 @@
     "tape": "^3.5.0",
     "through2": "^0.6.3",
     "tree-kill": "0.0.6",
-    "watchify": "^2.3.0",
+    "watchify": "^2.6.2",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
-    "test": "node test/test-simple.js | tap-spec",
+    "test": "tape test/test*.js | tap-spec",
     "start": "./bin/cmd.js example/app.js --dir example --verbose | garnish",
     "live": "./bin/cmd.js example/app.js --dir example --live | garnish -v",
     "live-plugin": "./bin/cmd.js example/app.js --dir example --live-plugin | garnish -v",
