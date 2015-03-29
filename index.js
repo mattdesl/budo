@@ -53,17 +53,29 @@ module.exports = function(entry, opts) {
                     watcher.close()
             })
             .on('connect', function() {
-                //setup live reload
-                if (argv.live || argv['live-plugin']) {
-                    var liveOptions = { 
-                        port: argv['live-port']
-                    }
-                    
-                    //dispatches watch and LiveReload events
-                    watcher = wtch([defaultGlob, app.glob], liveOptions)
-                    watcher.on('watch', emitter.emit.bind(emitter, 'watch'))
-                    watcher.on('reload', emitter.emit.bind(emitter, 'reload'))
+                var globs = app.glob
+                var liveOptions = { 
+                    port: argv['live-port'],
+                    livereload: false,
+                    event: 'all'
                 }
+
+                //enable LiveReload server as well
+                if (argv.live || argv['live-plugin']) {
+                    liveOptions.livereload = true
+
+                    //also listen to HTML/CSS
+                    globs = [defaultGlob, app.glob]
+                }
+                
+                //dispatches watch and LiveReload events
+                watcher = wtch(globs, liveOptions)
+                watcher.on('watch', function(ev, file) {
+                    if (app.from === file && (ev === 'add' || ev === 'change'))
+                        emitter.emit('bundle', file)
+                })
+                watcher.on('watch', emitter.emit.bind(emitter, 'watch'))
+                watcher.on('reload', emitter.emit.bind(emitter, 'reload'))
                 emitter.emit('connect', app)
             })
     })
