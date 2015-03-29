@@ -26,7 +26,7 @@ wzrd index.js:bundle.js | garnish
 
 ## wtch
 
-[wtch](https://github.com/mattdesl/wtch) is a small live-reload utility that budō builds on. It watches for JS/CSS/HTML changes and triggers a live-reload event. It can be used to augment wzrd with some watching capabilities.
+[wtch](https://github.com/mattdesl/wtch) is a small live-reload utility not related to budo or watchify. It watches for JS/CSS/HTML changes and triggers a live-reload event. It can be used to augment wzrd with some watching capabilities.
 
 ```sh
 #example ...
