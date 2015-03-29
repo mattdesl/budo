@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "bole": "^2.0.0",
+    "chokidar": "^1.0.0-rc4",
     "dargs": "^4.0.0",
     "ecstatic": "^0.5.8",
     "events": "^1.0.2",
@@ -26,6 +27,7 @@
     "routes-router": "^4.1.2",
     "shell-quote": "^1.4.3",
     "through2": "^0.6.3",
+    "tiny-lr": "^0.1.5",
     "tmp": "0.0.24",
     "wtch": "^3.2.1",
     "xtend": "^4.0.0"
