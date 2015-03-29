@@ -14,15 +14,15 @@ img.src = 'baboon.png'
 var time = 0
 
 require('raf-loop')(function(dt) {
-    var width = window.innerWidth,
-        height = window.innerHeight
+    var width = ctx.canvas.width,
+        height = ctx.canvas.height
     ctx.clearRect(0, 0, width, height)
 
     time += dt/1000
 
     ctx.save()
     ctx.scale(dpr, dpr)
-    ctx.fillRect(Math.sin(time)*50 + 200, 35, 150, 150) 
+    ctx.fillRect(Math.sin(time)*50 + 300, 200, 150, 50) 
     ctx.fillText("from browserify!", 40, 40)
     if (img.width > 0 || img.height > 0)
         ctx.drawImage(img, 50, 50)

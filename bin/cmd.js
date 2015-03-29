@@ -1,18 +1,35 @@
 #!/usr/bin/env node
 
-//Starts up budo with some logging,
-//also listens for live reload events
+//Starts budo with stdout
+//Handles --help and error messaging
+//Uses auto port-finding
 
 var args = process.argv.slice(2)
 var opts = require('minimist')(args)
-var portfinder = require('portfinder')
+var getport = require('getport')
 
 var entries = opts._
 opts.stream = process.stdout
 delete opts._
 
-portfinder.basePort = opts.port || opts.p || 9966
-portfinder.getPort(function(err, port) {
+var showHelp = opts.h || opts.help
+
+if (!showHelp && (!entries || entries.filter(Boolean).length === 0)) {
+    console.error('ERROR: no entry scripts specified\n  use --help for examples')
+    return
+}
+
+if (showHelp) {
+    var vers = require('../package.json').version
+    console.log('budo '+vers, '\n')
+    var help = require('path').join(__dirname, 'help.txt')
+    require('fs').createReadStream(help)
+        .pipe(process.stdout)
+    return
+}
+
+var basePort = opts.port || opts.p || 9966
+getport(basePort, function(err, port) {
     if (err) {
         console.error("Could not find port", err)
         process.exit(1)
