@@ -62,8 +62,8 @@ Options:
     --port          the port to run, default 9966
     --host          the host, default "localhost"
     --dir           the directory to serve, and the base for --outfile
-    --live          enable LiveReload integration
-    --live-plugin   enable LiveReload but do not inject script tag
+    --live          enable LiveReload integration with a script tag
+    --live-plugin   enable LiveReload for use with a browser plugin
     --live-port     the LiveReload port, default 35729
 ```
 

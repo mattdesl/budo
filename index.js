@@ -18,7 +18,7 @@ module.exports = function(entry, opts) {
     })
   }
 
-  var emitter = new Emitter()
+  var emitter = budo()
   emitter.on('connect', setupLive)
 
   var entries = Array.isArray(entry) ? entry : [entry]
@@ -41,27 +41,22 @@ module.exports = function(entry, opts) {
     }
 
     //run watchify server
-    var app = budo(entries, output, argv)
+    emitter._start(entries, output, argv)
       .on('error', function(err2) {
         var msg = "Error running budo on " + argv.port + ': ' + err2
         bail(msg)
       })
       .on('exit', function() {
         log.info('closing')
-        emitter.emit('exit')
       })
-
-    app.on('connect', emitter.emit.bind(emitter, 'connect'))
-    app.on('watch', emitter.emit.bind(emitter, 'watch'))
-    app.on('reload', emitter.emit.bind(emitter, 'reload'))
   })
 
   return emitter
 
   //if user requested live: true, set it up with some defaults
-  function setupLive(app) {
+  function setupLive() {
     if (argv.live || argv['live-plugin']) {
-      app
+      emitter
         .watch()
         .live({ 
           host: argv.host,
@@ -69,7 +64,7 @@ module.exports = function(entry, opts) {
         })
         .on('watch', function(ev, file) {
           if (ev === 'change' || ev === 'add') {
-            app.reload(file)
+            emitter.reload(file)
           }
         })
     }

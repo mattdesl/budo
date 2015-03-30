@@ -3,8 +3,8 @@ var budo = require('../')
 var cleanup = require('./cleanup')
 var path = require('path')
 
-test('should provide an API', function(t) {
-  t.plan(8)
+test('sets watch() after connect', function(t) {
+  t.plan(9)
 
   budo('test/app.js', {
     dir: __dirname,
@@ -25,11 +25,73 @@ test('should provide an API', function(t) {
     t.equal(app.dir, __dirname, 'dir matches')
 
     app
-      .watch(app.glob)
+      .watch()
       .once('watch', function(type) {
+        t.ok(true, 'got watch')
         app.close()
         cleanup()
       })
+  })
+  .on('reload', function() {
+    t.fail('should not have received reload event')
+  })
+  .on('exit', function() {
+    t.ok(true, 'closing')
+  })
+})
+
+test('sets watch() with args before connect', function(t) {
+  t.plan(3)
+
+  var app = budo('test/app.js', {
+    dir: __dirname,
+    port: 8000,
+    outfile: 'bundle.js'
+  })
+  .watch() //enable watcher
+  .once('watch', function() {
+    t.ok(true, 'got watch')
+    app.close()
+    cleanup()
+  })
+  .on('error', function(err) {
+    t.fail(err)
+  })
+  .on('reload', function() {
+    t.fail('should not have received reload event')
+  })
+  .on('connect', function(app) {
+    var file = path.join(__dirname, 'bundle.js')
+    t.equal(app.from, file, 'from matches')
+  })
+  .on('exit', function() {
+    t.ok(true, 'closing')
+  })
+})
+
+test('sets watch() and live() by default with live: true', function(t) {
+  t.plan(4)
+
+  var app = budo('test/app.js', {
+    dir: __dirname,
+    port: 8000,
+    live: true,
+    outfile: 'bundle.js'
+  })
+  .once('reload', function(err) {
+    t.ok(true, 'got reload event')
+    app.close()
+    cleanup()
+  })
+  .once('watch', function() {
+    t.ok(true, 'got watch event')    
+  })
+  .on('error', function(err) {
+    t.fail(err)
+  })
+  .on('connect', function(app) {
+    var file = path.join(__dirname, 'bundle.js')
+    t.equal(app.from, file, 'from matches')
   })
   .on('exit', function() {
     t.ok(true, 'closing')
