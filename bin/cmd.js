@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-//Starts up budo with some logging,
-//also listens for live reload events
+//Starts budo with stdout
+//Handles --help and error messaging
+//Uses auto port-finding
 
 var args = process.argv.slice(2)
 var opts = require('minimist')(args)

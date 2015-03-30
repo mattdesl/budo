@@ -2,6 +2,7 @@ Usage:
   budo index.js [opts] [browserify opts]
 
 Options:
+    --help, -h      show help message
     --outfile, -o   path to output bundle
     --port          the port to run, default 9966
     --host          the host, default "localhost"
