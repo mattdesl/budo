@@ -60,11 +60,11 @@ If live reload is enabled (i.e. through `live` or `live-plugin`), this will send
 
 #### `b.live([opt])`
 
-If `live` and `live-plugin` were not specified, you can manually enable the LiveReload server with the specified options: `port` (default 35729) and `host` (default to the `host` argument provided to budo, or `localhost`). 
+If `live` and `live-plugin` were not specified, you can manually enable the LiveReload server with the specified options: `port` (default 35729) and `host` (default to the `host` argument provided to budo, or `localhost`). You can also specify `plugin: true` if you do not want the LiveReload snippet injected into the HTML. 
 
 #### `b.watch([globs, chokidarOpts])`
 
-If `live` and `live-plugin` were not specified, you can manually enabe [chokidar's](https://github.com/paulmillr/chokidar) file watching with the specified `globs` (array or string) and options. It will default to watching HTML, CSS, and the watchified bundle.
+If `live` and `live-plugin` were not specified, you can manually enabe [chokidar's](https://github.com/paulmillr/chokidar) file watching with the specified `globs` (array or string) and options. It will default to watching `**/*.{html,css}` and the watchified bundle.
 
 Example of using `live()` and `watch()` together.
 
