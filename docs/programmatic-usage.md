@@ -64,7 +64,9 @@ If `live` and `live-plugin` were not specified, you can manually enable the Live
 
 #### `b.watch([globs, chokidarOpts])`
 
-If `live` and `live-plugin` were not specified, you can manually enabe [chokidar's](https://github.com/paulmillr/chokidar) file watching with the specified `globs` (array or string) and options. It will default to watching `**/*.{html,css}` and the watchified bundle.
+If `live` and `live-plugin` were not specified, you can manually enabe [chokidar's](https://github.com/paulmillr/chokidar) file watching with the specified `globs` (array or string) and options. 
+
+`globs` defaults to watching `**/*.{html,css}` and the watchified bundle. `chokidarOpts` defaults to the options passed to the budo constructor.
 
 Example of using `live()` and `watch()` together.
 
@@ -74,7 +76,7 @@ var path = require('path')
 var app = budo('index.js')
 
 app
-  //enable additional watching with chokidar options
+  //listen to CSS changes
   .watch('*.css', { interval: 300, usePolling: true })
   //start LiveReload server
   .live()
@@ -86,13 +88,9 @@ app
   })
 ``` 
 
-# gulp & grunt
+# build tools
 
-Budo works without gulp and grunt, but you may want to wrap it within the same build environment for consistency.
-
-### simple recipe
-
-A simple case of budo within gulp might look like this:
+Budo doesn't need a Grunt or Gulp specific plugin to work, but you may choose to wrap it within your favourite task runner for consistency. A simple case might look like this:
 
 ```js
 var gulp = require('gulp')
@@ -101,8 +99,8 @@ var budo = require('budo')
 //start our local development server
 gulp.task('dev', function(cb) {
   budo('index.js')
-    .on('connect', function(app) {
-      console.log("Server started at "+app.uri)
+    .on('connect', function(ev) {
+      console.log("Server started at "+ev.uri)
     })
     .on('exit', cb)
 })
@@ -110,38 +108,8 @@ gulp.task('dev', function(cb) {
 
 Now running `gulp dev` will spin up a server on 9966, spawn watchify, and incrementally rebundle during development. It will stub out an `index.html` and write `bundle.js` to a temp directory.
 
-### advanced recipes
+#### integrations
 
-The following script shows how you can include a few more features to the task:
-
-- uses LiveReload on bundle change
-- uses `babelify` for ES6 transpiling 
-- uses `errorify` to display syntax errors in the browser
-- pretty-prints server requests to stdout with [garnish](https://github.com/mattdesl/garnish)
-
-```js
-var gulp = require('gulp')
-var budo = require('budo')
-var garnish = require('garnish')
-
-//advanced example
-gulp.task('default', function(cb) {
-  //using garnish for pretty-printing server requests
-  var pretty = garnish()
-  pretty.pipe(process.stdout)
-
-  budo('index.js', {
-    live: true,            //live reload
-    stream: pretty,        //output stream
-    port: 8000,            //the port to serve on
-    plugin: 'errorify',    //nicer errors during dev
-    transform: 'babelify'  //ES6 transpiling
-  }).on('exit', cb)
-})
-```
-
-Note that `babelify` and `errorify` need to be saved as local devDependencies.
-
-### demo
-
-[budo-gulp-starter](https://github.com/mattdesl/budo-gulp-starter) demonstrates some more complex applications of budo and gulp.
+- [gulp](https://github.com/mattdesl/budo-gulp-starter)
+- [npm scripts](https://gist.github.com/mattdesl/b6990e7c7221c9cc05aa)
+- [LiveReactLoad](https://gist.github.com/mattdesl/2aa5b45ed1f230635a04)
