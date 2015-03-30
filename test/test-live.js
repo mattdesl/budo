@@ -7,7 +7,7 @@ var fs = require('fs')
 var source = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
 
 test('should inject LiveReload snippet', function(t) {
-  t.plan(3)
+  t.plan(4)
   t.timeoutAfter(10000)
 
   var server
@@ -22,12 +22,13 @@ test('should inject LiveReload snippet', function(t) {
   .on('error', function(err) {
     t.fail(err)
   })
-  .once('watch', function(event, file) {
+  .on('watch', function(event, file) {
     t.equal(path.basename(file), 'bundle.js', 'watch event triggered')
+  })
+  .on('reload', function(file) {
+    t.equal(path.basename(file), 'bundle.js', 'reload event triggered')
     cleanup()
-    setTimeout(function() {
-      server.close()
-    }, 100)
+    server.close()
   })
   .on('connect', function(ev) {
     server = ev
@@ -35,52 +36,6 @@ test('should inject LiveReload snippet', function(t) {
     setTimeout(function() {
       fs.writeFile(entry, source)
     }, 1000)
-  })
-  .on('exit', function() {
-    t.ok(true, 'closing')
-  })
-})
-
-test('should inject LiveReload snippet but not watch', function(t) {
-  t.plan(6)
-  t.timeoutAfter(8000)
-
-  var server
-
-  var entry = path.join(__dirname, 'app.js')
-  var outfile = path.join(__dirname, 'bundle.js')
-  budo(entry, {
-    dir: __dirname,
-    port: 8000,
-    outfile: 'bundle.js',
-    'live-script': true
-  })
-  .on('error', function(err) {
-    t.fail(err)
-  })
-  .on('bundle', function() {
-    //should get received twice !
-    t.true(true, 'received bundle event')
-  })
-  .on('watch', function(event, file) {
-    //should get received twice !
-    t.equal(file, outfile)
-  })
-  .on('reload', function() {
-    t.fail('received a watch event when we should not have')
-  })
-  .on('connect', function(ev) {
-    matchesHTML(t, ev.uri)
-
-    //write into file
-    setTimeout(function() {
-      fs.writeFile(entry, source)
-    }, 1000)
-
-    setTimeout(function() {
-      ev.close()
-      cleanup()
-    }, 3000)
   })
   .on('exit', function() {
     t.ok(true, 'closing')
