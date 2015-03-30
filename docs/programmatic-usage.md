@@ -60,7 +60,7 @@ If live reload is enabled (i.e. through `live` or `live-plugin`), this will send
 
 #### `b.live([opt])`
 
-If `live` and `live-plugin` were not specified, you can manually enable the LiveReload server with the specified options: `port` (default 35729) and `host` (default to the `host` argument provided to budo, or `localhost`). You can also specify `plugin: true` if you do not want the LiveReload snippet injected into the HTML. 
+If `live` and `live-plugin` were not specified, you can manually enable the LiveReload server with the specified options object: `port` (default 35729) and `host` (default to the `host` argument provided to budo, or `localhost`). You can also specify `plugin: true` if you do not want the LiveReload snippet injected into the HTML. 
 
 #### `b.watch([globs, chokidarOpts])`
 
@@ -70,17 +70,18 @@ Example of using `live()` and `watch()` together.
 
 ```js
 var budo = require('budo')
+var path = require('path')
 var app = budo('index.js')
 
 app
-  //enable file watching
-  .watch('*.css', { usePolling: true })
+  //enable additional watching with chokidar options
+  .watch('*.css', { interval: 300, usePolling: true })
   //start LiveReload server
   .live()
   //handle file events
   .on('watch', function(type, file) {
     //tell LiveReload to inject some CSS
-    if (type === 'change')
+    if (path.extname(file) === '.css')
       app.reload(file)
   })
 ``` 

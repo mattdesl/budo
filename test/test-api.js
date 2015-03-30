@@ -5,6 +5,7 @@ var path = require('path')
 
 test('sets watch() after connect', function(t) {
   t.plan(9)
+  t.timeoutAfter(10000)
 
   budo('test/app.js', {
     dir: __dirname,
@@ -42,6 +43,7 @@ test('sets watch() after connect', function(t) {
 
 test('sets watch() with args before connect', function(t) {
   t.plan(3)
+  t.timeoutAfter(10000)
 
   var app = budo('test/app.js', {
     dir: __dirname,
@@ -71,6 +73,7 @@ test('sets watch() with args before connect', function(t) {
 
 test('sets watch() and live() by default with live: true', function(t) {
   t.plan(4)
+  t.timeoutAfter(10000)
 
   var app = budo('test/app.js', {
     dir: __dirname,
