@@ -12,15 +12,12 @@ var request = require('request')
 
 var cliPath = path.resolve(__dirname, '..', 'bin', 'cmd.js')
 
-// Some other tests needed:
-// --live
-// --live-plugin
-
 test('should fail without scripts', function(t) {
   t.plan(1)
   var proc = spawn(cliPath)
   proc.stderr.pipe(concat(function(str) {
-    t.equal(str.toString().trim(), 'No entry scripts specified!')
+    var msg = str.toString().toLowerCase()
+    t.notEqual(msg.indexOf('no entry scripts specified'), -1)
   }))
 })
 
