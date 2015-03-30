@@ -39,10 +39,10 @@ PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/cas
 
 - [basic usage](docs/basics.md)
 - [comparisons](docs/comparisons.md)
+- [programmatic usage (Gulp, Grunt)](docs/programmatic-usage.md)
 - [error reporting](docs/errors.md)
 - [running tests and examples](docs/tests-and-examples.md)
 - [script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
-- [programmatic usage (Gulp, Grunt)](docs/programmatic-usage.md)
 - [rapid prototyping with budō and wzrd](http://mattdesl.svbtle.com/rapid-prototyping)
 
 ## usage
@@ -58,12 +58,13 @@ Usage:
     budo [entries] [opts]
 
 Options:
+    --help, -h      show help message
     --outfile, -o   path to output bundle
     --port          the port to run, default 9966
     --host          the host, default "localhost"
     --dir           the directory to serve, and the base for --outfile
-    --live          enable LiveReload integration
-    --live-plugin   enable LiveReload but do not inject script tag
+    --live          enable LiveReload integration with a script tag
+    --live-plugin   enable LiveReload for use with a browser plugin
     --live-port     the LiveReload port, default 35729
 ```
 
