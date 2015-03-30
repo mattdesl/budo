@@ -1,0 +1,17 @@
+Usage:
+  budo index.js [opts] [browserify opts]
+
+Options:
+    --help, -h      show help message
+    --outfile, -o   path to output bundle
+    --port          the port to run, default 9966
+    --host          the host, default "localhost"
+    --dir           the directory to serve, and the base for --outfile
+    --live          enable LiveReload integration
+    --live-plugin   enable LiveReload but do not inject script tag
+    --live-port     the LiveReload port, default 35729
+
+Examples:
+  budo index.js --live --dir app/ --outfile bundle.js
+  budo index.js --verbose --transform brfs
+  budo index.js:test.js --port 3000

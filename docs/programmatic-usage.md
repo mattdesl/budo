@@ -43,29 +43,54 @@ Called once the budo server connects. The callback is passed an `event` object t
   dir: 'app',                    //the working directory
   host: 'localhost',             //defaults to localhost
   port: 9966,                    //the port we're running on
-  
-  //also provides a function to close the budo instance
-  close()
 }
 ```
 
-It's recommended to use `glob` instead of `from` if you intend to watch the `bundle.js` for file changes (e.g. determining when the bundle is ready to launch the browser). This is due to some issues with OSX temp dir file watching.
-
 #### `b.on('watch')`
 
-If `live` or `live-plugin` options were passed, this event will be triggered after a file change or addition is made (such as bundle.js or themes.css). The parameters will be `(eventType, file)` where `eventType` is typically "add" or "change".
+If file watching is enabeld (i.e. through `live` or `live-plugin`), this event will be triggered after a file change or addition is made (such as bundle.js or themes.css). The parameters will be `(eventType, file)` where `eventType` could be "add", "change", "unlink", etc.
 
-#### `b.on('reload')
+#### `b.on('reload')`
 
-If `live` or `live-plugin` options were passed, this event will be triggered after the LiveReload has been sent. The parameter is `file`, the file path being submitted to the LiveReload server.
+If live reload is enabeld (i.e. through `live` or `live-plugin`), this event will be triggered after the LiveReload has been sent. The parameter is `file`, the file path being submitted to the LiveReload server.
 
-# gulp & grunt
+#### `b.reload(path)`
 
-Budo works without gulp and grunt, but you may want to wrap it within the same build environment for consistency.
+If live reload is enabled (i.e. through `live` or `live-plugin`), this will send a LiveReload event to the given path and then trigger the `"reload"` event.
 
-### simple recipe
+#### `b.live([opt])`
 
-A simple case of budo within gulp might look like this:
+If `live` and `live-plugin` were not specified, you can manually enable the LiveReload server with the specified options object: `port` (default 35729) and `host` (default to the `host` argument provided to budo, or `localhost`). You can also specify `plugin: true` if you do not want the LiveReload snippet injected into the HTML. 
+
+#### `b.watch([globs, chokidarOpts])`
+
+If `live` and `live-plugin` were not specified, you can manually enabe [chokidar's](https://github.com/paulmillr/chokidar) file watching with the specified `globs` (array or string) and options. 
+
+`globs` defaults to watching `**/*.{html,css}` and the watchified bundle. `chokidarOpts` defaults to the options passed to the budo constructor.
+
+Example of using `live()` and `watch()` together.
+
+```js
+var budo = require('budo')
+var path = require('path')
+var app = budo('index.js')
+
+app
+  //listen to CSS changes
+  .watch('*.css', { interval: 300, usePolling: true })
+  //start LiveReload server
+  .live()
+  //handle file events
+  .on('watch', function(type, file) {
+    //tell LiveReload to inject some CSS
+    if (path.extname(file) === '.css')
+      app.reload(file)
+  })
+``` 
+
+# build tools
+
+Budo doesn't need a Grunt or Gulp specific plugin to work, but you may choose to wrap it within your favourite task runner for consistency. A simple case might look like this:
 
 ```js
 var gulp = require('gulp')
@@ -74,8 +99,8 @@ var budo = require('budo')
 //start our local development server
 gulp.task('dev', function(cb) {
   budo('index.js')
-    .on('connect', function(app) {
-      console.log("Server started at "+app.uri)
+    .on('connect', function(ev) {
+      console.log("Server started at "+ev.uri)
     })
     .on('exit', cb)
 })
@@ -83,38 +108,8 @@ gulp.task('dev', function(cb) {
 
 Now running `gulp dev` will spin up a server on 9966, spawn watchify, and incrementally rebundle during development. It will stub out an `index.html` and write `bundle.js` to a temp directory.
 
-### advanced recipes
+#### integrations
 
-The following script shows how you can include a few more features to the task:
-
-- uses LiveReload on bundle change
-- uses `babelify` for ES6 transpiling 
-- uses `errorify` to display syntax errors in the browser
-- pretty-prints server requests to stdout with [garnish](https://github.com/mattdesl/garnish)
-
-```js
-var gulp = require('gulp')
-var budo = require('budo')
-var garnish = require('garnish')
-
-//advanced example
-gulp.task('default', function(cb) {
-  //using garnish for pretty-printing server requests
-  var pretty = garnish()
-  pretty.pipe(process.stdout)
-
-  budo('index.js', {
-    live: true,            //live reload
-    stream: pretty,        //output stream
-    port: 8000,            //the port to serve on
-    plugin: 'errorify',    //nicer errors during dev
-    transform: 'babelify'  //ES6 transpiling
-  }).on('exit', cb)
-})
-```
-
-Note that `babelify` and `errorify` need to be saved as local devDependencies.
-
-### demo
-
-[budo-gulp-starter](https://github.com/mattdesl/budo-gulp-starter) demonstrates some more complex applications of budo and gulp.
+- [gulp](https://github.com/mattdesl/budo-gulp-starter)
+- [npm scripts](https://gist.github.com/mattdesl/b6990e7c7221c9cc05aa)
+- [LiveReactLoad](https://gist.github.com/mattdesl/2aa5b45ed1f230635a04)
