@@ -17,7 +17,7 @@ module.exports = function(entry, opts) {
       level: 'debug'
     })
   }
-
+  
   var emitter = budo()
   emitter.on('connect', setupLive)
 

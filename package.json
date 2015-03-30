@@ -18,6 +18,7 @@
     "dargs": "^4.0.0",
     "ecstatic": "^0.5.8",
     "events": "^1.0.2",
+    "getport": "^0.1.0",
     "inject-lr-script": "^1.0.0",
     "minimist": "^1.1.0",
     "npm-execspawn": "^1.0.6",
