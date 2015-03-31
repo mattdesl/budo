@@ -35,7 +35,10 @@ module.exports = function(entry, opts) {
 
   getOutput(outOpts, function(err, output) {
     if (err) {
-      bail("Error: Could not create temp bundle.js directory")
+      if (err.name === 'OUTPIPE')
+        bail("Error: outpipe argument needs to be sent to a file.\nExample:\n  budo index.js -o 'uglifyjs > bundle.js'")
+      else
+        bail("Error: Could not create temp bundle.js directory")
       return emitter
     }
 
