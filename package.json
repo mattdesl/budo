@@ -48,7 +48,7 @@
     "tape": "^3.5.0",
     "through2": "^0.6.3",
     "tree-kill": "0.0.6",
-    "watchify": "^3.0.0",
+    "watchify": "^3.1.0",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
