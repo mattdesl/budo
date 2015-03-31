@@ -56,7 +56,7 @@
     "test": "tape test/test*.js | tap-spec",
     "start": "./bin/cmd.js example/app.js --dir example --verbose | garnish",
     "live": "./bin/cmd.js example/app.js --dir example --live | garnish",
-    "uglify": "./bin/cmd.js example/app.js --dir example --live -o 'uglifyjs > bundle.js' | garnish -v",
+    "uglify": "./bin/cmd.js example/app.js -v --dir example --live -o 'uglifyjs > bundle.js' | garnish -v",
     "live-plugin": "./bin/cmd.js example/app.js --dir example --live-plugin | garnish",
     "remap": "./bin/cmd.js example/app:bundle2.js --dir example --live | garnish"
   },
