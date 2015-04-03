@@ -4,6 +4,7 @@ var xtend = require('xtend')
 var assign = require('xtend/mutable')
 var Emitter = require('events/')
 var getOutput = require('./lib/get-output')
+var rimraf = require('rimraf')
 
 var budo = require('./lib/budo')
 
@@ -42,10 +43,26 @@ module.exports = function(entry, opts) {
       return emitter
     }
 
+    var tmp = output.tmp
+    var tmpFile = output.from
+
     //run watchify server
     emitter._start(entries, output, argv)
+      .on('error', function(err) {
+        //Some more helpful error messaging
+        if (err.message === 'listen EADDRINUSE')
+          console.error("Port", argv.port, "is not available\n")
+        throw err
+      })
       .on('exit', function() {
         log.info('closing')
+        if (tmp && tmpFile) {
+          //last attempt to remove the bundle file
+          rimraf(tmpFile, function(err) {
+            if (err)
+              log.debug('error cleaning up temp file', err)
+          })
+        }
       })
   })
 
