@@ -16,6 +16,7 @@
     "bole": "^2.0.0",
     "chokidar": "^1.0.0-rc5",
     "dargs": "^4.0.0",
+    "debounce": "^1.0.0",
     "ecstatic": "^0.5.8",
     "events": "^1.0.2",
     "find-global-packages": "0.0.1",
