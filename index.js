@@ -48,16 +48,10 @@ module.exports = function(entry, opts) {
 
     //run watchify server
     emitter._start(entries, output, argv)
-      .on('error', function(err) {
-        //Some more helpful error messaging
-        if (err.message === 'listen EADDRINUSE')
-          console.error("Port", argv.port, "is not available\n")
-        throw err
-      })
       .on('exit', function() {
         log.info('closing')
         if (tmp && tmpFile) {
-          //last attempt to remove the bundle file
+          //last attempt to remove the temporary bundle file
           rimraf(tmpFile, function(err) {
             if (err)
               log.debug('error cleaning up temp file', err)
