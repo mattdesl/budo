@@ -31,7 +31,7 @@ if (showHelp) {
 var basePort = opts.port || opts.p || 9966
 getport(basePort, function(err, port) {
     if (err) {
-        console.error("Could not find port", err)
+        console.error("Could not find available port", err)
         process.exit(1)
     }
     opts.port = port
