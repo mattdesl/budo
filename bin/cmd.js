@@ -41,7 +41,7 @@ getport(basePort, function(err, port) {
       if (err.message === 'listen EADDRINUSE')
         console.error("Port", port, "is not available\n")
       else
-        console.error(err)
+        console.error('Error:\n  ' + err.message)
       process.exit(1)
     })
 })
