@@ -44,10 +44,6 @@ module.exports = function(entry, opts) {
 
     //run watchify server
     emitter._start(entries, output, argv)
-      .on('error', function(err2) {
-        var msg = "Error running budo on " + argv.port + ': ' + err2
-        bail(msg)
-      })
       .on('exit', function() {
         log.info('closing')
       })
