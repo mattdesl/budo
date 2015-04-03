@@ -76,6 +76,9 @@ module.exports = function(entry, opts) {
             emitter.reload(file)
           }
         })
+        .on('update', function(file) {
+          emitter.reload(file)
+        })
     }
   }
 
