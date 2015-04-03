@@ -82,53 +82,6 @@ test('should get a bundle.js with --dir', function(t) {
   })
 })
 
-test('should create and destroy tmpdir', function(t) {
-  t.plan(2)
-  //TODO: this test would be cleaner if done through API
-  t.timeoutAfter(6000)
-  var proc = spawn(cliPath, ['app.js'], {
-    cwd: __dirname,
-    env: process.env
-  })
-  var expected = 'temp directory created at '
-  proc.stdout.pipe(ndjson.parse())
-    .on('data', function(data) {
-      if (data.level !== 'debug')
-        return
-
-      var msg = data && data.message
-      var idx = msg.indexOf(expected)
-
-      if (idx === -1) {
-        t.fail('no temp dir created')
-        kill(proc.pid)
-      } else {
-        var path = msg.substring(idx + expected.length).trim()
-        t.ok(true, 'created tmp dir')
-        proc.on('exit', cleanup(path))
-        kill(proc.pid, 'SIGINT')
-      }
-    })
-    .on('error', function(err) {
-      t.fail(err)
-      kill(proc.pid)
-    })
-
-  function cleanup(path) {
-    return function() {
-      fs.exists(path, function(exists) {
-        if (exists) {
-          t.fail('tmpdir not cleaned up ' + path)
-          rimraf(path, function(err) {
-            if (err)
-              console.error(err)
-          })
-        } else t.ok(true, 'tmpdir cleaned up')
-      })
-    }
-  }
-})
-
 function runBundleMatch(t, opt) {
   opt = opt || {}
 
@@ -149,6 +102,13 @@ function runBundleMatch(t, opt) {
   watchifyProc.stdout.on('data', watchifyDone)
 
   function watchifyDone(msg) {
+    setTimeout(function() { 
+      //timeout needed because of watchify@3.1.0 w/ outpipe
+      readWatchify(msg)
+    }, 50)
+  }
+
+  function readWatchify(msg) {
     var suc = msg.toString().indexOf(outputFile)
     if (suc === -1)
       t.fail('watchify process gave unexpected stdout/stderr message')
