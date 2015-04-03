@@ -46,7 +46,6 @@
     "tap-finished": "0.0.1",
     "tap-spec": "^2.2.1",
     "tape": "^3.5.0",
-    "through2": "^0.6.3",
     "tree-kill": "0.0.6",
     "uglify-js": "^2.4.19",
     "watchify": "^3.1.0",
