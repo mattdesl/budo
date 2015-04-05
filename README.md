@@ -1,6 +1,6 @@
 # budō
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mattdesl/budo)
+[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 
 This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but specifically focused on incremental reloading and LiveReload integration (including CSS injection).
 
@@ -25,7 +25,7 @@ budo index.js --live --transform brfs
 
 You can open `localhost:9966` to see the content in action.
 
-To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](ndjson.org)-based stream can be used.
+To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used.
 
 ```sh
 budo index.js -v | garnish
