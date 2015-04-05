@@ -25,7 +25,7 @@ budo index.js --live --transform brfs
 
 You can open `localhost:9966` to see the content in action.
 
-To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](ndjson.org)-based stream can be used.
+To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used.
 
 ```sh
 budo index.js -o bundle.js | garnish
