@@ -7,7 +7,7 @@ window.addEventListener('resize', fit, false)
 require('domready')(function() {
   fit()
   document.body.appendChild(ctx.canvas)
-})
+}) 
 
 var img = new Image()
 img.src = 'baboon.png'

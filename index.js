@@ -5,6 +5,7 @@ var assign = require('xtend/mutable')
 var Emitter = require('events/')
 var getOutput = require('./lib/get-output')
 var rimraf = require('rimraf')
+var path = require('path')
 
 var budo = require('./lib/budo')
 
@@ -19,7 +20,6 @@ module.exports = function(entry, opts) {
   }
   
   var emitter = budo()
-  emitter.on('connect', setupLive)
 
   var entries = Array.isArray(entry) ? entry : [entry]
   entries = entries.filter(Boolean)
@@ -30,36 +30,18 @@ module.exports = function(entry, opts) {
 
   argv.port = typeof argv.port === 'number' ? argv.port : 9966
   argv.dir = argv.dir || process.cwd()
-  var outOpts = xtend(argv, {
-    __to: entryMapping()
-  })
-
-  getOutput(outOpts, function(err, output) {
-    if (err) {
-      if (err.name === 'OUTPIPE')
-        bail("outpipe with --outfile currently not supported")
-      else
-        bail("Could not create temp bundle.js directory")
-      return emitter
-    }
-
-    var tmp = output.tmp
-    var tmpFile = output.from
-
-    //run watchify server
-    emitter._start(entries, output, argv)
-      .on('exit', function() {
-        log.info('closing')
-        if (tmp && tmpFile) {
-          //last attempt to remove the temporary bundle file
-          rimraf(tmpFile, function(err) {
-            if (err)
-              log.debug('error cleaning up temp file', err)
-          })
-        }
-      })
-  })
-
+  
+  var outfile = argv.o || argv.outfile
+  argv.from = entries[0]
+  argv.to = path.basename(entries[0])
+  
+  //run watchify server
+  emitter.on('connect', setupLive)
+  emitter._start(entries, argv)
+    .on('exit', function() {
+      log.info('closing')
+    })
+  
   return emitter
 
   //if user requested live: true, set it up with some defaults
@@ -67,20 +49,21 @@ module.exports = function(entry, opts) {
     if (argv.live || argv['live-plugin']) {
       emitter
         .watch()
-        .live({ 
-          host: argv.host,
-          port: argv['live-port']
-        })
-        .on('watch', function(ev, file) {
-          if (ev === 'change' || ev === 'add') {
+        .live()
+        .on('watch', function(ev, file) { 
+          //HTML/CSS changes
+          if (ev === 'change' || ev === 'add')
             emitter.reload(file)
-          }
         })
         .on('update', function(file) {
-          emitter.reload(file)
+          console.log("Update event")
+          //bundle.js changes
+          emitter.reload()
         })
     }
   }
+
+
 
   function entryMapping() {
     var to

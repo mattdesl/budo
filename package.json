@@ -15,6 +15,7 @@
   "dependencies": {
     "bole": "^2.0.0",
     "chokidar": "^1.0.0-rc5",
+    "concat-stream": "^1.4.8",
     "dargs": "^4.0.0",
     "debounce": "^1.0.0",
     "ecstatic": "^0.5.8",
@@ -60,7 +61,7 @@
   },
   "scripts": {
     "test": "tape test/test*.js | tap-spec",
-    "start": "./bin/cmd.js example/app.js -o bundle.js --dir example --verbose | garnish",
+    "start": "./bin/cmd.js example/app.js --dir example --verbose | garnish",
     "live": "./bin/cmd.js example/app.js --dir example --live | garnish",
     "uglify": "./bin/cmd.js example/app.js -v --dir example --live -o 'uglifyjs > bundle.js' | garnish -v",
     "live-plugin": "./bin/cmd.js example/app.js --dir example --live-plugin | garnish",
