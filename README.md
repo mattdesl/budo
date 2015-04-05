@@ -1,7 +1,5 @@
 # budō
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mattdesl/budo)
-
 This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and other [experimental features](#script-injection) down the road.
 
 Note that budo needs a copy of `watchify` installed. It can be either local (preferred) or global.
