@@ -2,7 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mattdesl/budo)
 
-This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and other [experimental features](#script-injection) down the road.
+This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but specifically focused on incremental reloading and LiveReload integration (including CSS injection).
 
 Note that budo needs a copy of `watchify` installed. It can be either local (preferred) or global.
 
@@ -10,16 +10,16 @@ Note that budo needs a copy of `watchify` installed. It can be either local (pre
 npm install budo watchify -g
 ```
 
-The simplest use cases will start up a server with a default `index.html` and incrementally bundle your source on filesave. Examples:
+The simplest use cases will start up a server with a default `index.html` and incrementally bundle your source on filesave. The requests are delayed until the bundle has finished, so you aren't served stale or empty bundles. Examples:
 
 ```sh
 #run watchify on port 9966
 budo index.js
 
 #run watchify with explicit output file 
-budo index.js --outfile bundle.js --verbose
+budo index.js --verbose
 
-#run watchify with some options and trigger LiveReload on change
+#run watchify with some options and trigger LiveReload on file change
 budo index.js --live --transform brfs
 ```
 
@@ -28,7 +28,7 @@ You can open `localhost:9966` to see the content in action.
 To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](ndjson.org)-based stream can be used.
 
 ```sh
-budo index.js -o bundle.js | garnish
+budo index.js -v | garnish
 ```
 
 See [docs](#docs) for more features.
@@ -59,7 +59,6 @@ Usage:
 
 Options:
     --help, -h      show help message
-    --outfile, -o   path to output bundle
     --port          the port to run, default 9966
     --host          the host, default "localhost"
     --dir           the directory to serve, and the base for --outfile
@@ -70,12 +69,9 @@ Options:
 
 By default, the `--debug` option will be sent to watchify (for source maps). If this is unwanted, you can use `--no-debug` or `--debug=false` to disable source maps.
 
-*Note:* The `--outfile` is relative to the specified `--dir`. 
-
 ### API
 
 The API mirrors the CLI except you must provide a `stream` for logging, and it does not attempt to auto-portfind. 
-
 
 ```js
 var budo = require('budo')
