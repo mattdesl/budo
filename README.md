@@ -1,3 +1,7 @@
+### version 3.0 roadmap
+
+[See here](https://github.com/mattdesl/budo/issues/20#issuecomment-89889926) the budo@3.0 plans. The next version will be snappier and will never serve you stale or empty bundles (i.e. reloading page mid-compilation), but comes with some breaking changes.
+
 # budō
 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
