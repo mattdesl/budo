@@ -28,13 +28,28 @@ module.exports = function(entry, opts) {
     return emitter
   }
 
+
+  //e.g. 
+  //clean up entries and take the first one for bundle mapping
+  var file
+  entries = entries.map(function(entry, i) {
+    var map = mapping(entry)
+    if (i === 0)
+      file = map.to
+    return map.from
+  })
+
+  //if user specified -o use that as our entry map
+  var outfile = argv.serve
+  if (outfile && typeof outfile === 'string')
+    file = outfile
+
   argv.port = typeof argv.port === 'number' ? argv.port : 9966
   argv.dir = argv.dir || process.cwd()
   
-  var outfile = argv.o || argv.outfile
-  argv.from = entries[0]
-  argv.to = path.basename(entries[0])
-  
+  var map = mapping(entries[0])
+  argv.serve = file
+
   //run watchify server
   emitter.on('connect', setupLive)
   emitter._start(entries, argv)
@@ -56,25 +71,18 @@ module.exports = function(entry, opts) {
             emitter.reload(file)
         })
         .on('update', function(file) {
-          console.log("Update event")
           //bundle.js changes
-          emitter.reload()
+          emitter.reload(file)
         })
     }
   }
 
-
-
-  function entryMapping() {
-    var to
-    var first = entries[0]
-    var parts = first.split(':')
+  function mapping(entry) {
+    var parts = entry.split(':')
     if (parts.length > 1 && parts[1].length > 0) {
-      var from = parts[0]
-      to = parts[1]
-      entries[0] = from
+      return { from: parts[0], to: parts[1] }
     }
-    return to
+    return { from: entry, to: 'bundle.js' }
   }
 
   function bail(msg) {
