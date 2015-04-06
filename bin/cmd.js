@@ -16,7 +16,7 @@ var showHelp = opts.h || opts.help
 
 if (!showHelp && (!entries || entries.filter(Boolean).length === 0)) {
   console.error('ERROR: no entry scripts specified\n  use --help for examples')
-  return
+  process.exit(1)
 }
 
 if (showHelp) {

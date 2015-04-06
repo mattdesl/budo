@@ -60,11 +60,10 @@
   },
   "scripts": {
     "test": "tape test/test*.js | tap-spec",
-    "start": "./bin/cmd.js example/app.js --dir example --verbose | garnish",
-    "live": "./bin/cmd.js example/app.js --dir example --live | garnish",
-    "uglify": "./bin/cmd.js example/app.js -v --dir example --live -o 'uglifyjs > bundle.js' | garnish -v",
-    "live-plugin": "./bin/cmd.js example/app.js --dir example --live-plugin | garnish",
-    "remap": "./bin/cmd.js example/app:bundle2.js --dir example --live | garnish"
+    "start": "./bin/cmd.js example/*.js --dir example --verbose | garnish",
+    "live": "./bin/cmd.js example/*.js --dir example --live -v | garnish -v",
+    "live-plugin": "./bin/cmd.js example/*.js --dir example --live-plugin -v | garnish",
+    "remap": "./bin/cmd.js example/*.js --serve bundle2.js --dir example --live -v | garnish"
   },
   "keywords": [
     "browserify",
