@@ -1,16 +1,10 @@
 var bole = require('bole')
 var log = bole('budo')
 var xtend = require('xtend')
-var assign = require('xtend/mutable')
-var Emitter = require('events/')
-var getOutput = require('./lib/get-output')
-var rimraf = require('rimraf')
-var path = require('path')
-
 var budo = require('./lib/budo')
 
 module.exports = function(entry, opts) {
-  var argv = assign({}, opts)
+  var argv = xtend(opts)
 
   if (argv.stream) {
     bole.output({
@@ -27,7 +21,6 @@ module.exports = function(entry, opts) {
     bail("No entry scripts specified!")
     return emitter
   }
-
 
   //e.g. 
   //clean up entries and take the first one for bundle mapping
@@ -46,8 +39,6 @@ module.exports = function(entry, opts) {
 
   argv.port = typeof argv.port === 'number' ? argv.port : 9966
   argv.dir = argv.dir || process.cwd()
-  
-  var map = mapping(entries[0])
   argv.serve = file
 
   //run watchify server
