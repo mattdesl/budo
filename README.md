@@ -20,9 +20,6 @@ The simplest use cases will start up a server with a default `index.html` and in
 #run watchify on port 9966
 budo index.js
 
-#run watchify with explicit output file 
-budo index.js --outfile bundle.js --verbose
-
 #run watchify with some options and trigger LiveReload on change
 budo index.js --live --transform brfs
 ```
