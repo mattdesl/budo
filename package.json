@@ -42,6 +42,7 @@
     "npm-execspawn": "^1.0.6",
     "raf-loop": "^1.0.1",
     "request": "^2.53.0",
+    "rimraf": "^2.3.2",
     "tap-finished": "0.0.1",
     "tap-spec": "^2.2.1",
     "tape": "^3.5.0",
