@@ -33,7 +33,7 @@ if (opts.o || opts.outfile) {
   return
 }
 
-var basePort = opts.port || opts.p || 9966
+var basePort = opts.port || 9966
 getport(basePort, function(err, port) {
   if (err) {
     console.error("Could not find available port", err)
