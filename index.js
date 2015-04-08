@@ -22,7 +22,6 @@ module.exports = function(entry, opts) {
     return emitter
   }
 
-  //e.g. 
   //clean up entries and take the first one for bundle mapping
   var file
   entries = entries.map(function(entry, i) {
@@ -33,9 +32,9 @@ module.exports = function(entry, opts) {
   })
 
   //if user specified -o use that as our entry map
-  var outfile = argv.serve
-  if (outfile && typeof outfile === 'string')
-    file = outfile
+  var serveAs = argv.serve
+  if (serveAs && typeof serveAs === 'string')
+    file = serveAs
 
   argv.port = typeof argv.port === 'number' ? argv.port : 9966
   argv.dir = argv.dir || process.cwd()

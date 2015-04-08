@@ -16,10 +16,10 @@ The simplest use cases will start up a server with a default `index.html` and in
 #run watchify on port 9966
 budo index.js
 
-#run watchify with explicit output file 
+#run watchify with timing information
 budo index.js --verbose
 
-#run watchify with some options and trigger LiveReload on file change
+#run watchify with some options and trigger LiveReload on JS/HTML/CSS file change
 budo index.js --live --transform brfs
 ```
 
@@ -28,12 +28,12 @@ You can open `localhost:9966` to see the content in action.
 To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used.
 
 ```sh
-budo index.js -v | garnish
+budo index.js | garnish
 ```
 
 See [docs](#docs) for more features.
 
-PRs/suggestions/comments welcome. Props to [@caspervonb](https://twitter.com/caspervonb) for the early groundwork.
+PRs/suggestions/comments welcome.
 
 ## docs
 
