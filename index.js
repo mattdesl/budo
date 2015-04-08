@@ -18,8 +18,7 @@ module.exports = function(entry, opts) {
   var entries = Array.isArray(entry) ? entry : [entry]
   entries = entries.filter(Boolean)
   if (entries.length === 0) {
-    bail("No entry scripts specified!")
-    return emitter
+    return bail("No entry scripts specified!")
   }
 
   //clean up entries and take the first one for bundle mapping
@@ -39,6 +38,9 @@ module.exports = function(entry, opts) {
   argv.port = typeof argv.port === 'number' ? argv.port : 9966
   argv.dir = argv.dir || process.cwd()
   argv.serve = file
+
+  if (typeof argv.dir !== 'string') 
+    return bail('--dir must be a path')
 
   //run watchify server
   emitter.on('connect', setupLive)
@@ -79,5 +81,6 @@ module.exports = function(entry, opts) {
     process.nextTick(function() {
       emitter.emit('error', new Error(msg))
     })
+    return emitter
   }
 }
