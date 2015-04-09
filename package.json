@@ -44,7 +44,7 @@
     "tape": "^4.0.0",
     "uglify-js": "^2.4.19",
     "vm": "0.0.1",
-    "watchify": "^3.1.0",
+    "watchify": "^3.1.0"
   },
   "scripts": {
     "test": "tape test/test*.js | tap-spec",
