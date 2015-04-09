@@ -16,6 +16,11 @@ module.exports = function(entry, opts) {
   
   var emitter = budo()
 
+
+  if (opts.o || opts.outfile) {
+    log.warn('--outfile has been removed in budo@3.0')
+  }
+
   var entries = Array.isArray(entry) ? entry : [entry]
   entries = entries.filter(Boolean)
   if (entries.length === 0) {

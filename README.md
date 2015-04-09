@@ -10,20 +10,20 @@ Note that budo needs a copy of `watchify` installed. It can be either local (pre
 npm install budo watchify -g
 ```
 
-The simplest use cases will start up a server with a default `index.html` and incrementally bundle your source on filesave. The requests are delayed until the bundle has finished, so you aren't served stale or empty bundles. Examples:
+The simplest use cases will start up a server with a default `index.html` and incrementally bundle your source on filesave. The requests are delayed until the bundle has finished, so you won't be served stale or empty bundles if you refresh the page mid-update. Examples:
 
 ```sh
-#run watchify on port 9966
+# serve file on port 9966
 budo index.js
 
-#run watchify with timing information
+# show timing information on re-bundle
 budo index.js --verbose
 
-#run watchify with some options and trigger LiveReload on JS/HTML/CSS file change
+# transpile ES6 and trigger LiveReload on html/css/js change
 budo index.js --live --transform babelify
 ```
 
-You can open `localhost:9966` to see the content in action.
+Then open [http://localhost:9966](http://localhost:9966) to see the content in action.
 
 To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used:
 
@@ -31,9 +31,7 @@ To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bi
 budo index.js | garnish
 ```
 
-See [docs](#docs) for more features.
-
-PRs/suggestions/comments welcome.
+See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 
 ## docs
 
@@ -51,7 +49,7 @@ PRs/suggestions/comments welcome.
 
 ### CLI
 
-Details for `budo` command-line interface. Other options like `--verbose` and `--transform` are sent to browserify/watchify. 
+Details for `budo` command-line interface. Other options like `--transform` are sent to browserify/watchify. 
 
 ```sh
 Usage:
@@ -69,7 +67,7 @@ Options:
   --poll=N         use polling for file watch, with optional interval N
 ```
 
-By default, the `--debug` option will be sent to watchify (for source maps). If this is unwanted, you can use `--no-debug` or `--debug=false` to disable source maps.
+By default, the `--debug` option will be sent to browserify (for source maps). If this is unwanted, you can use `--no-debug` or `--debug=false` to disable source maps.
 
 ### API
 

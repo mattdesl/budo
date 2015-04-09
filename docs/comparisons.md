@@ -2,11 +2,11 @@
 
 ## budō
 
-[budō](https://github.com/mattdesl/budo) lies somewhere between the rich feature set of [Beefy](#beefy) and the small focus of [wzrd](#wzrd). It spawns a watchify process, produces ndjson logs, and integrates with LiveReload (including CSS injection). It is also the base for more experimental features like [Chrome script injection](https://github.com/mattdesl/budo-chrome), and rapid prototyping. 
+[budō](https://github.com/mattdesl/budo) lies somewhere between the rich feature set of [Beefy](#beefy) and the small focus of [wzrd](#wzrd). It has a stronger focus on LiveReload and incremental bundling, suspending the server response until the bundle is complete (i.e. never serves stale bundles). It is also the base for more experimental features like [Chrome script injection](https://github.com/mattdesl/budo-chrome) and [React hot module replacement](https://github.com/milankinen/livereactload). 
 
 ## beefy
 
-[Beefy](https://github.com/chrisdickinson/beefy) is a feature-rich dev tool for browserify, and much of the inspiration for this project. It has a wide scope, encompassing browserify and watchify, and takes a different approach to bundling by using watchify's programmatic API rather than [execspawn](https://www.npmjs.com/package/npm-execspawn). 
+[Beefy](https://github.com/chrisdickinson/beefy) is a feature-rich dev tool for browserify, and much of the inspiration for this project. It has a wide scope, encompassing browserify and watchify, and takes a different approach to live reload.
 
 ```sh
 #example ...
@@ -22,18 +22,6 @@ Incremental bundling is likely outside of its scope.
 ```sh
 #example ...
 wzrd index.js:bundle.js | garnish
-```
-
-## wtch
-
-[wtch](https://github.com/mattdesl/wtch) is a small live-reload utility not related to budo or watchify. It watches for JS/CSS/HTML changes and triggers a live-reload event. It can be used to augment wzrd with some watching capabilities.
-
-```sh
-#example ...
-wzrd index.js:bundle.js | wtch | garnish
-
-#with watchify ...
-watchify index.js -o bundle.js | wtch bundle.js | garnish
 ```
 
 ## garnish
