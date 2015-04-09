@@ -14,7 +14,7 @@ test('gets connect info', function(t) {
   })
   .on('connect', function(ev) {
     t.deepEqual(ev.entries, [ 'test/fixtures/app.js' ], 'entries matches')
-    t.equal(ev.serve, 'app.js', 'mapping matches')
+    t.equal(ev.serve, 'test/fixtures/app.js', 'mapping matches')
     t.equal(ev.uri, 'http://localhost:8000/', 'uri matches')
     t.equal(ev.host, 'localhost', 'host is not specified')
     t.equal(ev.port, 8000, 'port matches')
@@ -91,7 +91,7 @@ test('allow setting live() manually', function(t) {
 
 function testLive(t, app) {
   app
-    .once('reload', function(err) { 
+    .once('reload', function() { 
       //LiveReload triggered
       t.ok(true, 'got reload event')
       app.close()
