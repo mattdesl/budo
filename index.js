@@ -17,7 +17,7 @@ module.exports = function(entry, opts) {
   var emitter = budo()
 
 
-  if (opts.o || opts.outfile) {
+  if (argv.o || argv.outfile) {
     log.warn('--outfile has been removed in budo@3.0')
   }
 
