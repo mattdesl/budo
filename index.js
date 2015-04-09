@@ -2,6 +2,7 @@ var bole = require('bole')
 var log = bole('budo')
 var xtend = require('xtend')
 var budo = require('./lib/budo')
+var path = require('path')
 
 module.exports = function(entry, opts) {
   var argv = xtend(opts)
@@ -74,7 +75,7 @@ module.exports = function(entry, opts) {
     if (parts.length > 1 && parts[1].length > 0) {
       return { from: parts[0], to: parts[1] }
     }
-    return { from: entry, to: 'bundle.js' }
+    return { from: entry, to: path.basename(entry) }
   }
 
   function bail(msg) {

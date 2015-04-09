@@ -1,13 +1,11 @@
 var test = require('tape')
 var budo = require('../')
-var cleanup = require('./cleanup')
-var path = require('path')
 
 test('gets connect info', function(t) {
   t.plan(7)
   t.timeoutAfter(10000)
 
-  var app = budo('test/app.js', {
+  var app = budo('test/fixtures/app.js', {
     dir: __dirname,
     port: 8000
   })
@@ -15,8 +13,8 @@ test('gets connect info', function(t) {
     t.fail(err)
   })
   .on('connect', function(ev) {
-    t.deepEqual(ev.entries, [ 'test/app.js' ], 'entries matches')
-    t.equal(ev.serve, 'bundle.js', 'mapping matches')
+    t.deepEqual(ev.entries, [ 'test/fixtures/app.js' ], 'entries matches')
+    t.equal(ev.serve, 'app.js', 'mapping matches')
     t.equal(ev.uri, 'http://localhost:8000/', 'uri matches')
     t.equal(ev.host, 'localhost', 'host is not specified')
     t.equal(ev.port, 8000, 'port matches')
@@ -38,10 +36,10 @@ test('entry mapping', function(t) {
   t.plan(2)
   t.timeoutAfter(10000)
   
-  var app = budo(['test/app:foo.js', 'test/other.js'])
+  var app = budo(['test/fixtures/app:foo.js', 'test/other.js'])
   .on('connect', function(ev) {
     t.equal(ev.serve, 'foo.js', 'mapping matches')
-    t.deepEqual(ev.entries, ['test/app', 'test/other.js'], 'from matches')
+    t.deepEqual(ev.entries, ['test/fixtures/app', 'test/other.js'], 'from matches')
     app.close()
   })
 })
@@ -50,10 +48,10 @@ test('--serve allows explicit bundle renaming', function(t) {
   t.plan(2)
   t.timeoutAfter(10000)
   
-  var app = budo(['test/app', 'test/other.js'], { serve: 'static/foo.js' })
+  var app = budo(['test/fixtures/app', 'test/other.js'], { serve: 'static/foo.js' })
   .on('connect', function(ev) {
     t.equal(ev.serve, 'static/foo.js', 'mapping matches')
-    t.deepEqual(ev.entries, ['test/app', 'test/other.js'], 'from matches')
+    t.deepEqual(ev.entries, ['test/fixtures/app', 'test/other.js'], 'from matches')
     app.close()
   })
 })
@@ -62,7 +60,7 @@ test('sets watch() and live() by default with live: true', function(t) {
   t.plan(3)
   t.timeoutAfter(10000)
 
-  var app = budo('test/app.js', {
+  var app = budo('test/fixtures/app.js', {
     dir: __dirname,
     port: 8000,
     live: true
@@ -78,7 +76,7 @@ test('allow setting live() manually', function(t) {
   t.plan(3)
   t.timeoutAfter(10000)
 
-  var app = budo('test/app.js', {
+  var app = budo('test/fixtures/app.js', {
     dir: __dirname,
     port: 8000,
     live: true

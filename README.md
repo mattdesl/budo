@@ -20,12 +20,12 @@ budo index.js
 budo index.js --verbose
 
 #run watchify with some options and trigger LiveReload on JS/HTML/CSS file change
-budo index.js --live --transform brfs
+budo index.js --live --transform babelify
 ```
 
 You can open `localhost:9966` to see the content in action.
 
-To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used.
+To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used:
 
 ```sh
 budo index.js | garnish
@@ -55,16 +55,18 @@ Details for `budo` command-line interface. Other options like `--verbose` and `-
 
 ```sh
 Usage:
-    budo [entries] [opts]
+  budo [entries] [opts]
 
 Options:
-    --help, -h      show help message
-    --port          the port to run, default 9966
-    --host          the host, default "localhost"
-    --dir           the directory to serve, and the base for --outfile
-    --live          enable LiveReload integration with a script tag
-    --live-plugin   enable LiveReload for use with a browser plugin
-    --live-port     the LiveReload port, default 35729
+  --help, -h       show help message
+  --port           the port to run, default 9966
+  --host           the host, default "localhost"
+  --dir            the directory to serve, and the base for --outfile
+  --live           enable LiveReload integration
+  --live-plugin    enable LiveReload but do not inject script tag
+  --live-port      the LiveReload port, default 35729
+  --verbose, -v    verbose timing information for re-bundles
+  --poll=N         use polling for file watch, with optional interval N
 ```
 
 By default, the `--debug` option will be sent to watchify (for source maps). If this is unwanted, you can use `--no-debug` or `--debug=false` to disable source maps.
