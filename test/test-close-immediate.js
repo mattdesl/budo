@@ -6,7 +6,7 @@ test('can close on connect with watch/live', function(t) {
   t.plan(2)
   t.timeoutAfter(10000)
 
-  var app = budo('test/app.js', {
+  var app = budo('test/fixtures/app.js', {
     dir: __dirname,
     port: 8000,
     outfile: 'bundle.js'
@@ -30,7 +30,7 @@ test('can close on first update', function(t) {
   t.plan(3)
   t.timeoutAfter(10000)
 
-  var app = budo('test/app.js', {
+  var app = budo('test/fixtures/app.js', {
     dir: __dirname
   })
     .on('update', function() {

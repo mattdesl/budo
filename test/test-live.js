@@ -2,15 +2,14 @@ var test = require('tape')
 var budo = require('../')
 var path = require('path')
 var request = require('request')
-var cleanup = require('./cleanup')
 var fs = require('fs')
-var source = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
+var source = fs.readFileSync(path.join(__dirname, 'fixtures', 'app.js'), 'utf8')
 
 test('should inject LiveReload snippet', function(t) {
   t.plan(4)
   t.timeoutAfter(10000)
 
-  var entry = path.join(__dirname, 'app.js')
+  var entry = path.join(__dirname, 'fixtures', 'app.js')
   var app = budo(entry, {
     dir: __dirname,
     port: 8000,
@@ -25,7 +24,6 @@ test('should inject LiveReload snippet', function(t) {
   })
   .on('reload', function(file) {
     t.equal(file, 'app.js', 'reload event triggered')
-    cleanup()
     app.close()
   })
   .on('connect', function(ev) {
@@ -43,7 +41,7 @@ test('manual LiveReload triggering', function(t) {
   t.plan(4)
   t.timeoutAfter(10000)
 
-  var entry = path.join(__dirname, 'app.js')
+  var entry = path.join(__dirname, 'fixtures', 'app.js')
   var app = budo(entry, {
     dir: __dirname,
     port: 8000,
@@ -78,7 +76,7 @@ test('should not inject LiveReload snippet', function(t) {
   t.plan(1)
   t.timeoutAfter(10000)
 
-  var entry = path.join(__dirname, 'app.js')
+  var entry = path.join(__dirname, 'fixtures', 'app.js')
   var app = budo(entry, {
     dir: __dirname,
     port: 8000,
