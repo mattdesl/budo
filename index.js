@@ -2,7 +2,7 @@ var bole = require('bole')
 var log = bole('budo')
 var xtend = require('xtend')
 var budo = require('./lib/budo')
-var path = require('path')
+var url = require('url')
 
 module.exports = function(entry, opts) {
   var argv = xtend(opts)
@@ -38,8 +38,8 @@ module.exports = function(entry, opts) {
 
   argv.port = typeof argv.port === 'number' ? argv.port : 9966
   argv.dir = argv.dir || process.cwd()
-  argv.serve = file
-
+  argv.serve = url.parse(file).path
+  
   if (typeof argv.dir !== 'string') 
     return bail('--dir must be a path')
 
@@ -75,7 +75,7 @@ module.exports = function(entry, opts) {
     if (parts.length > 1 && parts[1].length > 0) {
       return { from: parts[0], to: parts[1] }
     }
-    return { from: entry, to: path.basename(entry) }
+    return { from: entry, to: entry }
   }
 
   function bail(msg) {

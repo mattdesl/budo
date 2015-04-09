@@ -1,7 +1,9 @@
 var test = require('tape')
 var budo = require('../')
-var path = require('path')
 
+//watchify, chokidar and tinylr are a bit stubborn
+//if you try to close them immediately after starting
+//the watchers.
 test('can close on connect with watch/live', function(t) {
   t.plan(2)
   t.timeoutAfter(10000)
@@ -24,7 +26,6 @@ test('can close on connect with watch/live', function(t) {
       t.ok(true, 'got exit')
     })
 })
-
 
 test('can close on first update', function(t) {
   t.plan(3)
