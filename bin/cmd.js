@@ -28,11 +28,6 @@ if (showHelp) {
   return
 }
 
-if (opts.o || opts.outfile) {
-  console.error('ERROR:\n  --outfile has been removed in budo@3.0')
-  return
-}
-
 var basePort = opts.port || 9966
 getport(basePort, function(err, port) {
   if (err) {

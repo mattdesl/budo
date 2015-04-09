@@ -2,89 +2,72 @@
 
 budō allows you to get your scripts up and running quickly in a local environment. 
 
-First, you will need [NodeJS and npm](http://nodejs.org/download/). Then you can install the tools globally like so:
+First, you will need [NodeJS and npm](http://nodejs.org/download/). Then you can install the tools globally like so.
 
 ```sh
 npm install budo watchify garnish -g
 ```
 
-Later we will explore the benefits of saving these locally, but for now it's easier to get up and running if they are global. 
-
-The next step is to create an index.js file and start serving it with budō:
-
-```sh
-cd my-cool-project
-touch index.js
-budo index.js --outfile bundle.js --verbose
-```
-
-Now if you open `localhost:9966` in your browser, it will serve you with the bundled output of `index.js`.
-
-When you save `index.js`, the script will be re-built into the `bundle.js` output file. Watchify will also print the time elapsed into console.
-
-## pretty-printing
-
-Earlier we installed [garnish](https://github.com/mattdesl/garnish), which will give us a nicer output in terminal. We can use it like so:
-
-```sh
-budo index.js --outfile bundle.js | garnish
-```
-
-## index.html
-
-Notice we haven't had to write any HTML! If you want to, though, you can drop `index.html` in the same folder that you are serving budō from (or `--dir` folder), and it will use that instead of a dynamically generated index.
-
-## local installation
-
-Although global install gets us up and running quickly, it's preferred to save these tools as `devDependencies` in your projects so that others cloning your repo are working with the same versions as you. To do that, you need a `package.json`, which you can create like so:
-
-```sh
-npm init
-```
-
-Then, you can save the tools locally: 
-
-```sh
-npm install budo watchify garnish --save-dev
-```
-
-You can't run local tools with a simple terminal command; instead, we need to use [npm-scripts](https://docs.npmjs.com/misc/scripts). Open up your package.json and update `"scripts"` so it looks like this:
-
-```sh
-  "scripts": {
-    "dev": "budo index.js -o bundle.js --live | garnish"
-  },
-```
-
-Now users cloning your repo can run the following to start serving the file:
-
-```sh
-npm install
-npm run dev
-```
-
-## temp directory
-
-If you don't specify an `--outfile` or `-o` argument, budō will save a `bundle.js` to a temporary directory that gets destroyed upon closing the server. 
+Now, serve a file like so. We are piping the output to [garnish](https://github.com/mattdesl/garnish) for prettier logging, but this is optional.
 
 ```sh
 budo index.js --verbose | garnish
 ```
 
-You can also change the mapping like so, which allows you to specify a different entry point in your `index.html`:
+Open [http://localhost:9966/](http://localhost:9966/) to see the bundled result of `index.js`. 
 
-```sh
-budo index.js:static.js | garnish
+Saving `index.js` will be incremental, which means it will be fast even if your app spans hundreds of modules. 
+
+## index.html
+
+Notice we haven't had to write any HTML! If you want to, though, you can drop `index.html` in the same folder that you are serving budō from (or `--dir` folder), and it will use that instead of a dynamically generated index.
+
+The `src` for your script tag should match the entry point you gave.
+
+```html
+<script src="index.js"></script>
 ```
 
-This is good for quick prototyping, but the `--outfile` approach is more robust and cross-platform, and thus preferred when delivering budō as a local dependency.
+You can specify a different end point for the serve like so:
+
+```sh
+budo index.js:static/bundle.js | garnish
+```
+
+Your HTML would the look like this:
+
+```html
+<script src="static/bundle.js"></script>
+```
+
+## local installation
+
+If you are using these in your modules for demos/etc, you should save them globally so that others can get the same versions when they `git clone` and `npm install` your repo.
+
+```sh
+npm install budo watchify garnish --save-dev
+```
+
+For local tools, we need to use [npm-scripts](https://docs.npmjs.com/misc/scripts). Open up your package.json and update `"scripts"` so it looks like this:
+
+```sh
+  "scripts": {
+    "start": "budo index.js --verbose | garnish"
+  },
+```
+
+Now running the following will start the development server:
+
+```sh
+npm run start
+```
 
 ## live reload
 
 budō also includes support for [LiveReload](livereload.com). The `--live` argument injects a script tag into your HTML file so you can reload across many devices and browsers.
 
 ```sh
-budo index.js --outfile bundle.js --live | garnish
+budo index.js --live | garnish
 ```
 
 Now when you save the `index.js` file, it will trigger a live-reload event on your `localhost:9966` tab after watchify has finished bundling. It also listens to HTML and CSS reload, and injects stylesheets without a page refresh. 

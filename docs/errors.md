@@ -8,9 +8,12 @@ For clearer error reporting, you can use the [errorify](https://github.com/zerto
 ```sh
 # install
 npm install errorify --save-dev
+```
 
-# include it with --plugin or -p
-budo index.js --live -p errorify | garnish
+```json
+  "scripts": {
+    "start": "budo index.js --live -p errorify | garnish" 
+  }
 ```
 
 Using [babelify](https://www.npmjs.com/package/babelify) and errorify together, the error message looks like this:
