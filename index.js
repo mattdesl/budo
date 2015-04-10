@@ -19,6 +19,9 @@ module.exports = function(entry, opts) {
 
   if (argv.o || argv.outfile) {
     log.warn('--outfile has been removed in budo@3.0')
+    //ensure we don't pass to watchify
+    delete argv.o
+    delete argv.outfile
   }
 
   var entries = Array.isArray(entry) ? entry : [entry]
