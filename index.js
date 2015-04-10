@@ -6,7 +6,7 @@ var url = require('url')
 
 module.exports = function(entry, opts) {
   var argv = xtend(opts)
-
+  
   if (argv.stream) {
     bole.output({
       stream: argv.stream,
@@ -15,7 +15,6 @@ module.exports = function(entry, opts) {
   }
   
   var emitter = budo()
-
 
   if (argv.o || argv.outfile) {
     log.warn('--outfile has been removed in budo@3.0')
