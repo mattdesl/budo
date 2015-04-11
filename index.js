@@ -26,18 +26,18 @@ module.exports.cli = function cli(args) {
   
   var showHelp = opts.h || opts.help
 
-  if (!showHelp && (!entries || entries.filter(Boolean).length === 0)) {
-    console.error('ERROR:\n  no entry scripts specified\n  use --help for examples')
-    process.exit(1)
-  }
-
   if (showHelp) {
-    var vers = require('../package.json').version
+    var vers = require('./package.json').version
     console.log('budo ' + vers, '\n')
-    var help = require('path').join(__dirname, 'help.txt')
+    var help = require('path').join(__dirname, 'bin', 'help.txt')
     require('fs').createReadStream(help)
       .pipe(process.stdout)
     return
+  }
+
+  if (!entries || entries.filter(Boolean).length === 0) {
+    console.error('ERROR:\n  no entry scripts specified\n  use --help for examples')
+    process.exit(1)
   }
 
   var basePort = opts.port || 9966
