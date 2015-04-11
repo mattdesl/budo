@@ -22,7 +22,7 @@ require('raf-loop')(function(dt) {
 
   ctx.save()
   ctx.scale(dpr, dpr)
-  ctx.fillRect(Math.sin(time)*50 + 300, 50, 20, 20) 
+  ctx.fillRect(Math.sin(time)*50 + 300, 50, 20, 40) 
   ctx.fillText("from browserify!", 40, 40)
   if (img.width > 0 || img.height > 0)
     ctx.drawImage(img, 50, 50)
