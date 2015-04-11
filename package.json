@@ -48,9 +48,10 @@
   },
   "scripts": {
     "test": "tape test/test*.js | tap-spec",
-    "start": "./bin/cmd.js example/*.js --dir example --verbose | garnish",
-    "live": "./bin/cmd.js example/*.js --dir example --live -v | garnish -v",
-    "live-plugin": "./bin/cmd.js example/*.js --dir example --live-plugin -v | garnish",
+    "silent": "./bin/cmd.js example/app.js:bundle.js --dir example --stream false",
+    "start": "./bin/cmd.js example/app.js:bundle.js --dir example --verbose | garnish",
+    "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live -v | garnish -v",
+    "live-plugin": "./bin/cmd.js example/app.js:bundle.js --dir example --live-plugin -v | garnish",
     "remap": "./bin/cmd.js example/*.js --serve bundle2.js --dir example --live -v | garnish"
   },
   "keywords": [

@@ -8,7 +8,6 @@ var watchifyArgs = require('watchify').args
 var path = require('path')
 var vm = require('vm')
 
-
 test('serves app.js', run('test/fixtures/app.js'))
 test('entry mapping to bundle.js', run('test/fixtures/app.js:bundle.js'))
 test('turns off debug', run('test/fixtures/app', { debug: false }))

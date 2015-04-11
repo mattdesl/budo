@@ -5,11 +5,18 @@
 //Uses auto port-finding
 
 var args = process.argv.slice(2)
-var opts = require('minimist')(args)
 var getport = require('getport')
+var opts = require('minimist')(args, {
+  boolean: ['stream', 'debug'],
+  default: { stream: true, debug: true }
+})
+
+//user can silent budo with --no-stream
+if (opts.stream !== false) {
+  opts.stream = process.stdout
+}
 
 var entries = opts._
-opts.stream = process.stdout
 delete opts._
 
 var showHelp = opts.h || opts.help
