@@ -1,11 +1,14 @@
 var create = require('./lib')
 
 //public programmatic API
+// expects args to be camelCase
 // supports objects in transforms
-module.exports = create
+module.exports = function budo(entry, opt) {
+  return create(entry, opt, false)
+}
 
 //CLI entry point (undocumented, private for now)
-// uses watchify/bin/args
+// uses watchify/bin/args to arg parse
 // does not support objects in transforms
 // uses portfinding on base port
 // does not print to stdout
