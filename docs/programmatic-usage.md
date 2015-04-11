@@ -40,7 +40,7 @@ Called once the budo server connects. The callback is passed an `event` object t
   serve: 'bundle/entry%20file.js' //the URL path for our entry file
   dir: 'app',                     //the working directory being served
   host: 'localhost',              //defaults to localhost
-  port: 9966,                     //the port we're running on
+  port: 9966                      //the port we're running on
 }
 ```
 
