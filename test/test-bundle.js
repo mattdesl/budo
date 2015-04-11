@@ -88,10 +88,10 @@ function matches(t, entries, opt) {
         t.equal(data.toString(), expected.toString(), 'bundles match')
 
         //also compare output of running both bundles
-        vm.runInNewContext(expected, { 
+        vm.runInNewContext(data.toString(), { 
           console: { log: log },
           global: {}
-        });
+        })
 
         app.close()
       })
