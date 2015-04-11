@@ -1,94 +1,61 @@
-var bole = require('bole')
-var log = bole('budo')
-var xtend = require('xtend')
-var budo = require('./lib/budo')
-var url = require('url')
+var create = require('./lib')
 
-module.exports = function(entry, opts) {
-  var argv = xtend(opts)
-  
-  if (argv.stream) {
-    bole.output({
-      stream: argv.stream,
-      level: 'debug'
-    })
-  }
-  
-  var emitter = budo()
+//public programmatic API
+// passes camel case to browserify
+// also supports objects for transform etc
+module.exports = create
 
-  if (argv.o || argv.outfile) {
-    console.error('Warning: --outfile has been removed in budo@3.0')
-    //ensure we don't pass to watchify
-    delete argv.o
-    delete argv.outfile
-  }
-
-  var entries = Array.isArray(entry) ? entry : [entry]
-  entries = entries.filter(Boolean)
-  if (entries.length === 0) {
-    return bail("No entry scripts specified!")
-  }
-
-  //clean up entries and take the first one for bundle mapping
-  var file
-  entries = entries.map(function(entry, i) {
-    var map = mapping(entry)
-    if (i === 0)
-      file = map.to
-    return map.from
+//CLI API (undocumented, private for now)
+// uses watchify/bin/args to parse dash-case
+// only expects strings for transform etc
+// also prints to stdout by default, and
+// uses portfinder after base port is taken
+module.exports.cli = function cli(args) {
+  var getport = require('getport')
+  var opts = require('minimist')(args, {
+    boolean: ['stream', 'debug'],
+    default: { stream: true, debug: true }
   })
 
-  //if user specified -o use that as our entry map
-  var serveAs = argv.serve
-  if (serveAs && typeof serveAs === 'string')
-    file = serveAs
+  //user can silent budo with --no-stream
+  if (opts.stream !== false) {
+    opts.stream = process.stdout
+  }
 
-  argv.port = typeof argv.port === 'number' ? argv.port : 9966
-  argv.dir = argv.dir || process.cwd()
-  argv.serve = url.parse(file).path
+  var entries = opts._
+  delete opts._
   
-  if (typeof argv.dir !== 'string') 
-    return bail('--dir must be a path')
+  var showHelp = opts.h || opts.help
 
-  //run watchify server
-  emitter.on('connect', setupLive)
-  emitter._start(entries, argv)
-    .on('exit', function() {
-      log.info('closing')
-    })
-  
-  return emitter
+  if (!showHelp && (!entries || entries.filter(Boolean).length === 0)) {
+    console.error('ERROR:\n  no entry scripts specified\n  use --help for examples')
+    process.exit(1)
+  }
 
-  //if user requested live: true, set it up with some defaults
-  function setupLive() {
-    if (argv.live || argv['live-plugin']) {
-      emitter
-        .watch()
-        .live()
-        .on('watch', function(ev, file) { 
-          //HTML/CSS changes
-          if (ev === 'change' || ev === 'add')
-            emitter.reload(file)
-        })
-        .on('update', function(file) {
-          //bundle.js changes
-          emitter.reload(file)
-        })
+  if (showHelp) {
+    var vers = require('../package.json').version
+    console.log('budo ' + vers, '\n')
+    var help = require('path').join(__dirname, 'help.txt')
+    require('fs').createReadStream(help)
+      .pipe(process.stdout)
+    return
+  }
+
+  var basePort = opts.port || 9966
+  getport(basePort, function(err, port) {
+    if (err) {
+      console.error("Could not find available port", err)
+      process.exit(1)
     }
-  }
-
-  function mapping(entry) {
-    var parts = entry.split(':')
-    if (parts.length > 1 && parts[1].length > 0) {
-      return { from: parts[0], to: parts[1] }
-    }
-    return { from: entry, to: entry }
-  }
-
-  function bail(msg) {
-    process.nextTick(function() {
-      emitter.emit('error', new Error(msg))
-    })
-    return emitter
-  }
+    opts.port = port
+    create(entries, opts, true)
+      .on('error', function(err) {
+        //Some more helpful error messaging
+        if (err.message === 'listen EADDRINUSE')
+          console.error("Port", port, "is not available\n")
+        else
+          console.error('Error:\n  ' + err.message)
+        process.exit(1)
+      })
+  })
 }
