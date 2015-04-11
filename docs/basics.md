@@ -42,7 +42,7 @@ Your HTML would the look like this:
 
 ## local installation
 
-If you are using these in your modules for demos/etc, you should save them globally so that others can get the same versions when they `git clone` and `npm install` your repo.
+If you are using these in your modules for demos/etc, you should save them locally so that others can get the same versions when they `git clone` and `npm install` your repo.
 
 ```sh
 npm install budo watchify garnish --save-dev
