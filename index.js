@@ -1,15 +1,14 @@
 var create = require('./lib')
 
 //public programmatic API
-// passes camel case to browserify
-// also supports objects for transform etc
+// supports objects in transforms
 module.exports = create
 
-//CLI API (undocumented, private for now)
-// uses watchify/bin/args to parse dash-case
-// only expects strings for transform etc
-// also prints to stdout by default, and
-// uses portfinder after base port is taken
+//CLI entry point (undocumented, private for now)
+// uses watchify/bin/args
+// does not support objects in transforms
+// uses portfinding on base port
+// does not print to stdout
 module.exports.cli = function cli(args) {
   var getport = require('getport')
   var opts = require('minimist')(args, {
