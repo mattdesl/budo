@@ -73,7 +73,7 @@ test('manual LiveReload triggering', function(t) {
 
 
 test('should not inject LiveReload snippet', function(t) {
-  t.plan(1)
+  t.plan(2)
   t.timeoutAfter(10000)
 
   var entry = path.join(__dirname, 'fixtures', 'app.js')
@@ -87,20 +87,22 @@ test('should not inject LiveReload snippet', function(t) {
     t.fail(err)
   })
   .on('connect', function(ev) {
-    // matchesHTML(t, ev.uri, getHTMLNoLive())
-    // setTimeout(function() {
+    matchesHTML(t, ev.uri, getHTMLNoLive(), function() {
       app.close()
-    // }, 100)
+    })
   })
   .on('exit', function() {
     t.ok(true, 'closing')
   })
 })
 
-function matchesHTML(t, uri, html) {
+function matchesHTML(t, uri, html, cb) {
   request.get({ uri: uri + 'index.html' }, function(err, resp, body) {
     if (err) t.fail(err)
     t.equal(body, html || getHTML(), 'matches expected HTML')
+
+    if (cb)
+      cb()
   })
 }
 
