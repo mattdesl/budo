@@ -11,7 +11,7 @@ module.exports = function budo(entry, opt) {
 // uses watchify/bin/args to arg parse
 // does not support objects in transforms
 // uses portfinding on base port
-// does not print to stdout
+// prints to stdout
 module.exports.cli = function cli(args) {
   var getport = require('getport')
   var opts = require('minimist')(args, {
