@@ -70,7 +70,7 @@ module.exports = function(entry, opts) {
           if (ev === 'change' || ev === 'add')
             emitter.reload(file)
         })
-        .on('update', function(file) {
+        .on('pending', function(file) {
           //bundle.js changes
           emitter.reload(file)
         })
