@@ -65,13 +65,15 @@ Options:
   --live-port      the LiveReload port, default 35729
   --verbose, -v    verbose timing information for re-bundles
   --poll=N         use polling for file watch, with optional interval N
+  --no-stream      do not print messages to stdout
+  --no-debug       do not use inline source maps
 ```
 
-By default, the `--debug` option will be sent to browserify (for source maps). If this is unwanted, you can use `--no-debug` or `--debug=false` to disable source maps.
+By default, messages will be printed to `stdout` and `debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively. 
 
 ### API
 
-The API mirrors the CLI except you must provide a `stream` for logging, and it does not attempt to auto-portfind. 
+The API mirrors the CLI except it does not write to `process.stdout` by default, and does not attempt to find available ports from a base port. 
 
 ```js
 var budo = require('budo')

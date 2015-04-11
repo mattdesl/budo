@@ -1,5 +1,6 @@
 var test = require('tape')
 var budo = require('../')
+var through = require('through2')
 
 test('gets connect info', function(t) {
   t.plan(7)
@@ -70,6 +71,25 @@ test('sets watch() and live() by default with live: true', function(t) {
       t.ok(true, 'got update event')
     })
   testLive(t, app)
+})
+
+test('should pipe JSON to specified stream', function(t) {
+  t.plan(3)
+  t.timeoutAfter(10000)
+
+  var app = budo('test/fixtures/app.js', {
+    dir: __dirname,
+    stream: through(function(buf) {
+      t.ok(buf.length > 0, 'got some message')
+      t.doesNotThrow(function() {
+        return JSON.parse(buf.toString())
+      }, 'produces valid JSON')
+      app.close()
+    })
+  })
+    .on('exit', function() {
+      t.ok(true, 'got exit event')
+    })
 })
 
 test('allow setting live() manually', function(t) {

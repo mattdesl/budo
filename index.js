@@ -17,7 +17,7 @@ module.exports = function(entry, opts) {
   var emitter = budo()
 
   if (argv.o || argv.outfile) {
-    log.warn('--outfile has been removed in budo@3.0')
+    console.error('Warning: --outfile has been removed in budo@3.0')
     //ensure we don't pass to watchify
     delete argv.o
     delete argv.outfile
