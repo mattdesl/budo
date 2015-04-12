@@ -73,3 +73,11 @@ budo index.js --live | garnish
 Now when you save the `index.js` file, it will trigger a LiveReload event on your `localhost:9966` tab after watchify has finished bundling. It also listens to HTML and CSS reload, and injects stylesheets without a page refresh. 
 
 Alternatively, you can use `--live-plugin` if you want to enable LiveReload through the browser extension (e.g. [for Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en)). In this case, no script is injected into the HTML, and you need to [enable LiveReload manually](https://github.com/mattdesl/wtch#setup).
+
+## multiple entries
+
+Budo also supports multiple entry points; they will all get concatenated into a single bundle. The entry point for your `<script>` uses the first path, or you can explicitly set it with the `--serve` option.
+
+```sh
+budo test/*.js --serve static/bundle.js | garnish
+```
