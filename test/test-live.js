@@ -2,36 +2,31 @@ var test = require('tape')
 var budo = require('../')
 var path = require('path')
 var request = require('request')
-var cleanup = require('./cleanup')
 var fs = require('fs')
-var source = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
+var source = fs.readFileSync(path.join(__dirname, 'fixtures', 'app.js'), 'utf8')
 
 test('should inject LiveReload snippet', function(t) {
   t.plan(4)
   t.timeoutAfter(10000)
 
-  var server
-
-  var entry = path.join(__dirname, 'app.js')
-  budo(entry, {
+  var entry = path.join(__dirname, 'fixtures', 'app.js')
+  var app = budo(entry, {
     dir: __dirname,
     port: 8000,
-    outfile: 'bundle.js',
+    serve: 'app.js',
     live: true
   })
   .on('error', function(err) {
     t.fail(err)
   })
-  .on('watch', function(event, file) {
-    t.equal(path.basename(file), 'bundle.js', 'watch event triggered')
+  .on('update', function() {
+    t.ok(true, 'update event triggered')
   })
   .on('reload', function(file) {
-    t.equal(path.basename(file), 'bundle.js', 'reload event triggered')
-    cleanup()
-    server.close()
+    t.equal(file, 'app.js', 'reload event triggered')
+    app.close()
   })
   .on('connect', function(ev) {
-    server = ev
     matchesHTML(t, ev.uri)
     setTimeout(function() {
       fs.writeFile(entry, source)
@@ -42,37 +37,30 @@ test('should inject LiveReload snippet', function(t) {
   })
 })
 
-
 test('manual LiveReload triggering', function(t) {
   t.plan(4)
   t.timeoutAfter(10000)
 
-  var server
-
-  var entry = path.join(__dirname, 'app.js')
+  var entry = path.join(__dirname, 'fixtures', 'app.js')
   var app = budo(entry, {
     dir: __dirname,
     port: 8000,
-    outfile: 'bundle.js',
-    live: false,
-    'live-script': true
+    serve: 'app.js'
   })
   .watch()
   .live()
   .on('error', function(err) {
     t.fail(err)
   })
-  .on('watch', function(event, file) {
-    t.equal(path.basename(file), 'bundle.js', 'watch event triggered')
+  .on('update', function(file) {
+    t.equal(file, 'app.js', 'update event triggered')
     app.reload(file)
   })
   .on('reload', function(file) {
-    t.equal(path.basename(file), 'bundle.js', 'reload event triggered')
-    cleanup()
-    server.close()
+    t.equal(file, 'app.js', 'reload event triggered')
+    app.close()
   })
   .on('connect', function(ev) {
-    server = ev
     matchesHTML(t, ev.uri)
     setTimeout(function() {
       fs.writeFile(entry, source)
@@ -83,13 +71,45 @@ test('manual LiveReload triggering', function(t) {
   })
 })
 
-function matchesHTML(t, uri) {
+
+test('should not inject LiveReload snippet', function(t) {
+  t.plan(2)
+  t.timeoutAfter(10000)
+
+  var entry = path.join(__dirname, 'fixtures', 'app.js')
+  var app = budo(entry, {
+    dir: __dirname,
+    port: 8000,
+    serve: 'app.js',
+  })
+  .live({ plugin: true })
+  .on('error', function(err) {
+    t.fail(err)
+  })
+  .on('connect', function(ev) {
+    matchesHTML(t, ev.uri, getHTMLNoLive(), function() {
+      app.close()
+    })
+  })
+  .on('exit', function() {
+    t.ok(true, 'closing')
+  })
+})
+
+function matchesHTML(t, uri, html, cb) {
   request.get({ uri: uri + 'index.html' }, function(err, resp, body) {
     if (err) t.fail(err)
-    t.equal(body, getHTML(), 'matches expected HTML')
+    t.equal(body, html || getHTML(), 'matches expected HTML')
+
+    if (cb)
+      cb()
   })
 }
 
+function getHTMLNoLive() {
+  return '<!doctype html><head><meta charset="utf-8"></head><body><script src="app.js"></script></body></html>'
+}
+
 function getHTML() {
-  return '<!doctype html><head><meta charset="utf-8"></head><body><script type="text/javascript" src="http://localhost:35729/livereload.js?snipver=1"></script><script src="bundle.js"></script></body></html>'
+  return '<!doctype html><head><meta charset="utf-8"></head><body><script type="text/javascript" src="http://localhost:35729/livereload.js?snipver=1"></script><script src="app.js"></script></body></html>'
 }
