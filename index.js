@@ -1,105 +1,63 @@
-var bole = require('bole')
-var log = bole('budo')
-var xtend = require('xtend')
-var assign = require('xtend/mutable')
-var Emitter = require('events/')
-var getOutput = require('./lib/get-output')
-var rimraf = require('rimraf')
+var create = require('./lib')
 
-var budo = require('./lib/budo')
+//public programmatic API
+// expects args to be camelCase
+// supports objects in transforms
+module.exports = function budo(entry, opt) {
+  return create(entry, opt, false)
+}
 
-module.exports = function(entry, opts) {
-  var argv = assign({}, opts)
-
-  if (argv.stream) {
-    bole.output({
-      stream: argv.stream,
-      level: 'debug'
-    })
-  }
-  
-  var emitter = budo()
-  emitter.on('connect', setupLive)
-
-  var entries = Array.isArray(entry) ? entry : [entry]
-  entries = entries.filter(Boolean)
-  if (entries.length === 0) {
-    bail("No entry scripts specified!")
-    return emitter
-  }
-
-  argv.port = typeof argv.port === 'number' ? argv.port : 9966
-  argv.dir = argv.dir || process.cwd()
-  var outOpts = xtend(argv, {
-    __to: entryMapping()
+//CLI entry point (undocumented, private for now)
+// uses watchify/bin/args to arg parse
+// does not support objects in transforms
+// uses portfinding on base port
+// prints to stdout
+module.exports.cli = function cli(args) {
+  var getport = require('getport')
+  var opts = require('minimist')(args, {
+    boolean: ['stream'],
+    default: { stream: true }
   })
 
-  getOutput(outOpts, function(err, output) {
+  //user can silent budo with --no-stream
+  if (opts.stream !== false) {
+    opts.stream = process.stdout
+  }
+
+  var entries = opts._
+  delete opts._
+  
+  var showHelp = opts.h || opts.help
+
+  if (showHelp) {
+    var vers = require('./package.json').version
+    console.log('budo ' + vers, '\n')
+    var help = require('path').join(__dirname, 'bin', 'help.txt')
+    require('fs').createReadStream(help)
+      .pipe(process.stdout)
+    return
+  }
+
+  if (!entries || entries.filter(Boolean).length === 0) {
+    console.error('ERROR:\n  no entry scripts specified\n  use --help for examples')
+    process.exit(1)
+  }
+
+  var basePort = opts.port || 9966
+  getport(basePort, function(err, port) {
     if (err) {
-      if (err.name === 'OUTPIPE')
-        bail("Error: outpipe argument needs to be sent to a file.\nExample:\n  budo index.js -o 'uglifyjs > bundle.js'")
-      else
-        bail("Error: Could not create temp bundle.js directory")
-      return emitter
+      console.error("Could not find available port", err)
+      process.exit(1)
     }
-
-    var tmp = output.tmp
-    var tmpFile = output.from
-
-    //run watchify server
-    emitter._start(entries, output, argv)
+    opts.port = port
+    create(entries, opts, true)
       .on('error', function(err) {
         //Some more helpful error messaging
         if (err.message === 'listen EADDRINUSE')
-          console.error("Port", argv.port, "is not available\n")
-        throw err
-      })
-      .on('exit', function() {
-        log.info('closing')
-        if (tmp && tmpFile) {
-          //last attempt to remove the bundle file
-          rimraf(tmpFile, function(err) {
-            if (err)
-              log.debug('error cleaning up temp file', err)
-          })
-        }
+          console.error("Port", port, "is not available\n")
+        else
+          console.error('Error:\n  ' + err.message)
+        process.exit(1)
       })
   })
-
-  return emitter
-
-  //if user requested live: true, set it up with some defaults
-  function setupLive() {
-    if (argv.live || argv['live-plugin']) {
-      emitter
-        .watch()
-        .live({ 
-          host: argv.host,
-          port: argv['live-port']
-        })
-        .on('watch', function(ev, file) {
-          if (ev === 'change' || ev === 'add') {
-            emitter.reload(file)
-          }
-        })
-    }
-  }
-
-  function entryMapping() {
-    var to
-    var first = entries[0]
-    var parts = first.split(':')
-    if (parts.length > 1 && parts[1].length > 0) {
-      var from = parts[0]
-      to = parts[1]
-      entries[0] = from
-    }
-    return to
-  }
-
-  function bail(msg) {
-    process.nextTick(function() {
-      emitter.emit('error', new Error(msg))
-    })
-  }
 }

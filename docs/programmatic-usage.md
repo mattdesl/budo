@@ -36,23 +36,29 @@ Called once the budo server connects. The callback is passed an `event` object t
 
 ```js
 {
-  uri: 'http://localhost:9966/', //served URI
-  from: 'app/bundle.js',         //the actual path to the bundle
-  to: 'bundle.js',               //the mapping server expects
-  glob: 'app/bundle.js',         //file glob for bundle.js
-  dir: 'app',                    //the working directory
-  host: 'localhost',             //defaults to localhost
-  port: 9966,                    //the port we're running on
+  uri: 'http://localhost:9966/',  //served URI
+  serve: 'bundle/entry%20file.js' //the URL path for our entry file
+  dir: 'app',                     //the working directory being served
+  host: 'localhost',              //defaults to localhost
+  port: 9966                      //the port we're running on
 }
 ```
 
-#### `b.on('watch')`
+#### `b.on('update')`
 
-If file watching is enabeld (i.e. through `live` or `live-plugin`), this event will be triggered after a file change or addition is made (such as bundle.js or themes.css). The parameters will be `(eventType, file)` where `eventType` could be "add", "change", "unlink", etc.
+This event is triggered when the bundle changes. It is passed the following:
+
+```(urlPath, src)```
+
+Where `urlPath` is the served name (e.g. `bundle%20file.js`) and `src` is the new contents of the bundle.
 
 #### `b.on('reload')`
 
 If live reload is enabeld (i.e. through `live` or `live-plugin`), this event will be triggered after the LiveReload has been sent. The parameter is `file`, the file path being submitted to the LiveReload server.
+
+#### `b.on('watch')`
+
+If file watching is enabeld (i.e. through `live` or `live-plugin`), this event will be triggered after HTML and CSS files have changed. The parameters will be `(eventType, file)` where `eventType` could be "add", "change", "unlink", etc.
 
 #### `b.reload(path)`
 
@@ -66,9 +72,9 @@ If `live` and `live-plugin` were not specified, you can manually enable the Live
 
 If `live` and `live-plugin` were not specified, you can manually enabe [chokidar's](https://github.com/paulmillr/chokidar) file watching with the specified `globs` (array or string) and options. 
 
-`globs` defaults to watching `**/*.{html,css}` and the watchified bundle. `chokidarOpts` defaults to the options passed to the budo constructor.
+`globs` defaults to watching `**/*.{html,css}`. `chokidarOpts` defaults to the options passed to the budo constructor.
 
-Example of using `live()` and `watch()` together.
+Example of using `live()` and `watch()` together. This will only trigger LiveReload on CSS updates.
 
 ```js
 var budo = require('budo')
@@ -106,7 +112,7 @@ gulp.task('dev', function(cb) {
 })
 ```
 
-Now running `gulp dev` will spin up a server on 9966, spawn watchify, and incrementally rebundle during development. It will stub out an `index.html` and write `bundle.js` to a temp directory.
+Now running `gulp dev` will spin up a server on 9966, spawn watchify, and incrementally rebundle during development. It will stub out an `index.html` and serve the browserified contents of `index.js`. 
 
 #### integrations
 
