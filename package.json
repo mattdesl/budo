@@ -41,9 +41,11 @@
     "request": "^2.53.0",
     "tap-spec": "^3.0.0",
     "tape": "^4.0.0",
+    "tree-kill": "0.0.6",
     "uglify-js": "^2.4.19",
     "vm": "0.0.1",
-    "watchify": "^3.1.0"
+    "watchify": "^3.1.0",
+    "win-spawn": "^2.0.0"
   },
   "scripts": {
     "test": "tape test/test*.js | tap-spec",
