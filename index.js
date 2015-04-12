@@ -15,8 +15,8 @@ module.exports = function budo(entry, opt) {
 module.exports.cli = function cli(args) {
   var getport = require('getport')
   var opts = require('minimist')(args, {
-    boolean: ['stream', 'debug'],
-    default: { stream: true, debug: true }
+    boolean: ['stream'],
+    default: { stream: true }
   })
 
   //user can silent budo with --no-stream
