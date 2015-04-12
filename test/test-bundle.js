@@ -39,7 +39,8 @@ test('serves with spaces and entry to bundle.js', run('test/fixtures/with space.
 }))
 
 test('serves with spaces default', run('test/fixtures/with space.js', { 
-  message: 'with space' 
+  message: 'with space',
+  shouldServe: 'test/fixtures/with%20space.js'
 }))
 
 function run(entries, opt) {
