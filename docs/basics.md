@@ -2,13 +2,13 @@
 
 budō allows you to get your scripts up and running quickly in a local environment. 
 
-First, you will need [NodeJS and npm](http://nodejs.org/download/). Then you can install the tools globally like so.
+First, you will need [NodeJS and npm](http://nodejs.org/download/). Then you can install the tools globally:
 
 ```sh
 npm install budo watchify garnish -g
 ```
 
-Now, serve a file like so. We are piping the output to [garnish](https://github.com/mattdesl/garnish) for prettier logging, but this is optional.
+Now we can run budo to serve a file and start developing. Here we pipe the output to [garnish](https://github.com/mattdesl/garnish) for prettier colors in the terminal, but this is optional.
 
 ```sh
 budo index.js --verbose | garnish
@@ -28,7 +28,7 @@ The `src` for your script tag should match the entry point you gave.
 <script src="index.js"></script>
 ```
 
-You can specify a different end point for the serve like so:
+You can specify a different end point for the server with a colon:
 
 ```sh
 budo index.js:static/bundle.js | garnish
@@ -76,8 +76,8 @@ Alternatively, you can use `--live-plugin` if you want to enable LiveReload thro
 
 ## multiple entries
 
-Budo also supports multiple entry points; they will all get concatenated into a single bundle. The entry point for your `<script>` uses the first path, or you can explicitly set it with the `--serve` option.
+Budo also supports multiple entry points; they will all get concatenated into a single bundle. If you aren't using a colon separator (`:`), the entry point will default to the first path. Or, you can explicitly set the path with the `--serve` option, as below:
 
 ```sh
-budo test/*.js --serve static/bundle.js | garnish
+budo index.js test/*.js --serve static/bundle.js | garnish
 ```
