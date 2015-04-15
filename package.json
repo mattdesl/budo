@@ -45,7 +45,7 @@
     "tree-kill": "0.0.6",
     "uglify-js": "^2.4.19",
     "vm": "0.0.1",
-    "watchify": "^3.1.0",
+    "watchify": "^3.1.1",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
