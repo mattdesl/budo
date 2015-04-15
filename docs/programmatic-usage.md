@@ -1,12 +1,14 @@
 # API
 
-The API mirrors the CLI except you must provide a `stream` for logging, and it does not attempt to auto-portfind.
+The API mirrors the CLI except you must provide a `stream` for logging, and it does not attempt to auto-portfind. You can also pass in transforms and plugins as an object, like so:
 
 ```js
 var budo = require('budo')
+var babelify = require('babelify')
 
 budo('./src/index.js', {
   live: true,             //live reload
+  transform: babelify,    //ES6 transpiling
   stream: process.stdout, //log to stdout
   port: 8000              //use this port
 }).on('connnect', function(ev) {
@@ -28,7 +30,7 @@ Called when the server is closed.
 
 #### `b.on('error')`
 
-Called on an error.
+Called on a fatal error, like not being able to create the server or find a local/global copy of watchify.
 
 #### `b.on('connect')`
 
