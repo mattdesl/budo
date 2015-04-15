@@ -37,7 +37,7 @@ See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 
 - [basic usage](docs/basics.md)
 - [comparisons](docs/comparisons.md)
-- [programmatic usage (Gulp, Grunt)](docs/programmatic-usage.md)
+- [API and integrations (Gulp, Grunt, npm scripts)](docs/programmatic-usage.md)
 - [error reporting](docs/errors.md)
 - [running tests and examples](docs/tests-and-examples.md)
 - [script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
