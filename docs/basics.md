@@ -81,3 +81,13 @@ Budo also supports multiple entry points; they will all get concatenated into a 
 ```sh
 budo test/*.js --serve static/bundle.js | garnish
 ```
+
+## unparsed arguments
+
+Everything after the `--` argument will not be parsed/manipulated, and will be passed directly to browserify. 
+
+Currently, this is needed when using sub-arg syntax:
+
+```sh
+budo main.js --live -v -- -t [ foo --bar=555 --debug ]
+```
