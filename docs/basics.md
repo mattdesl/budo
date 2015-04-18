@@ -79,5 +79,15 @@ Alternatively, you can use `--live-plugin` if you want to enable LiveReload thro
 Budo also supports multiple entry points; they will all get concatenated into a single bundle. If you aren't using a colon separator (`:`), the entry point will default to the first path. Or, you can explicitly set the path with the `--serve` option, as below:
 
 ```sh
-budo index.js test/*.js --serve static/bundle.js | garnish
+budo test/*.js --serve static/bundle.js | garnish
+```
+
+## unparsed arguments
+
+Everything after the `--` argument will not be parsed/manipulated, and will be passed directly to browserify. 
+
+Currently, this is needed when using sub-arg syntax:
+
+```sh
+budo main.js --live -v -- -t [ foo --bar=555 --debug ]
 ```
