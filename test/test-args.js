@@ -14,14 +14,54 @@ var cliPath = path.resolve(basedir, 'bin', 'cmd.js')
 var request = require('request')
 var kill = require('tree-kill')
 
-test('CLI works as expected', function(t) {
+test('CLI allows full stop for subarg', function(t) {
+  t.plan(1)
+  t.timeoutAfter(10000)
+  runCLI(t, ['-v', '--no-debug', '--', '-t', '[', 'brfs', '--debug', ']', '--insert-globals'])
+})
+
+test('CLI still works without full stop and no subargs', function(t) {
+  t.plan(1)
+  t.timeoutAfter(10000)
+  runCLI(t, ['-v', '--no-debug', '-t', 'brfs', '--insert-globals'])
+})
+
+test('API supports camelCase and transform objects', function(t) {
   t.plan(1)
   t.timeoutAfter(10000)
 
   doBundle(function(err, expected) {
     if (err) return t.fail(err)
+    var app = budo(entry, {
+      transform: brfs,
+      debug: false,
+      fullPaths: false,
+      insertGlobals: true
+    }).once('update', function(name, src) {
+      t.equal(src.toString(), expected.toString(), 'matches bundler')
+      app.close()
+    })
+  })
+})
 
-    var args = [entry, '-v', '-t', 'brfs', '--no-debug', '--insert-globals']
+
+function doBundle(cb) {
+  var bundler = browserify(xtend(watchifyArgs, {
+    debug: false,
+    transform: brfs,
+    fullPaths: false,
+    insertGlobals: true
+  }))
+  bundler.add(path.resolve(entry))
+  bundler.bundle(cb)
+}
+
+
+function runCLI(t, cliArgs) {
+  doBundle(function(err, expected) {
+    if (err) return t.fail(err)
+
+    var args = [entry].concat(cliArgs)
 
     var uri = 'http://localhost:9966/'
     var proc = spawn(cliPath, args, { cwd: basedir, env: process.env })
@@ -54,34 +94,4 @@ test('CLI works as expected', function(t) {
       kill(proc.pid)
     }
   })
-})
-
-test('API supports camelCase and transform objects', function(t) {
-  t.plan(1)
-  t.timeoutAfter(10000)
-
-  doBundle(function(err, expected) {
-    if (err) return t.fail(err)
-    var app = budo(entry, {
-      transform: brfs,
-      debug: false,
-      fullPaths: false,
-      insertGlobals: true
-    }).once('update', function(name, src) {
-      t.equal(src.toString(), expected.toString(), 'matches bundler')
-      app.close()
-    })
-  })
-})
-
-
-function doBundle(cb) {
-  var bundler = browserify(xtend(watchifyArgs, {
-    debug: false,
-    transform: brfs,
-    fullPaths: false,
-    insertGlobals: true
-  }))
-  bundler.add(path.resolve(entry))
-  bundler.bundle(cb)
-}
+} 
