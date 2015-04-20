@@ -16,11 +16,12 @@ The simplest use cases will start up a server with a default `index.html` and in
 # serve file on port 9966
 budo index.js
 
+# enable LiveReload on html/css/js changes
 # show timing information on re-bundle
-budo index.js --verbose
+budo index.js --verbose --live
 
-# transpile ES6 and trigger LiveReload on html/css/js change
-budo index.js --live --transform babelify
+# pass some options to browserify
+budo index.js --live -- -t babelify --full-paths
 ```
 
 Then open [http://localhost:9966](http://localhost:9966) to see the content in action.
@@ -49,7 +50,7 @@ See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 
 ### CLI
 
-Details for `budo` command-line interface. Other options like `--transform` are sent to browserify/watchify. 
+Details for `budo` command-line interface. Other options will be sent to browserify.
 
 ```sh
 Usage:
@@ -71,6 +72,12 @@ Options:
 ```
 
 By default, messages will be printed to `stdout` and `debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively. 
+
+Any options after `--` will be sent unchanged to browserify. This is currently required for subarg syntax. Example:
+
+```js
+budo index.js --live -- -t [ babelify --exetensions .es6 ]
+```
 
 ### API
 

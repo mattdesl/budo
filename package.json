@@ -54,7 +54,8 @@
     "start": "./bin/cmd.js example/app.js:bundle.js --dir example --verbose | garnish",
     "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live -v | garnish -v",
     "live-plugin": "./bin/cmd.js example/app.js:bundle.js --dir example --live-plugin -v | garnish",
-    "brfs": "./bin/cmd.js example/app.js:bundle.js --dir example -v -- -t [ brfs --foo ] | garnish",
+    "brfs1": "./bin/cmd.js example/app.js:bundle.js --dir example -v -t [ brfs --foo ] | garnish",
+    "brfs2": "./bin/cmd.js example/app.js:bundle.js --dir example -v -- -t [ brfs --foo ] | garnish",
     "remap": "./bin/cmd.js example/*.js --serve bundle2.js --dir example --live -v | garnish"
   },
   "keywords": [

@@ -20,6 +20,12 @@ module.exports.cli = function cli(args) {
     '--': true
   })
 
+  if (isSubargError(args)) {
+    console.error("ERROR: You must use -- for browserify's subarg syntax")
+    console.error("Example:\n  budo index.js -- -t [ babelify --extensions .babel ]")
+    process.exit(1)
+  }
+
   //user can silent budo with --no-stream
   if (opts.stream !== false) {
     opts.stream = process.stdout
@@ -61,4 +67,14 @@ module.exports.cli = function cli(args) {
         process.exit(1)
       })
   })
+}
+
+
+function isSubargError(args) {
+  var end = args.indexOf('--')
+  if (end === -1)
+    end = Number.MAX_VALUE
+  var sub1 = args.indexOf('[')
+  var sub2 = args.indexOf(']')
+  return (sub1 >= 0 && sub1 < end) || (sub2 >= 0 && sub2 < end)
 }
