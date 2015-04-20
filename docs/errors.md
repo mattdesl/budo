@@ -12,7 +12,7 @@ npm install errorify --save-dev
 
 ```json
   "scripts": {
-    "start": "budo index.js --live -p errorify | garnish" 
+    "start": "budo index.js --live -- -p errorify | garnish" 
   }
 ```
 
