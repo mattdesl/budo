@@ -24,7 +24,6 @@
     "inject-lr-script": "^1.0.0",
     "minimist": "^1.1.0",
     "resolve": "^1.1.6",
-    "resolve-npm-which": "^1.0.1",
     "routes-router": "^4.1.2",
     "through2": "^0.6.3",
     "tiny-lr": "^0.1.5",
