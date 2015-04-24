@@ -30,7 +30,7 @@ Called when the server is closed.
 
 #### `b.on('error')`
 
-Called on a fatal error, like not being able to create the server or find a local/global copy of watchify.
+Called on a fatal error, like not being able to create the server.
 
 #### `b.on('connect')`
 

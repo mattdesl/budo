@@ -4,13 +4,13 @@
 
 This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but specifically focused on incremental reloading and LiveReload integration (including CSS injection).
 
-Note that budo needs a copy of `watchify` installed. It can be either local (preferred) or global.
+To install:
 
 ```sh
-npm install budo watchify -g
+npm install budo -g
 ```
 
-The simplest use cases will start up a server with a default `index.html` and incrementally bundle your source on filesave. The requests are delayed until the bundle has finished, so you won't be served stale or empty bundles if you refresh the page mid-update. Examples:
+Running budo will start a server with a default `index.html` and incrementally bundle your source on filesave. The requests are delayed until the bundle has finished, so you won't be served stale or empty bundles if you refresh the page mid-update. Examples:
 
 ```sh
 # serve file on port 9966
@@ -26,9 +26,13 @@ budo index.js --live -- -t babelify --full-paths
 
 Then open [http://localhost:9966](http://localhost:9966) to see the content in action.
 
-To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used:
+To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used. Example:
 
 ```sh
+# install garnish if you don't have it
+npm install garnish -g
+
+# pipe to garnish for pretty-printing
 budo index.js | garnish
 ```
 
@@ -50,7 +54,7 @@ See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 
 ### CLI
 
-Details for `budo` command-line interface. Other options will be sent to browserify.
+Details for `budo` command-line interface. Other options (like `-t`) will be sent to browserify.
 
 ```sh
 Usage:
@@ -71,9 +75,9 @@ Options:
   --no-debug       do not use inline source maps
 ```
 
-By default, messages will be printed to `stdout` and `debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively. 
+By default, messages will be printed to `process.stdout`, and `--debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively. 
 
-Any options after `--` will be sent unchanged to browserify. This is currently required for subarg syntax. Example:
+Everything after `--` is passed directly to browserify; this is currently needed for subarg syntax. Example:
 
 ```js
 budo index.js --live -- -t [ babelify --exetensions .es6 ]

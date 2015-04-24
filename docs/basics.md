@@ -5,7 +5,7 @@ budō allows you to get your scripts up and running quickly in a local environme
 First, you will need [NodeJS and npm](http://nodejs.org/download/). Then you can install the tools globally:
 
 ```sh
-npm install budo watchify garnish -g
+npm install budo garnish -g
 ```
 
 Now we can run budo to serve a file and start developing. Here we pipe the output to [garnish](https://github.com/mattdesl/garnish) for prettier colors in the terminal, but this is optional.
@@ -45,7 +45,7 @@ Your HTML would the look like this:
 If you are using these in your modules for demos/etc, you should save them locally so that others can get the same versions when they `git clone` and `npm install` your repo.
 
 ```sh
-npm install budo watchify garnish --save-dev
+npm install budo garnish --save-dev
 ```
 
 For local tools, we need to use [npm-scripts](https://docs.npmjs.com/misc/scripts). Open up your package.json and update `"scripts"` so it looks like this:
@@ -82,6 +82,8 @@ Budo also supports multiple entry points; they will all get concatenated into a 
 budo test/*.js --serve static/bundle.js | garnish
 ```
 
+<sup>*Note:* This uses unix glob expansion and may not work on Windows.</sup>
+
 ## unparsed arguments
 
 Everything after the `--` argument will not be parsed/manipulated, and will be passed directly to browserify. 
@@ -90,4 +92,28 @@ Currently, this is needed when using sub-arg syntax:
 
 ```sh
 budo main.js --live -v -- -t [ foo --bar=555 --debug ]
+```
+
+## browser launcher
+
+You can use [opnr](https://github.com/mattdesl/opnr) to launch the browser when an available port is found. Install it like so:
+
+```sh
+npm install opnr -g
+```
+
+Now, pipe `opnr` before your pretty-printing, and the browser will open when ready.
+
+```sh
+budo index.js | opnr | garnish
+```
+
+With `npm scripts` it might look like this:
+
+```json
+"scripts": {
+  "dev": "budo index.js",
+  "start": "npm run dev | garnish",
+  "open": "npm run dev | opnr | garnish"
+}
 ```
