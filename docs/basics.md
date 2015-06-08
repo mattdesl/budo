@@ -117,3 +117,13 @@ With `npm scripts` it might look like this:
   "open": "npm run dev | opnr | garnish"
 }
 ```
+
+## internal IP
+
+If you want LiveReload to work across many devices, you need to use your internal IP rather than `localhost`. 
+
+With Unix shell, you can do this with [internal-ip](https://www.npmjs.com/package/internal-ip).
+
+```sh
+budo index.js --host=`internal-ip` | opnr | garnish
+```
