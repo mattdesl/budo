@@ -125,5 +125,9 @@ If you want LiveReload to work across many devices, you need to use your interna
 With Unix shell, you can do this with [internal-ip](https://www.npmjs.com/package/internal-ip).
 
 ```sh
+# make sure we have the tool
+npm install internal-ip -g
+
+# run using internal IP
 budo index.js --host=`internal-ip` | opnr | garnish
 ```
