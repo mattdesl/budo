@@ -28,7 +28,7 @@ The `src` for your script tag should match the entry point you gave.
 <script src="index.js"></script>
 ```
 
-If you want to use relative or absolute paths, it's recommended to specify a "server URL." You can do this with a colon separator:
+You can specify a different end point for the server with a colon. This is useful for relative and absolute paths, for example:
 
 ```sh
 budo /proj/foo/index.js:static/bundle.js | garnish
