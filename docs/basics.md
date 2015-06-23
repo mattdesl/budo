@@ -28,17 +28,19 @@ The `src` for your script tag should match the entry point you gave.
 <script src="index.js"></script>
 ```
 
-You can specify a different end point for the server with a colon:
+If you want to use relative or absolute paths, it's recommended to specify a "server URL." You can do this with a colon separator:
 
 ```sh
-budo index.js:static/bundle.js | garnish
+budo /proj/foo/index.js:static/bundle.js | garnish
 ```
 
-Your HTML would the look like this:
+Now, you can use the following as your HTML:
 
 ```html
 <script src="static/bundle.js"></script>
 ```
+
+Also see the [`--serve` option](#multiple entries).
 
 ## local installation
 
