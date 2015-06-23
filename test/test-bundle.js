@@ -34,13 +34,17 @@ test('handles relative paths', run(['./test/fixtures/app.js'], {
 
 test('fallback for relative paths', run(['../budo/test/fixtures/app.js'], {
   message: 'from browserify',
-  shouldServe: 'bundle.js'
+  shouldServe: 'app.js'
 }))
 
 var abs = path.resolve(__dirname, 'fixtures', 'app.js')
 test('fallback for relative paths', run(abs, {
   message: 'from browserify',
-  shouldServe: 'bundle.js'
+  shouldServe: 'app.js'
+}))
+test('fallback for relative paths', run(abs + ':boop.js', {
+  message: 'from browserify',
+  shouldServe: 'boop.js'
 }))
 
 test('does not break on query params', run('test/fixtures/with space.js:bundle.js?debug=true', { 
