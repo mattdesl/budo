@@ -107,7 +107,7 @@ See [API usage](docs/programmatic-usage.md) for more details.
 
 <sup>[(click for demo)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)</sup>
 
-The original motivation for making budō was to build a simple tool around Chrome Script Injection. This has since split off into its own repository: [budo-chrome](https://github.com/mattdesl/budo-chrome) to minimize the scope of budō. 
+The original motivation for making budō was to build an *experimental* tool and proof-of-concept around Chrome Script Injection. This has since split off into its own repository: [budo-chrome](https://github.com/mattdesl/budo-chrome).
 
 ## License
 
