@@ -70,6 +70,7 @@ Options:
   --live-plugin    enable LiveReload but do not inject script tag
   --live-port      the LiveReload port, default 35729
   --verbose, -v    verbose timing information for re-bundles
+  --path           set url pathname for files served by budo, default "/"
   --poll=N         use polling for file watch, with optional interval N
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
