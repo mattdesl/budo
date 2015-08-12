@@ -65,6 +65,7 @@ Options:
   --port           the port to run, default 9966
   --host           the host, default "localhost"
   --dir            the directory to serve, and the base for --outfile
+  --static         Additional folder to serve static files from
   --serve          override the bundle path being served
   --live           enable LiveReload integration
   --live-plugin    enable LiveReload but do not inject script tag
