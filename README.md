@@ -69,6 +69,7 @@ Options:
   --live           enable LiveReload integration
   --live-plugin    enable LiveReload but do not inject script tag
   --live-port      the LiveReload port, default 35729
+  --pushstate      always render the index page instead of a 404 page
   --verbose, -v    verbose timing information for re-bundles
   --poll=N         use polling for file watch, with optional interval N
   --no-stream      do not print messages to stdout
