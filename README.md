@@ -46,7 +46,7 @@ See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 - [error reporting](docs/errors.md)
 - [running tests and examples](docs/tests-and-examples.md)
 - [script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
-- [rapid prototyping with budō and wzrd](http://mattdesl.svbtle.com/rapid-prototyping)
+- [rapid prototyping with budō](http://mattdesl.svbtle.com/rapid-prototyping)
 
 ## usage
 
