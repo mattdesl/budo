@@ -56,11 +56,11 @@ Where `urlPath` is the served name (e.g. `bundle%20file.js`) and `src` is the ne
 
 #### `b.on('reload')`
 
-If live reload is enabeld (i.e. through `live` or `live-plugin`), this event will be triggered after the LiveReload has been sent. The parameter is `file`, the file path being submitted to the LiveReload server.
+If live reload is enabled (i.e. through `live` or `live-plugin`), this event will be triggered after the LiveReload has been sent. The parameter is `file`, the file path being submitted to the LiveReload server.
 
 #### `b.on('watch')`
 
-If file watching is enabeld (i.e. through `live` or `live-plugin`), this event will be triggered after HTML and CSS files have changed. The parameters will be `(eventType, file)` where `eventType` could be "add", "change", "unlink", etc.
+If file watching is enabled (i.e. through `live` or `live-plugin`), this event will be triggered after HTML and CSS files have changed. The parameters will be `(eventType, file)` where `eventType` could be "add", "change", "unlink", etc.
 
 #### `b.reload(path)`
 
