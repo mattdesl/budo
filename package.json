@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "array-find": "^1.0.0",
+    "async": "^1.4.2",
     "async-each": "^0.1.6",
+    "async-filter-each": "^1.0.0",
     "bole": "^2.0.0",
     "browserify": "^11.0.1",
     "chokidar": "^1.0.1",
