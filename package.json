@@ -13,7 +13,10 @@
     "url": "https://github.com/mattdesl"
   },
   "dependencies": {
+    "array-find": "^1.0.0",
+    "async-each": "^0.1.6",
     "bole": "^2.0.0",
+    "browserify": "^11.0.1",
     "chokidar": "^1.0.1",
     "concat-stream": "^1.4.8",
     "dargs": "^4.0.0",
@@ -23,11 +26,17 @@
     "getport": "^0.1.0",
     "inject-lr-script": "^1.0.0",
     "minimist": "^1.1.0",
+    "once": "^1.3.2",
+    "path-is-absolute": "^1.0.0",
+    "patterns": "^1.0.2",
     "resolve": "^1.1.6",
     "routes-router": "^4.1.2",
+    "simple-html-index": "^1.1.0",
+    "term-color": "^1.0.1",
     "through2": "^0.6.3",
     "tiny-lr": "^0.1.5",
-    "watchify": "^3.1.2",
+    "watchify": "^3.3.1",
+    "watchify-middleware": "^1.0.0",
     "xtend": "^4.0.0"
   },
   "devDependencies": {

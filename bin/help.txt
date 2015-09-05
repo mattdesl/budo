@@ -1,25 +1,26 @@
 Usage:
-  budo index.js [opts] [browserify opts]
+  budo index.js [opts] -- [browserify opts]
 
 Options:
   --help, -h       show help message
-  --port           the port to run, default 9966
-  --host           the host, default "localhost"
-  --dir            the directory to serve, and the base for --outfile
-  --serve          override the bundle path being served
-  --live           enable LiveReload integration
-  --live-plugin    enable LiveReload but do not inject script tag
-  --live-port      the LiveReload port, default 35729
-  --pushstate      always render the index page instead of a 404 page
-  --verbose, -v    verbose timing information for re-bundles
+  --version        show version
+  --port, -p       the port to run, default 9966
+  --host, -H       the host, default "localhost"
+  --dir, -d        a path, or array of paths for base static content
+  --serve, -s      override the bundle path being served
+  --live, -l       enable LiveReload integration
+  --live-port, -L  the LiveReload port, default 35729
+  --pushstate, -P  always render the index page instead of a 404 page
   --poll=N         use polling for file watch, with optional interval N
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
+  --no-portfind    will not attempt auto-portfinding
 
-Other Options:
+Browserify Options:
 https://github.com/substack/node-browserify
 
 Examples:
   budo src/index.js --live --dir app
-  budo index.js --verbose --transform brfs
+  budo index.js -- --transform brfs
   budo index.js:bundle.js --port 8000
+  budo src/ --paths app --paths 
