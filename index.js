@@ -1,17 +1,51 @@
-var create = require('./lib')
+var parseArgs = require('./lib/parse-args')
+var budo = require('./lib/create-budo')
+var color = require('term-color')
 
-//public programmatic API
-// expects args to be camelCase
-// supports objects in transforms
-module.exports = function budo(entry, opt) {
-  return create(entry, opt, false)
+module.exports = budo
+module.exports.cli = budoCLI
+
+function budoCLI (args, opts) {
+  var argv = parseArgs(args, opts)
+
+  if (argv.stream !== false) {
+    argv.stream = process.stdout
+  }
+
+  var entries = argv._
+  delete argv._
+
+  argv.browserifyArgs = argv['--']
+  delete argv['--']
+
+  if (argv.version) {
+    console.log(require('./package.json').version)
+    return null
+  }
+
+  if (argv.help) {
+    var help = require('path').join(__dirname, 'bin', 'help.txt')
+    require('fs').createReadStream(help)
+      .pipe(process.stdout)
+    return null
+  }
+
+  if (argv.o || argv.outfile) {
+    console.error(color.yellow('WARNING'), '--outfile has been removed in budo@3.0')
+    // ensure we don't pass to watchify
+    delete argv.o
+    delete argv.outfile
+  }
+
+  return budo(entries, argv).on('error', exit)
 }
 
-//CLI entry point (undocumented, private for now)
-// uses watchify/bin/args to arg parse
-// does not support objects in transforms
-// uses portfinding on base port
-// prints to stdout
+function exit (err) {
+  console.log(color.red('ERROR'), err.message)
+  process.exit(1)
+}
+
+/*
 module.exports.cli = function cli(args) {
   var getport = require('getport')
   var opts = require('minimist')(args, {
@@ -68,13 +102,4 @@ module.exports.cli = function cli(args) {
       })
   })
 }
-
-
-function isSubargError(args) {
-  var end = args.indexOf('--')
-  if (end === -1)
-    end = Number.MAX_VALUE
-  var sub1 = args.indexOf('[')
-  var sub2 = args.indexOf(']')
-  return (sub1 >= 0 && sub1 < end) || (sub2 >= 0 && sub2 < end)
-}
+*/
