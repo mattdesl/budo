@@ -9,4 +9,5 @@ demo/
 docs/
 example/
 .npmignore
+.tmp
 LICENSE.md
