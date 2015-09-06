@@ -27,6 +27,8 @@
     "events": "^1.0.2",
     "getport": "^0.1.0",
     "inject-lr-script": "^1.0.0",
+    "micromatch": "^2.2.0",
+    "minimatch": "^2.0.10",
     "minimist": "^1.1.0",
     "once": "^1.3.2",
     "path-is-absolute": "^1.0.0",
@@ -60,7 +62,7 @@
   },
   "scripts": {
     "test": "tape test/test*.js | tap-spec",
-    "simple": "budo --dir example --live example/simple.js:bundle.js"
+    "simple": "budo --dir example --live=*.css example/simple.js:bundle.js"
   },
   "keywords": [
     "browserify",
