@@ -38,6 +38,7 @@
     "resolve": "^1.1.6",
     "routes-router": "^4.1.2",
     "simple-html-index": "^1.1.0",
+    "strip-ansi": "^3.0.0",
     "term-color": "^1.0.1",
     "through2": "^0.6.3",
     "tiny-lr": "^0.1.5",
