@@ -65,7 +65,7 @@
   },
   "scripts": {
     "test": "tape test/test*.js | tap-spec",
-    "simple": "budo --dir example --live=*.css example/simple.js:bundle.js --delay=5 --pushstate -- -t babelify"
+    "simple": "budo --dir example --live example/simple.js:bundle.js -- -t babelify"
   },
   "keywords": [
     "browserify",
