@@ -37,7 +37,7 @@ function budoCLI (args, opts) {
   }
 
   // opts.live can be a glob or a boolean
-  if (/(true|false)/.test(argv.live)) {
+  if (typeof argv.live === 'string' && /(true|false)/.test(argv.live)) {
     argv.live = argv.live === 'true'
   }
 
