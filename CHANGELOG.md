@@ -10,6 +10,8 @@
 - `--dir` can be passed multiple times to use multiple static folders
   - `budo index.js --dir public --dir tmp`
 - removed `--live-plugin` option to reduce code complexity
+  - might be added back into CLI later
+  - API still supports `budo.live({ plugin: true })`
 - portfinding is enabled by default in API and CLI
   - user can disbale with `--no-portfind` or `portfind: false`
 - removed `--verbose`, `-v`, timing is logged by default now
@@ -36,7 +38,8 @@
   - `require('budo').cli(process.argv.slice(2), { overrides... })`
 - `errorHandler` can be used for custom bundle error handling
 - `middleware` can be a `fn(req, res, next)` function for custom routes
-  
+- `'update'` event now passes `(contents, updates)`
+
 ##### Browserify Args
 
 Users creating CLI tools on top of budo can use `opt.browserifyArgs` to handle subarg correctly. Example with minimist:
