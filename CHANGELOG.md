@@ -14,17 +14,19 @@
   - user can disbale with `--no-portfind` or `portfind: false`
 - removed `--verbose`, `-v`, timing is logged by default now
 - added `--open`, `-o` to launch browser on connect
-- DOM error handling is enabled by default 
-  - can use `--no-error-handler` or `errorHandler: Boolean|Function`
+- syntax errors in code are shown in the DOM body now
+  - can disable with `--no-error-handler` 
+  - in API can use `errorHandler: Boolean|Function`
 - added `--version` to CLI
 - `--live` can optionally be a string to only LiveReload on those globs, eg:
   - `budo index.js --live=*.{css,html}`
 - removed `--ignore-watch` and `--interval`
   - use `budo.watch(glob, chokidarOpts)` instead
-- shorthand for most options now exists
-- arg parsing has improved, so you can run most args first:
+- shorthand for most CLI options now exists
+- arg parsing has improved and uses camel-case in API
+- most args are now supported before entries, eg:
   - `budo --live src/index.js`
-- improved error messaging in terminal
+- cleaner error messaging in terminal
 
 ##### API Changes
 
@@ -56,3 +58,11 @@ budo.cli(args, {
   }
 })
 ```
+
+# 4.2.0
+
+- Added `--pushstate` option [#53](https://github.com/mattdesl/budo/pull/53)
+
+# 4.1.0
+
+- Fixed a bug with `budo ./foo.js`
