@@ -18,7 +18,9 @@ Now you can run the following to see the unit tests:
 npm test
 ```
 
-## running the example
+## running the examples
+
+See the [package.json](../package.json) `"scripts"` field for how these work.
 
 #### basic
 
