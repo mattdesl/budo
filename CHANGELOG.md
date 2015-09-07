@@ -15,6 +15,7 @@
 - portfinding is enabled by default in API and CLI
   - user can disbale with `--no-portfind` or `portfind: false`
 - removed `--verbose`, `-v`, timing is logged by default now
+- entry files are now optional (i.e. if you just need a static HTML with LiveReload)
 - added `--open`, `-o` to launch browser on connect
 - syntax errors in code are shown in the DOM body now
   - can disable with `--no-error-handler` 
