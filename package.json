@@ -42,7 +42,6 @@
     "garnish": "^3.0.0",
     "inject-lr-script": "^1.0.1",
     "less-css-stream": "^1.0.0",
-    "less-stream": "^0.1.4",
     "ndjson": "^1.4.1",
     "raf-loop": "^1.0.1",
     "request": "^2.53.0",
