@@ -105,9 +105,7 @@ budo('./src/index.js', {
 })
 ```
 
-There is also a `budo.cli()` entry point, if you wish to imitate the CLI more accurately.
-
-See [API usage](docs/programmatic-usage.md) for more details.
+See [API usage](docs/api-usage.md) for more details.
 
 ## License
 

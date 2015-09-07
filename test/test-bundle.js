@@ -4,7 +4,6 @@ var budo = require('../')
 var request = require('request')
 var xtend = require('xtend')
 var browserify = require('browserify')
-var watchifyArgs = require('watchify').args
 var path = require('path')
 var vm = require('vm')
 
@@ -85,19 +84,21 @@ function matches (t, entries, opt) {
 
   t.plan(shouldServe ? 5 : 4)
   var uri
-  if (!Array.isArray(entries))
+  if (!Array.isArray(entries)) {
     entries = [ entries ]
+  }
 
   var app = budo(entries, opt)
     .on('connect', function (ev) {
-      if (shouldServe)
+      if (shouldServe) {
         t.equal(ev.serve, shouldServe, 'serves correct bundle file')
+      }
       uri = ev.uri + ev.serve
       t.ok(true, 'connected')
     })
     .once('update', function () {
-      var b = browserify(xtend(watchifyArgs, {
-        debug: opt.debug,
+      var b = browserify(xtend({
+        debug: opt.debug
       }, opt.browserify))
       entries.forEach(function (entry) {
         entry = entry.split(':')[0]
