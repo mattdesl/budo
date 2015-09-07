@@ -8,6 +8,7 @@ module.exports.cli = budoCLI
 function budoCLI (args, opts) {
   var argv = parseArgs(args, opts)
 
+  // default to stdout
   if (argv.stream !== false) {
     argv.stream = process.stdout
   }
