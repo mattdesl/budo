@@ -30,7 +30,7 @@
     "strip-ansi": "^3.0.0",
     "term-color": "^1.0.1",
     "tiny-lr": "^0.1.5",
-    "watchify-middleware": "^1.0.0",
+    "watchify-middleware": "^1.1.0",
     "xtend": "^4.0.0"
   },
   "devDependencies": {
@@ -45,15 +45,17 @@
     "ndjson": "^1.4.1",
     "raf-loop": "^1.0.1",
     "request": "^2.53.0",
+    "standard": "^5.2.1",
     "tap-spec": "^3.0.0",
     "tape": "^4.0.0",
+    "through2": "^2.0.0",
     "tree-kill": "0.0.6",
     "uglify-js": "^2.4.19",
     "vm": "0.0.1",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
-    "test": "tape test/test*.js | tap-spec",
+    "test": "standard && tape test/test*.js | tap-spec",
     "budo-less": "node example/budo-less | garnish",
     "simple": "budo --dir example --live example/simple.js:bundle.js -- -t babelify"
   },

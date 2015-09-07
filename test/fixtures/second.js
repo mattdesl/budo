@@ -1,2 +1,2 @@
 global.end = 'bar'
-console.log(global.start+' '+global.end)
+console.log(global.start + ' ' + global.end)

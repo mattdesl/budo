@@ -1,1 +1,1 @@
-console.log("fas")
+console.log('fas')
