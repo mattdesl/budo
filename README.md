@@ -39,7 +39,21 @@ Result:
 
 <center><img src="http://i.imgur.com/a6lMvDY.png" width="80%"></center>
 
-See [docs](#docs) for more features. PRs/suggestions/comments welcome.
+See [docs](#docs) for more details. PRs/suggestions/comments welcome.
+
+## features
+
+At a glance:
+
+- stubs a default `index.html`
+- fast incremental bundling, suspending the response until the new source is ready
+- watches HTML and CSS files for changes; CSS is injected without reloading the page
+- allows for detailed logging with [garnish](https://github.com/mattdesl/garnish)
+- provides clear error messaging during development in DOM and console
+
+Below is an example of how syntax errors look during development, using the [babelify](https://github.com/babel/babelify) transform.
+
+![babelify](http://i.imgur.com/fDAKMHE.png)
 
 ## docs
 
