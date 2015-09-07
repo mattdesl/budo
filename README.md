@@ -1,3 +1,17 @@
+#### 5.0.0-beta
+
+budo@5 is in beta, you can test it like so:
+
+```sh
+# install the latest version of budo & garnish
+npm install budo@next garnish -g
+
+# run the tools
+budo src/index.js | garnish
+```
+
+More details and docs in the [next](https://github.com/mattdesl/budo/tree/next) branch.
+
 # budō
 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
