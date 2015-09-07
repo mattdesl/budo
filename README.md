@@ -81,7 +81,7 @@ By default, messages will be printed to `process.stdout`, and `--debug` will be 
 Everything after `--` is passed directly to browserify; this is currently needed for subarg syntax. Example:
 
 ```js
-budo index.js --live -- -t [ babelify --exetensions .es6 ]
+budo index.js --live -- -t [ babelify --extensions .es6 ]
 ```
 
 ### API
