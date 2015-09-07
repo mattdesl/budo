@@ -25,6 +25,24 @@ test('should serve on --dir', function (t) {
     .on('error', t.fail.bind(t))
 })
 
+test('favicon.ico should have status code 200', function (t) {
+  t.plan(2)
+  var app = budo(entry, { dir: __dirname })
+    .on('connect', function (ev) {
+      request.get({
+        uri: ev.uri + 'favicon.ico'
+      }, function (err, resp) {
+        if (err) t.fail(err)
+        t.equal(resp.statusCode, 200)
+        app.close()
+      })
+    })
+    .on('exit', function () {
+      t.ok(true, 'closed')
+    })
+    .on('error', t.fail.bind(t))
+})
+
 function port (expected, opt) {
   return function (t) {
     t.plan(2)
