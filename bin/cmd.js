@@ -4,4 +4,8 @@
 // Handles --help and error messaging
 // Uses auto port-finding
 var args = process.argv.slice(2)
-require('../').cli(args)
+require('../').cli(args, {
+  browserify: {
+    transform: require('babelify')
+  }
+})
