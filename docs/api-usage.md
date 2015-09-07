@@ -2,30 +2,35 @@
 
 The API mirrors the CLI except you must provide a `stream` for logging.
 
-#### `b = budo(entry[, opts])`
+### `b = budo([entry], [opts])`
 
 Sets up a new instance of `budo`, where `entry` is a path or or array of paths.
 
-The options are the same as CLI, except that the API does not print to stdout. You can specify a `stream` option to print to.
+`entry` can be optional -- if no entry paths are given, budo simply acts as a static HTTP server with optional LiveReload. 
 
 The return value is an event emitter.
 
-Example:
+Examples:
 
 ```js
 var budo = require('budo')
+var babelify = require('babelify')
+
 budo('./src/index.js', {
   live: true,             // live reload
   stream: process.stdout, // log to stdout
-  port: 8000              // use this as the base port
+  port: 8000,             // use this as the base port
+  browserify: {
+    transform: babelify   // use ES6
+  }
 }).on('connnect', function(ev) {
   //...
 })
 ```
 
-##### `opts`
+#### `opts`
 
-All options available through the API:
+All settings are optional.
 
 - `port` (Number)
   - the base port to use for the development server (default `9966`)
@@ -33,9 +38,10 @@ All options available through the API:
   - the base port to use for the LiveReload server (default `35729`)
 - `portfind` (Boolean) 
   - whether to use portfinding to find the next available ports (default `true`)
-- `host` (String) the host to listen on (default `'localhost'`)
+- `host` (String)
+  - the host to listen on (default `'localhost'`)
 - `live` (Boolean|String) 
-  - whether to set up a default LiveReload integration
+  - whether to set up a default LiveReload integration (see [LiveReload](#livereload))
   - if a string is specified, only filenames matching that glob
     will trigger LiveReload events
 - `open` (Boolean)
@@ -62,23 +68,28 @@ All options available through the API:
 - `pushstate` (Boolean)
   - enable push state support, which defaults 404 routes to the index (default `false`)
   
-#### `b = budo.cli(args[, opts])`
+### `b = budo.cli(args[, opts])`
 
-Runs budo as a command-line tool, from the specified array of arguments and an optional `opts` object for overrides. For example:
+Runs budo as a command-line tool, from the specified array of arguments and an optional `opts` object for overrides. The options are the same as above.
+
+This method returns the `budo` instance, or `null` if the `args` command includes `--version` or `--help`.
+
+For example, running the following script from the command line would behave like budo, but with some added features by default:
 
 ```js
-var argv = require('minimist')(process.argv.slice(2), {
-  '--': true // allow full stop
-})
+var args = process.argv.slice(2)
+var babelify = require('babelify')
 
-var budo = require('budo')(argv, {
-  browserifyArgs: argv['--']
+var budo = require('budo')(args, {
+  // additional overrides for our custom tool
+  pushstate: true,
+  browserify: {
+    transform: babelify
+  }
 })
 ```
 
-This method returns the `budo` instance, or `null` if the command is `--version` or `--help`.
-
-This will construct the browserify instance from the arguments, which supports the subarg syntax for plugins and transforms.
+*Note:* In the CLI, anything after `--` gets passed to `opts.browserifyArgs`. Whenever `opts.browserifyArgs` is specified, browserify will be created with [browserify/bin/args](https://github.com/substack/node-browserify/blob/master/bin/args.js) instead of its usual constructor.
 
 #### `b.close()`
 
@@ -98,7 +109,7 @@ If `live` was not specified, you can manually enable the LiveReload server with 
 - `host` defaults to the `ev.host` from the `'connect'` event
 - `plugin` if true, the HTML will not have the LiveReload script injected into it
 
-See [LiveReload](#LiveReload) for an example.
+See [LiveReload](#livereload) for an example.
 
 #### `b.watch([globs, chokidarOpts])`
 
@@ -106,7 +117,7 @@ If `live` was not specified, you can manually enabe [chokidar's](https://github.
 
 `globs` defaults to watching `**/*.{html,css}`.
 
-See [LiveReload](#LiveReload) for an example.
+See [LiveReload](#livereload) for an example.
 
 ## events
 
@@ -164,9 +175,15 @@ If `opts.live` was not specified, and `b.watch()` was never set up, this event w
 
 #### LiveReload
 
-Setting `opts.live` will provide a default configuration for live reloading. The API gives you more control over how and when to trigger reloads and watch events.
+Setting `opts.live` will provide a default configuration for live reloading. You can also specify a string to narrow the LiveReload triggers to a certain glob:
 
-The following only triggers LiveReload events on CSS changes.
+```js
+budo('index.js', {
+  live: '*.{css,html}'
+})
+```
+
+Using the `live()` and `watch()` methods instead of passing `opts.live`, you can fine-tune reloading for your use case. The following only triggers LiveReload events on CSS changes.
 
 ```js
 var budo = require('budo')
@@ -174,20 +191,22 @@ var path = require('path')
 var app = budo('index.js')
 
 app
-  // listen to CSS changes with some chokidar options
+  // listen to CSS file changes with some chokidar options
   .watch('**/*.css', { interval: 300, usePolling: true })
   // start LiveReload server
   .live()
-  // handle file events
+  // handle file changes
   .on('watch', function(type, file) {
     // tell LiveReload to inject some CSS
     if (path.extname(file) === '.css') {
       app.reload(file)
     }
   })
-  .on('update', function (src) {
-    // log but don't trigger LiveReload
-    console.log('Bundle updated!')
+  .on('pending', function () {
+    console.log('bundle...')
+  })
+  .on('update', function (buf) {
+    console.log('bundle finished --> %d bytes', buf.length)
   })
 ``` 
 
@@ -204,6 +223,7 @@ var app = budo('./app.js', {
       res.statusCode = 200
       res.end('hello world')
     } else {
+      // fall through to other budo routes
       next()
     }
   }

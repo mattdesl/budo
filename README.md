@@ -43,9 +43,8 @@ See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 
 ## docs
 
-- [basic usage](docs/basics.md)
-- [API and integrations (Gulp, Grunt, npm scripts)](docs/programmatic-usage.md)
-- [error reporting](docs/errors.md)
+- [command line usage](docs/command-line-usage.md)
+- [API usage](docs/api-usage.md)
 - [running tests and examples](docs/tests-and-examples.md)
 - [rapid prototyping with budō](http://mattdesl.svbtle.com/rapid-prototyping)
 - [experimental script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
@@ -94,18 +93,23 @@ The API mirrors the CLI except it does not write to `process.stdout` by default.
 
 ```js
 var budo = require('budo')
+var babelify = require('babelify')
 
 budo('./src/index.js', {
-  live: true,             // default live reload
-  stream: process.stdout, // log to stdout
+  live: true,             // setup live reload
   port: 8000,             // use this port
-  portfind: false         // emit error if port is in use
-}).on('connnect', function(ev) {
-  //...
+  browserify: {
+    transform: babelify   // ES6
+  }
+}).on('connnect', function (ev) {
+  console.log('Server running on %s', ev.uri)
+  console.log('LiveReload running on port %s', ev.livePort)
+}).on('update', function (buffer) {
+  console.log('bundle - %d bytes', buffer.length)
 })
 ```
 
-See [API usage](docs/api-usage.md) for more details.
+See [API usage](docs/api-usage.md) for details.
 
 ## License
 
