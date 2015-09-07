@@ -21,10 +21,10 @@ test('should inject LiveReload snippet', function (t) {
     })
     .once('update', function () {
       t.ok(true, 'update event triggered')
+      app.close()
     })
     .on('reload', function (file) {
       t.equal(file, 'app.js', 'reload event triggered')
-      app.close()
     })
     .on('connect', function (ev) {
       matchesHTML(t, ev.uri)
