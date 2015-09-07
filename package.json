@@ -41,6 +41,7 @@
     "domready": "^1.0.7",
     "garnish": "^2.1.2",
     "inject-lr-script": "^1.0.1",
+    "ndjson": "^1.4.1",
     "raf-loop": "^1.0.1",
     "request": "^2.53.0",
     "tap-spec": "^3.0.0",
