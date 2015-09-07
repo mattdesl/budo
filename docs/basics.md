@@ -11,18 +11,20 @@ npm install budo garnish -g
 Now we can run budo to serve a file and start developing. Here we pipe the output to [garnish](https://github.com/mattdesl/garnish) for prettier colors in the terminal, but this is optional.
 
 ```sh
-budo index.js --verbose | garnish
+budo index.js | garnish
 ```
 
 Open [http://localhost:9966/](http://localhost:9966/) to see the bundled result of `index.js`. 
+
+<center><img src="http://i.imgur.com/a6lMvDY.png" width="80%"></center>
 
 Saving `index.js` will be incremental, which means it will be fast even if your app spans hundreds of modules. 
 
 ## index.html
 
-Notice we haven't had to write any HTML! If you want to, though, you can drop `index.html` in the same folder that you are serving budō from (or `--dir` folder), and it will use that instead of a dynamically generated index.
+Notice we haven't had to write any HTML! If you want to, though, you can drop `index.html` in the same folder that you are serving budō from (or the base `--dir` folder), and it will use that instead of a dynamically generated index.
 
-The `src` for your script tag should match the entry point you gave.
+The `src` for your script tag should match the filename of the entry point you gave.
 
 ```html
 <script src="index.js"></script>
@@ -54,7 +56,7 @@ For local tools, we need to use [npm-scripts](https://docs.npmjs.com/misc/script
 
 ```sh
   "scripts": {
-    "start": "budo index.js --verbose | garnish"
+    "start": "budo index.js | garnish"
   },
 ```
 
@@ -74,7 +76,11 @@ budo index.js --live | garnish
 
 Now when you save the `index.js` file, it will trigger a LiveReload event on your `localhost:9966` tab after watchify has finished bundling. It also listens to HTML and CSS reload, and injects stylesheets without a page refresh. 
 
-Alternatively, you can use `--live-plugin` if you want to enable LiveReload through the browser extension (e.g. [for Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en)). In this case, no script is injected into the HTML, and you need to [enable LiveReload manually](https://github.com/mattdesl/wtch#setup).
+From the command line, you can specify a filename glob to only trigger LiveReload in those cases. For example, to only allow CSS and HTML changes to trigger a LiveReload:
+
+```sh
+budo index.js --live=*.{html,css}
+```
 
 ## multiple entries
 
@@ -86,39 +92,25 @@ budo test/*.js --serve static/bundle.js | garnish
 
 <sup>*Note:* This uses unix glob expansion and may not work on Windows.</sup>
 
-## unparsed arguments
+## browserify arguments
 
 Everything after the `--` argument will not be parsed/manipulated, and will be passed directly to browserify. 
 
 Currently, this is needed when using sub-arg syntax:
 
 ```sh
-budo main.js --live -v -- -t [ foo --bar=555 --debug ]
+budo main.js --live -- -t [ foo --bar=555 --debug ]
 ```
 
-## browser launcher
+## launch
 
-You can use [opnr](https://github.com/mattdesl/opnr) to launch the browser when an available port is found. Install it like so:
+To launch the browser once the server connects, you can use the `--open` or `-o` flag:
 
 ```sh
-npm install opnr -g
+budo index.js --open | garnish
 ```
 
-Now, pipe `opnr` before your pretty-printing, and the browser will open when ready.
-
-```sh
-budo index.js | opnr | garnish
-```
-
-With `npm scripts` it might look like this:
-
-```json
-"scripts": {
-  "dev": "budo index.js",
-  "start": "npm run dev | garnish",
-  "open": "npm run dev | opnr | garnish"
-}
-```
+Also see [opnr](https://github.com/mattdesl/opnr), which allows for a similar functionality without forcing it as a command-line flag.
 
 ## internal IP
 
@@ -133,3 +125,5 @@ npm install internal-ip -g
 # run using internal IP
 budo index.js --host=`internal-ip` | opnr | garnish
 ```
+
+<sup>*Note:* This uses unix features and may not work in Windows.</sup>

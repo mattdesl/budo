@@ -2,7 +2,7 @@
 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 
-This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but specifically focused on incremental reloading and LiveReload integration (including CSS injection).
+This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but specifically focused on incremental reloading, LiveReload integration (including CSS injection), and other high-level features.
 
 To install:
 
@@ -16,17 +16,16 @@ Running budo will start a server with a default `index.html` and incrementally b
 # serve file on port 9966
 budo index.js
 
-# enable LiveReload on html/css/js changes
-# show timing information on re-bundle
-budo index.js --verbose --live
+# enable LiveReload on HTML/CSS/JS file changes
+budo index.js --live
 
 # pass some options to browserify
-budo index.js --live -- -t babelify --full-paths
+budo index.js --live -- -t babelify
 ```
 
-Then open [http://localhost:9966](http://localhost:9966) to see the content in action.
+Then open [http://localhost:9966/](http://localhost:9966/) to see the content in action.
 
-To pretty-print in terminal, [garnish](https://github.com/mattdesl/garnish), [bistre](https://github.com/hughsk/bistre) or another [ndjson](http://ndjson.org)-based stream can be used. Example:
+Budo emits [ndjson](http://ndjson.org), so a pretty-printer like [garnish](https://github.com/mattdesl/garnish) or [bistre](https://github.com/hughsk/bistre) is recommended for better logging. Example:
 
 ```sh
 # install garnish if you don't have it
@@ -36,17 +35,20 @@ npm install garnish -g
 budo index.js | garnish
 ```
 
+Result:
+
+<center><img src="http://i.imgur.com/a6lMvDY.png" width="80%"></center>
+
 See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 
 ## docs
 
 - [basic usage](docs/basics.md)
-- [comparisons](docs/comparisons.md)
 - [API and integrations (Gulp, Grunt, npm scripts)](docs/programmatic-usage.md)
 - [error reporting](docs/errors.md)
 - [running tests and examples](docs/tests-and-examples.md)
-- [script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
 - [rapid prototyping with budō](http://mattdesl.svbtle.com/rapid-prototyping)
+- [experimental script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
 
 ## usage
 
@@ -54,61 +56,58 @@ See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 
 ### CLI
 
-Details for `budo` command-line interface. Other options (like `-t`) will be sent to browserify.
+Details for `budo` command-line interface.
 
 ```sh
 Usage:
-  budo [entries] [opts]
+  budo index.js [opts] -- [browserify opts]
 
 Options:
   --help, -h       show help message
-  --port           the port to run, default 9966
-  --host           the host, default "localhost"
-  --dir            the directory to serve, and the base for --outfile
-  --serve          override the bundle path being served
-  --live           enable LiveReload integration
-  --live-plugin    enable LiveReload but do not inject script tag
-  --live-port      the LiveReload port, default 35729
-  --pushstate      always render the index page instead of a 404 page
-  --verbose, -v    verbose timing information for re-bundles
+  --version        show version
+  --port, -p       the port to run, default 9966
+  --host, -H       the host, default "localhost"
+  --dir, -d        a path, or array of paths for base static content
+  --serve, -s      override the bundle path being served
+  --live, -l       enable default LiveReload integration
+  --live-port, -L  the LiveReload port, default 35729
+  --open, -o       launch the browser once connected
+  --pushstate, -P  always render the index page instead of a 404 page
   --poll=N         use polling for file watch, with optional interval N
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
+  --no-portfind    will not attempt auto-portfinding
+  --no-error-handler  disable default DOM error handling
 ```
 
 By default, messages will be printed to `process.stdout`, and `--debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively. 
 
-Everything after `--` is passed directly to browserify; this is currently needed for subarg syntax. Example:
+Everything after `--` is passed directly to browserify. Example:
 
 ```js
-budo index.js --live -- -t [ babelify --exetensions .es6 ]
+budo index.js --live -- -t [ babelify --exetension .es6 ]
 ```
 
 ### API
 
-The API mirrors the CLI except it does not write to `process.stdout` by default, and does not attempt to find available ports from a base port. 
+The API mirrors the CLI except it does not write to `process.stdout` by default.
 
 ```js
 var budo = require('budo')
 
 budo('./src/index.js', {
-  live: true,             //live reload
-  stream: process.stdout, //log to stdout
-  port: 8000              //use this port
+  live: true,             // default live reload
+  stream: process.stdout, // log to stdout
+  port: 8000,             // use this port
+  portfind: false         // emit error if port is in use
 }).on('connnect', function(ev) {
   //...
 })
 ```
 
+There is also a `budo.cli()` entry point, if you wish to imitate the CLI more accurately.
+
 See [API usage](docs/programmatic-usage.md) for more details.
-
-## Script Injection
-
-[![screenshot](http://i.imgur.com/LJP7d9I.png)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)
-
-<sup>[(click for demo)](https://www.youtube.com/watch?v=cfgeN3G_Gl0)</sup>
-
-The original motivation for making budō was to build an *experimental* tool and proof-of-concept around Chrome Script Injection. This has since split off into its own repository: [budo-chrome](https://github.com/mattdesl/budo-chrome).
 
 ## License
 
