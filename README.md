@@ -137,6 +137,14 @@ budo('./src/index.js', {
 
 See [API usage](docs/api-usage.md) for details.
 
+## See Also
+
+budō combines several smaller and less opinionated modules.
+
+- [watchify-middleware](https://www.npmjs.com/package/watchify-middleware) - the underlying request handler for serving incremental reloads
+- [watchify-server](https://www.npmjs.com/package/watchify-server) - a less opinionated alternative to budo, built on the same underlying modules
+- [simple-html-index](https://www.npmjs.com/package/simple-html-index) - a stream for a default `index.html` file
+
 ## License
 
 MIT, see [LICENSE.md](http://github.com/mattdesl/budo/blob/master/LICENSE.md) for details.
