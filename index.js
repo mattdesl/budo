@@ -1,6 +1,7 @@
 var parseArgs = require('./lib/parse-args')
 var budo = require('./lib/budo')
 var color = require('term-color')
+var exec = require('child_process').exec
 
 module.exports = budo
 module.exports.cli = budoCLI
@@ -42,7 +43,21 @@ function budoCLI (args, opts) {
     argv.live = argv.live === 'true'
   }
 
-  return budo(entries, argv).on('error', exit)
+  var instance = budo(entries, argv).on('error', exit)
+  var onUpdates = [].concat(argv.onupdate).filter(Boolean)
+  onUpdates.forEach(function (cmd) {
+    instance.on('update', execFunc(cmd))
+  })
+
+  return instance
+}
+
+function execFunc (cmd) {
+  return function run () {
+    var p = exec(cmd)
+    p.stderr.pipe(process.stderr)
+    p.stdout.pipe(process.stdout)
+  }
 }
 
 function exit (err) {
