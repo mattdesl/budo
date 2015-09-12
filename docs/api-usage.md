@@ -1,6 +1,6 @@
 # API
 
-The API mirrors the CLI except you must provide a `stream` for logging.
+The API mirrors the CLI except you must provide a `stream` for logging, and it provides a couple extra options.
 
 ### `b = budo([entry], [opts])`
 
@@ -67,6 +67,9 @@ All settings are optional.
   - can be a `reporter(err)` function which takes an Error and returns the new bundle contents
 - `pushstate` (Boolean)
   - enable push state support, which defaults 404 routes to the index (default `false`)
+- `defaultIndex` (Function)
+  - a function `fn(opt)` that returns a Readable stream, takes parameter `{ entry: opts.serve }`
+  - defaults to [simple-html-index](https://github.com/mattdesl/simple-html-index)
   
 ### `b = budo.cli(args[, opts])`
 
