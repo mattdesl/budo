@@ -33,8 +33,6 @@ function budoCLI (args, opts) {
 
   if (argv.outfile) {
     console.error(color.yellow('WARNING'), '--outfile has been removed in budo@3.0')
-    // ensure we don't pass to watchify
-    delete argv.outfile
   }
 
   // opts.live can be a glob or a boolean
