@@ -17,7 +17,7 @@
     "bole": "^2.0.0",
     "browserify": "^11.0.1",
     "chokidar": "^1.0.1",
-    "ecstatic": "^0.7.2",
+    "ecstatic": "^1.0.0",
     "events": "^1.0.2",
     "getport": "^0.1.0",
     "inject-lr-script": "^1.0.0",
@@ -50,7 +50,7 @@
     "tap-spec": "^3.0.0",
     "tape": "^4.0.0",
     "through2": "^2.0.0",
-    "tree-kill": "0.0.6",
+    "tree-kill": "^0.1.1",
     "uglify-js": "^2.4.19",
     "vm": "0.0.1",
     "win-spawn": "^2.0.0"
