@@ -43,20 +43,31 @@ function budoCLI (args, opts) {
     argv.live = argv.live === 'true'
   }
 
+  // CLI only option for executing a child process
   var instance = budo(entries, argv).on('error', exit)
   var onUpdates = [].concat(argv.onupdate).filter(Boolean)
   onUpdates.forEach(function (cmd) {
     instance.on('update', execFunc(cmd))
   })
-
+  
+  // this feature is experimental and may be subject to removal
+  var onErrors = [].concat(argv.onerror).filter(Boolean)
+  onErrors.forEach(function (cmd) {
+    instance.on('bundle-error', execFunc(cmd, true))
+  })
+  
   return instance
 }
 
-function execFunc (cmd) {
-  return function run () {
+function execFunc (cmd, isErr) {
+  return function run (err) {
     var p = exec(cmd)
     p.stderr.pipe(process.stderr)
     p.stdout.pipe(process.stdout)
+    if (isErr && err && err.message) {
+      p.stdin.write(err.message.trim() + '\n')
+      p.stdin.end()
+    }
   }
 }
 
