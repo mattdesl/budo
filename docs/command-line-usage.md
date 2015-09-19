@@ -114,13 +114,17 @@ Also see [opnr](https://github.com/mattdesl/opnr), which allows for a similar fu
 
 ## `--onupdate`
 
-In the CLI, you can run shell commands when the bundle updates using the `--onupdate` option. For example, to lint with [standard](https://github.com/feross/standard):
+In the CLI, you can run shell commands when the bundle updates using the `--onupdate` option. For example, to lint with [standard](https://github.com/feross/standard) and provide an alert with [notify-error](https://github.com/mattdesl/notify-error):
 
 ```sh
-budo index.js --onupdate standard | garnish
+budo index.js --onupdate "standard | notify-error"
 ```
 
-This flag is only available in the command-line.
+Now, when you save the bundle, `standard` will run on your directory. If lint errors are found, they will print to the console and show an alert notification:
+
+<img src="http://i.imgur.com/NWnDp4v.png" width="50%" />
+
+The flag is only available in the command-line.
 
 ## internal IP
 
