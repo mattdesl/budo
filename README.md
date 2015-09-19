@@ -70,7 +70,7 @@ See [docs](#docs) for more features. PRs/suggestions/comments welcome.
 
 Details for `budo` command-line interface. Other options (like `-t`) will be sent to browserify.
 
-```sh
+```txt
 Usage:
   budo [entries] [opts]
 
