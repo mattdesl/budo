@@ -112,6 +112,16 @@ budo index.js --open | garnish
 
 Also see [opnr](https://github.com/mattdesl/opnr), which allows for a similar functionality without forcing it as a command-line flag.
 
+## `--onupdate`
+
+In the CLI, you can run shell commands when the bundle updates using the `--onupdate` option. For example, to lint with [standard](https://github.com/feross/standard):
+
+```sh
+budo index.js --onupdate standard | garnish
+```
+
+This flag is only available in the command-line.
+
 ## internal IP
 
 If you want LiveReload to work across many devices, you need to use your internal IP rather than `localhost`. 
