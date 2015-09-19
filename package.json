@@ -52,7 +52,6 @@
     "through2": "^2.0.0",
     "tree-kill": "^0.1.1",
     "uglify-js": "^2.4.19",
-    "vm": "0.0.1",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
