@@ -65,7 +65,7 @@ At a glance:
 
 Below is an example of how syntax errors look during development, using the [babelify](https://github.com/babel/babelify) transform.
 
-![babelify](http://i.imgur.com/fDAKMHE.png)
+![babelify](http://i.imgur.com/ZlfJL1i.png)
 
 ## docs
 

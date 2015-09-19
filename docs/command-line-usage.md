@@ -82,6 +82,8 @@ From the command line, you can specify a filename glob to only trigger LiveReloa
 budo index.js --live=*.{html,css}
 ```
 
+*Note:* Your `index.html` must have a `<body>` tag for the LiveReload script to get injected!
+
 ## multiple entries
 
 Budo also supports multiple entry points; they will all get concatenated into a single bundle. If you aren't using a colon separator (`:`), the entry point will default to the first path. Or, you can explicitly set the path with the `--serve` option, as below:
