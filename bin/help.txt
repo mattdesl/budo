@@ -12,6 +12,7 @@ Options:
   --live-port      the LiveReload port, default 35729
   --pushstate      always render the index page instead of a 404 page
   --verbose, -v    verbose timing information for re-bundles
+  --path           set url pathname for files served by budo, default "/"
   --poll=N         use polling for file watch, with optional interval N
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
