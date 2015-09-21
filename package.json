@@ -22,6 +22,7 @@
     "events": "^1.0.2",
     "getport": "^0.1.0",
     "inject-lr-script": "^1.0.0",
+    "livereload-js": "^2.2.2",
     "minimist": "^1.1.0",
     "resolve": "^1.1.6",
     "routes-router": "^4.1.2",
@@ -44,7 +45,6 @@
     "tape": "^4.0.0",
     "tree-kill": "0.0.6",
     "uglify-js": "^2.4.19",
-    "vm": "0.0.1",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
