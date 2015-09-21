@@ -83,7 +83,7 @@ Below is an example of how syntax errors look during development, using the [bab
 
 Details for `budo` command-line interface.
 
-```sh
+```txt
 Usage:
   budo index.js [opts] -- [browserify opts]
 
@@ -110,7 +110,7 @@ By default, messages will be printed to `process.stdout`, and `--debug` will be 
 Everything after `--` is passed directly to browserify. Example:
 
 ```js
-budo index.js --live -- -t [ babelify --exetension .es6 ]
+budo index.js --live -- -t [ babelify --extensions .es6 ]
 ```
 
 ### API
