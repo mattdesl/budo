@@ -13,6 +13,7 @@ test('should inject LiveReload snippet', function (t) {
   var app = budo(entry, {
     dir: __dirname,
     port: 8000,
+    host: 'localhost',
     serve: 'app.js',
     live: true
   })
@@ -45,6 +46,7 @@ test('manual LiveReload triggering', function (t) {
   var app = budo(entry, {
     dir: __dirname,
     port: 8000,
+    host: 'localhost',
     serve: 'app.js'
   })
     .watch()
@@ -79,6 +81,7 @@ test('should not inject LiveReload snippet', function (t) {
   var app = budo(entry, {
     dir: __dirname,
     port: 8000,
+    host: 'localhost',
     serve: 'app.js'
   })
     .live({ plugin: true })
