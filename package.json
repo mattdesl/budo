@@ -61,7 +61,7 @@
     "test": "standard && tape test/test*.js | tap-spec",
     "budo-less": "node example/budo-less | garnish",
     "es6": "./bin/cmd.js --dir example --live example/simple.js:bundle.js -- -t babelify",
-    "start": "./bin/cmd.js example/app.js:bundle.js --dir example --open | garnish",
+    "start": "./bin/cmd.js example/app.js:bundle.js --dir example | garnish",
     "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live | garnish"
   },
   "keywords": [

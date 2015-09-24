@@ -2,6 +2,7 @@
 
 ##### Major Changes
 
+- you can just type `budo . | garnish` for the entry point (or `index.js`)
 - if no `--host` is specified, resolves to internal IP
   - you can still hit `localhost:9966` and it will work
 - the `<script>` src defaults to the *filename* of the first entry
