@@ -49,7 +49,7 @@ budo index.js | garnish
 
 Result:
 
-<center><img src="http://i.imgur.com/a6lMvDY.png" width="80%"></center>
+<center><img src="http://i.imgur.com/pLjzE3u.png" width="80%"></center>
 
 See [docs](#docs) for more details. PRs/suggestions/comments welcome.
 
