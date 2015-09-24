@@ -25,8 +25,8 @@ npm install budo -g
 Running budo will start a server with a default `index.html` and incrementally bundle your source on filesave. The requests are delayed until the bundle has finished, so you won't be served stale or empty bundles if you refresh the page mid-update. Examples:
 
 ```sh
-# serve file on port 9966
-budo index.js
+# serve file on port 9966 and open browser
+budo index.js --open
 
 # enable LiveReload on HTML/CSS/JS file changes
 budo index.js --live
@@ -91,7 +91,7 @@ Options:
   --help, -h       show help message
   --version        show version
   --port, -p       the port to run, default 9966
-  --host, -H       the host, default "localhost"
+  --host, -H       the host, default internal IP (localhost)
   --dir, -d        a path, or array of paths for base static content
   --serve, -s      override the bundle path being served
   --live, -l       enable default LiveReload integration
