@@ -47,7 +47,7 @@ function budoCLI (args, opts) {
   onUpdates.forEach(function (cmd) {
     instance.on('update', execFunc(cmd))
   })
-  
+
   return instance
 }
 

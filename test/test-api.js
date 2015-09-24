@@ -1,10 +1,12 @@
 var test = require('tape')
 var budo = require('../')
 var through = require('through2')
+var internalIp = require('internal-ip')
 
-test('gets connect info', function (t) {
-  t.plan(7)
+test('uses internal IP when no host is given', function (t) {
+  t.plan(3)
   t.timeoutAfter(10000)
+  var internal = internalIp()
 
   var app = budo('test/fixtures/app.js', {
     dir: __dirname,
@@ -14,10 +16,38 @@ test('gets connect info', function (t) {
       t.fail(err)
     })
     .on('connect', function (ev) {
+      t.equal(ev.uri, 'http://' + internal + ':8000/', 'uri matches')
+      t.equal(ev.host, internal, 'host defaults to internal ip')
+      app.close()
+    })
+    .on('reload', function () {
+      t.fail('should not have received reload event')
+    })
+    .on('watch', function () {
+      t.fail('should not have received watch event')
+    })
+    .on('exit', function () {
+      t.ok(true, 'closing')
+    })
+})
+
+test('gets connect info', function (t) {
+  t.plan(7)
+  t.timeoutAfter(10000)
+
+  var app = budo('test/fixtures/app.js', {
+    dir: __dirname,
+    host: 'localhost',
+    port: 8000
+  })
+    .on('error', function (err) {
+      t.fail(err)
+    })
+    .on('connect', function (ev) {
       t.deepEqual(ev.entries, [ 'test/fixtures/app.js' ], 'entries matches')
       t.equal(ev.serve, 'app.js', 'mapping matches')
       t.equal(ev.uri, 'http://localhost:8000/', 'uri matches')
-      t.equal(ev.host, 'localhost', 'host is not specified')
+      t.equal(ev.host, 'localhost', 'host is specified')
       t.equal(ev.port, 8000, 'port matches')
       t.equal(ev.dir, __dirname, 'dir matches')
       app.close()
