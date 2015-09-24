@@ -2,6 +2,8 @@
 
 ##### Major Changes
 
+- if no `--host` is specified, resolves to internal IP
+  - you can still hit `localhost:9966` and it will work
 - the `<script>` src defaults to the *filename* of the first entry
   - eg: `budo src/index.js` leads to `<script src="index.js">`
 - browserify options must come after a full stop `--`
@@ -30,11 +32,13 @@
 - most args are now supported before entries, eg:
   - `budo --live src/index.js`
 - cleaner error messaging in terminal
+- added `--onupdate` for things like linting, see [the docs](docs/command-line-usage.md#--onupdate)
 
 ##### API Changes
 
 - `dir` can be a string or array of static paths
 - the `'connect'` event now passes `livePort`
+- the `'connect'` event `ev.host` now uses internal IP by default
 - exposed a CLI feature
   - `require('budo').cli(process.argv.slice(2), { overrides... })`
 - `errorHandler` can be used for custom bundle error handling
