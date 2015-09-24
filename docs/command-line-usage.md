@@ -16,9 +16,15 @@ budo index.js | garnish
 
 Open [http://localhost:9966/](http://localhost:9966/) to see the bundled result of `index.js`. 
 
-<center><img src="http://i.imgur.com/a6lMvDY.png" width="80%"></center>
+<center><img src="http://i.imgur.com/pLjzE3u.png" width="80%"></center>
 
 Saving `index.js` will be incremental, which means it will be fast even if your app spans hundreds of modules. 
+
+If you specify the current directory, it will resolve to the `"main"` field in your package.json, otherwise `index.js`.
+
+```sh
+budo . | garnish
+```
 
 ## index.html
 
@@ -130,16 +136,6 @@ The flag is only available in the command-line.
 
 ## internal IP
 
-If you want LiveReload to work across many devices, you need to use your internal IP rather than `localhost`. 
+By default, budo's server will listen on your internal IP. This address is the first message logged to terminal.
 
-With Unix shell, you can do this with [internal-ip](https://www.npmjs.com/package/internal-ip).
-
-```sh
-# make sure we have the tool
-npm install internal-ip -g
-
-# run using internal IP
-budo index.js --host=`internal-ip` | opnr | garnish
-```
-
-<sup>*Note:* This uses unix features and may not work in Windows.</sup>
+This makes it easy to test during development across devices.
