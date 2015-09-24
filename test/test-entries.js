@@ -2,10 +2,28 @@ var budo = require('../')
 var test = require('tape')
 var ndjson = require('ndjson')
 var request = require('request')
+var path = require('path')
+var entryMap = require('../lib/map-entry')
 
 // an HTML page with no <script> entry
 var defaultIndex = '<!doctype html><head><meta charset="utf-8"></head><body></body></html>'
 var scriptIndex = '<!doctype html><head><meta charset="utf-8"></head><body><script src="foo.js"></script></body></html>'
+
+test('accept "." entry point', function (t) {
+  // currently we can't test budo('.') because the index.js
+  // is node-specific, and crashes the build.
+  // when { cwd } option is supported, we could change this to
+  // a fixture folder
+  t.plan(2)
+  t.deepEqual(entryMap('.'), {
+    from: path.resolve(__dirname, '..', 'index.js'),
+    url: 'index.js'
+  })
+  t.deepEqual(entryMap('.:bundle.js'), {
+    from: path.resolve(__dirname, '..', 'index.js'),
+    url: 'bundle.js'
+  })
+})
 
 test('no arguments needed', function (t) {
   t.plan(4)

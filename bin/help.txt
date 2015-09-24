@@ -5,7 +5,7 @@ Options:
   --help, -h       show help message
   --version        show version
   --port, -p       the port to run, default 9966
-  --host, -H       the host, default "localhost"
+  --host, -H       the host, default internal IP (localhost)
   --dir, -d        a path, or array of paths for base static content
   --serve, -s      override the bundle path being served
   --live, -l       enable default LiveReload integration
