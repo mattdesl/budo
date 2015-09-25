@@ -39,28 +39,23 @@
   "devDependencies": {
     "2d-context": "^1.2.0",
     "babelify": "^6.3.0",
+    "canvas-loop": "^1.0.4",
     "brfs": "^1.4.0",
     "browserify": "^9.0.8",
-    "canvas-fit": "^1.2.0",
-    "domready": "^1.0.7",
     "garnish": "^3.2.1",
-    "inject-lr-script": "^1.0.1",
-    "less-css-stream": "^1.0.0",
     "ndjson": "^1.4.1",
-    "raf-loop": "^1.0.1",
     "request": "^2.53.0",
     "standard": "^5.2.1",
     "tap-spec": "^3.0.0",
     "tape": "^4.0.0",
     "through2": "^2.0.0",
     "tree-kill": "^0.1.1",
-    "uglify-js": "^2.4.19",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
     "test": "standard && tape test/test*.js | tap-spec",
-    "start": "./bin/cmd.js example/app.js:bundle.js --dir example | garnish",
-    "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live | garnish"
+    "start": "./bin/cmd.js example/app.js:bundle.js --dir example -- -t babelify | garnish",
+    "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live -- -t babelify | garnish"
   },
   "keywords": [
     "browserify",
