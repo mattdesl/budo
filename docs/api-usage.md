@@ -235,24 +235,30 @@ var app = budo('./app.js', {
 
 #### LiveReloading LESS content
 
-You can use `middleware` to compile LESS on the fly, without having to change the CSS paths in your `index.html` file. See [example/budo-less.js](../example/budo-less.js) for an example of this.
+You can use `opts.middleware` to compile LESS on the fly, without having to change the CSS paths in your `index.html` file. See [budo-less](https://github.com/mattdesl/budo-less) for an example of this.
 
 # build tools
 
-Budo doesn't need a Grunt or Gulp specific plugin to work, but you may choose to wrap it within your favourite task runner for consistency. A simple case might look like this:
+Budo doesn't need a Grunt or Gulp specific plugin to work. Instead, if you wish to use Grunt or Gulp, it is safer to require `budo` directly, and wrap it within your task runner:
 
 ```js
 var gulp = require('gulp')
 var budo = require('budo')
+var garnish = require('garnish')
 
 //start our local development server
 gulp.task('dev', function(cb) {
-  budo('index.js')
-    .on('connect', function(ev) {
-      console.log('Server started at ' + ev.uri)
+  // optional pretty-printing
+  var pretty = garnish()
+  pretty.pipe(process.stdout)
+
+  budo('index.js', {
+    stream: pretty
+  }).on('connect', function(ev) {
+      // do something on connect ...
     })
     .on('exit', cb)
 })
 ```
 
-Now running `gulp dev` will spin up a server on 9966, spawn watchify, and incrementally rebundle during development. It will stub out an `index.html` and serve the browserified contents of `index.js`. 
+Now running `gulp dev` will spin up a server on 9966, spawn watchify, and incrementally rebundle during development. It will stub out an `index.html` and serve the browserified contents of `index.js` and write pretty-printed logs to `stdout`. 
