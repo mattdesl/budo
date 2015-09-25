@@ -21,7 +21,9 @@ function budoCLI (args, opts) {
   delete argv['--']
 
   if (argv.version) {
-    console.log(require('./package.json').version)
+    console.log('budo v' + require('./package.json').version)
+    console.log('browserify v' + require('browserify/package.json').version)
+    console.log('watchify v' + require('watchify-middleware').getWatchifyVersion())
     return null
   }
 
