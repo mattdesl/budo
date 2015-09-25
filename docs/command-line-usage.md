@@ -26,6 +26,8 @@ If you specify the current directory, it will resolve to the `"main"` field in y
 budo . | garnish
 ```
 
+You can see the full list of command-line flags in the [README.md](../README.md#cli).
+
 ## index.html
 
 Notice we haven't had to write any HTML! If you want to, though, you can drop `index.html` in the same folder that you are serving budō from (or the base `--dir` folder), and it will use that instead of a dynamically generated index.
@@ -104,10 +106,8 @@ budo test/*.js --serve static/bundle.js | garnish
 
 Everything after the `--` argument will not be parsed/manipulated, and will be passed directly to browserify. 
 
-Currently, this is needed when using sub-arg syntax:
-
 ```sh
-budo main.js --live -- -t [ foo --bar=555 --debug ]
+budo main.js --live -- -t babelify -t glslify
 ```
 
 ## launch
@@ -139,3 +139,5 @@ The flag is only available in the command-line.
 By default, budo's server will listen on your internal IP. This address is the first message logged to terminal.
 
 This makes it easy to test during development across devices.
+
+You can specify another address with the `--host` flag.
