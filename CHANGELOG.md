@@ -3,6 +3,7 @@
 ##### Major Changes
 
 - you can just type `budo . | garnish` for the entry point (or `index.js`)
+- added `--onupdate` for things like linting, see [the docs](docs/command-line-usage.md#--onupdate)
 - if no `--host` is specified, resolves to internal IP
   - you can still hit `localhost:9966` and it will work
 - the `<script>` src defaults to the *filename* of the first entry
@@ -33,7 +34,6 @@
 - most args are now supported before entries, eg:
   - `budo --live src/index.js`
 - cleaner error messaging in terminal
-- added `--onupdate` for things like linting, see [the docs](docs/command-line-usage.md#--onupdate)
 
 ##### API Changes
 

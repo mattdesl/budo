@@ -42,16 +42,9 @@ npm run live
 
 Again, open `localhost:9966` and try making changes to `example/app.js`, `example/index.html` or `example/theme.css`. The CSS should be injected without a page refresh, and HTML/JS content will trigger a page reload. 
 
-#### budo-less
+## other examples
 
-An example of LESS recompilation on the fly, without writing to a file.
+#### LESS on the fly
 
-```sh
-npm run budo-less
-```
+See [budo-less](https://github.com/mattdesl/budo-less) for an example of how you can integrate LESS into budo, giving you the same rapid development cycle and CSS injection without any need to write files to disk during development.
 
-Now open `localhost:9966` and try making changes to `example/style.less` (with LESS syntax). On file save, it will re-request `main.css`. The middleware function compiles the LESS file on the fly and writes CSS as the server response.
-
-The benefit of this approach is that the development and production build can use the same `index.html`, since the paths do not need to change. This is particularly useful for GitHub demos.
-
-See `examples/budo-less.js` for the build script.
