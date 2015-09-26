@@ -1,7 +1,7 @@
 var test = require('tape')
 var budo = require('../')
 
-// watchify, chokidar and tinylr are a bit stubborn
+// watchify, chokidar and minilr are a bit stubborn
 // if you try to close them immediately after starting
 // the watchers.
 test('can close on connect with watch/live', function (t) {
