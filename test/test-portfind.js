@@ -48,3 +48,28 @@ test('gets connect', function (t) {
     b.close()
   })
 })
+
+test('robust portfinding', function (t) {
+  t.plan(2)
+  var server0, server1
+  
+  server0 = http.createServer().listen(8888, function () {
+    server1 = http.createServer().listen(8889, start)
+    server1.on('error', t.fail)
+  }).on('error', t.fail)
+  
+  function start() {
+    var b = budo(file, {
+      port: 8888,
+      livePort: 8888
+    })
+    b.on('connect', function (ev) {
+      t.equal(ev.port, 8890)
+      t.equal(ev.livePort, 8891)
+      b.close()
+      server0.close()
+      server1.close()
+    })
+    b.on('error', t.fail)
+  }
+})
