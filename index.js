@@ -38,6 +38,13 @@ function budoCLI (args, opts) {
     console.error(color.yellow('WARNING'), '--outfile has been removed in budo@3.0')
   }
 
+  if (typeof argv.port === 'string') {
+    argv.port = parseInt(argv.port, 10)
+  }
+  if (typeof argv.livePort === 'string') {
+    argv.livePort = parseInt(argv.livePort, 10)
+  }
+
   // opts.live can be a glob or a boolean
   if (typeof argv.live === 'string' && /(true|false)/.test(argv.live)) {
     argv.live = argv.live === 'true'
