@@ -41,7 +41,6 @@
     "babelify": "^6.3.0",
     "canvas-loop": "^1.0.4",
     "brfs": "^1.4.0",
-    "browserify": "^9.0.8",
     "garnish": "^3.2.1",
     "ndjson": "^1.4.1",
     "request": "^2.53.0",
