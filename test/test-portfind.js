@@ -52,13 +52,13 @@ test('gets connect', function (t) {
 test('robust portfinding', function (t) {
   t.plan(2)
   var server0, server1
-  
+
   server0 = http.createServer().listen(8888, function () {
     server1 = http.createServer().listen(8889, start)
     server1.on('error', t.fail)
   }).on('error', t.fail)
-  
-  function start() {
+
+  function start () {
     var b = budo(file, {
       port: 8888,
       livePort: 8888
