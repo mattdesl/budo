@@ -1,6 +1,10 @@
 # budō
 
-[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+[![build status][travis-image]][travis-url]
+[![stability][stability-image]][stability-url]
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-image]][downloads-url]
+[![js-standard-style][standard-image]][standard-url]
 
 This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but specifically focused on incremental reloading, LiveReload integration (including CSS injection), and other high-level features.
 
@@ -137,3 +141,14 @@ budō combines several smaller and less opinionated modules.
 ## License
 
 MIT, see [LICENSE.md](http://github.com/mattdesl/budo/blob/master/LICENSE.md) for details.
+
+[stability-image]: https://img.shields.io/badge/stability-stable-brightgreen.svg?style=flat-square
+[stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
+[npm-image]: https://img.shields.io/npm/v/budo.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/budo
+[travis-image]: https://img.shields.io/travis/mattdesl/budo.svg?style=flat-square
+[travis-url]: http://travis-ci.org/mattdesl/budo
+[downloads-image]: http://img.shields.io/npm/dm/budo.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/budo
+[standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
+[standard-url]: https://github.com/feross/standard
