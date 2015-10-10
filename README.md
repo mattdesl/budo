@@ -120,7 +120,7 @@ budo('./src/index.js', {
   browserify: {
     transform: babelify   // ES6
   }
-}).on('connnect', function (ev) {
+}).on('connect', function (ev) {
   console.log('Server running on %s', ev.uri)
   console.log('LiveReload running on port %s', ev.livePort)
 }).on('update', function (buffer) {
