@@ -146,7 +146,7 @@ MIT, see [LICENSE.md](http://github.com/mattdesl/budo/blob/master/LICENSE.md) fo
 [stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 [npm-image]: https://img.shields.io/npm/v/budo.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/budo
-[travis-image]: https://img.shields.io/travis/mattdesl/budo.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/mattdesl/budo/master.svg?style=flat-square
 [travis-url]: http://travis-ci.org/mattdesl/budo
 [downloads-image]: http://img.shields.io/npm/dm/budo.svg?style=flat-square
 [downloads-url]: https://npmjs.org/package/budo
