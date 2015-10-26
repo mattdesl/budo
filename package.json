@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "bole": "^2.0.0",
-    "browserify": "^11.0.1",
+    "browserify": "^12.0.0",
     "chokidar": "^1.0.1",
     "ecstatic": "^1.0.0",
     "events": "^1.0.2",
