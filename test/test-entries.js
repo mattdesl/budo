@@ -69,6 +69,7 @@ test('user can build their own server', function (t) {
   var b = budo({
     serve: 'foo.js',
     stream: stream,
+    ndjson: true,
     middleware: function (req, res, next) {
       if (req.url === '/foo.js') {
         res.end('hello world')
