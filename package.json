@@ -53,7 +53,7 @@
   "scripts": {
     "test": "standard && tape test/test*.js | tap-spec",
     "start": "./bin/cmd.js example/app.js:bundle.js --dir example -- -t babelify",
-    "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live --ndjson -- -t babelify"
+    "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live -- -t babelify"
   },
   "keywords": [
     "browserify",

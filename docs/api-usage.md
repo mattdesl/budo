@@ -55,6 +55,10 @@ All settings are optional.
   - whether to enable source maps from browserify (default `true`)
 - `serve` (String)
   - if specified, the `<script src>` will use this path; defaults to first entry filename
+- `title` (String)
+  - an optional `<title>` to use for the default `index.html`
+- `css` (String)
+  - an optional `<link href>` stylesheet URL to use for the default `index.html`
 - `browserify` (Object)
   - an object of options passed to browserify
 - `browserifyArgs` (Array)
