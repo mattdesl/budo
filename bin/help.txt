@@ -14,16 +14,10 @@ Options:
   --pushstate, -P  always render the index page instead of a 404 page
   --onupdate       a shell command to trigger on bundle update
   --poll=N         use polling for file watch, with optional interval N
+  --title          optional title for default index.html
+  --css            optional stylesheet href for default index.html
+  --ndjson         print ndjson instead of pretty-printed logs
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
   --no-portfind    will not attempt auto-portfinding
   --no-error-handler  disable default DOM error handling
-  
-Browserify Options:
-https://github.com/substack/node-browserify
-
-Examples:
-  budo src/index.js --live --dir app
-  budo index.js -- --transform brfs
-  budo index.js:bundle.js --port 8000
-  budo src/ --paths app --paths 

@@ -68,7 +68,7 @@ All settings are optional.
 - `pushstate` (Boolean)
   - enable push state support, which defaults 404 routes to the index (default `false`)
 - `defaultIndex` (Function)
-  - a function `fn(opt)` that returns a Readable stream, takes parameter `{ entry: opts.serve }`
+  - a function `fn(opt)` that returns a Readable stream, takes the parameters `{ entry: opts.serve, title: opts.title, css: opts.css }`
   - defaults to [simple-html-index](https://github.com/mattdesl/simple-html-index)
   
 ### `b = budo.cli(args[, opts])`
@@ -244,16 +244,11 @@ Budo doesn't need a Grunt or Gulp specific plugin to work. Instead, if you wish 
 ```js
 var gulp = require('gulp')
 var budo = require('budo')
-var garnish = require('garnish')
 
 //start our local development server
 gulp.task('dev', function(cb) {
-  // optional pretty-printing
-  var pretty = garnish()
-  pretty.pipe(process.stdout)
-
   budo('index.js', {
-    stream: pretty
+    stream: process.stdout
   }).on('connect', function(ev) {
       // do something on connect ...
     })

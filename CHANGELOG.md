@@ -1,3 +1,15 @@
+# 6.0.0
+
+##### Major Changes
+
+- `garnish` is now included by default in CLI and API
+  - you can use `--ndjson` and `ndjson: true` to have raw output (for custom pretty-printers)
+
+##### Minor Changes
+
+- added `--title` option for the default HTML title
+- added `--css` option for a default style sheet
+
 # 5.0.0
 
 ##### Major Changes

@@ -54,6 +54,30 @@ test('support defaultIndex stream', function (t) {
     .on('error', t.fail.bind(t))
 })
 
+test('support --title and --css', function (t) {
+  t.plan(3)
+
+  var app = budo(entry, {
+    dir: __dirname,
+    title: 'foobar',
+    css: 'main.css'
+  })
+    .on('connect', function (ev) {
+      request.get({
+        uri: ev.uri
+      }, function (err, resp, body) {
+        if (err) t.fail(err)
+        t.equal(resp.statusCode, 200)
+        t.equal(body, '<!doctype html><head><title>foobar</title><meta charset="utf-8"><link rel="stylesheet" href="main.css"></head><body><script src="app.js"></script></body></html>')
+        app.close()
+      })
+    })
+    .on('exit', function () {
+      t.ok(true, 'closed')
+    })
+    .on('error', t.fail.bind(t))
+})
+
 test('favicon.ico should have status code 200', function (t) {
   t.plan(2)
   var app = budo(entry, { dir: __dirname })

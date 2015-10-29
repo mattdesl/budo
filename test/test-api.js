@@ -126,6 +126,7 @@ test('should pipe JSON to specified stream', function (t) {
 
   var app = budo('test/fixtures/app.js', {
     dir: __dirname,
+    ndjson: true,
     stream: through(function (buf) {
       t.ok(buf.length > 0, 'got some message')
       t.doesNotThrow(function () {

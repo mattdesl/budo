@@ -29,17 +29,7 @@ budo index.js --live -- -t babelify
 
 Then open [http://localhost:9966/](http://localhost:9966/) to see the content in action.
 
-Budo emits [ndjson](http://ndjson.org), so a pretty-printer like [garnish](https://github.com/mattdesl/garnish) or [bistre](https://github.com/hughsk/bistre) is recommended for better logging. Example:
-
-```sh
-# install garnish if you don't have it
-npm install garnish -g
-
-# pipe to garnish for pretty-printing
-budo index.js | garnish
-```
-
-Result:
+By default, budo pretty-prints to terminal with [garnish](https://github.com/mattdesl/garnish).
 
 <center><img src="http://i.imgur.com/pLjzE3u.png" width="80%"></center>
 
@@ -52,7 +42,7 @@ At a glance:
 - stubs a default `index.html`
 - fast incremental bundling, suspending the response until the new source is ready
 - watches HTML and CSS files for changes; CSS is injected without reloading the page
-- allows for detailed logging with [garnish](https://github.com/mattdesl/garnish)
+- can emit [ndjson](http://ndjson.org) logs to use another pretty-printer, like [bistre](https://github.com/hughsk/bistre).
 - provides clear error messaging during development in DOM and console
 
 Below is an example of how syntax errors look during development, using the [babelify](https://github.com/babel/babelify) transform.
@@ -92,6 +82,9 @@ Options:
   --pushstate, -P  always render the index page instead of a 404 page
   --onupdate       a shell command to trigger on bundle update
   --poll=N         use polling for file watch, with optional interval N
+  --title          optional title for default index.html
+  --css            optional stylesheet href for default index.html
+  --ndjson         print ndjson instead of pretty-printed logs
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
   --no-portfind    will not attempt auto-portfinding
