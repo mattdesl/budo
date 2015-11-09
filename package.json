@@ -44,7 +44,7 @@
     "ndjson": "^1.4.1",
     "request": "^2.53.0",
     "standard": "^5.2.1",
-    "tap-spec": "^3.0.0",
+    "tap-spec": "^4.1.0",
     "tape": "^4.0.0",
     "through2": "^2.0.0",
     "tree-kill": "^1.0.0",
