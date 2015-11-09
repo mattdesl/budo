@@ -28,7 +28,7 @@ test('should serve multiple folders', function (t) {
 /*
 test('should find any index.html', function (t) {
   t.plan(2)
-  
+
   var expected = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>TWO</title></head><body></body></html>'
   var app = budo({
     dir: [ path1, path2 ]
