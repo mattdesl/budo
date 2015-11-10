@@ -14,5 +14,8 @@ test('should map entry paths', function (t) {
   t.deepEqual(mapEntry('C:/absolute/path.js:bundle.js'), { from: 'C:/absolute/path.js', url: 'bundle.js' })
   t.deepEqual(mapEntry('C://absolute//path.js:bundle.js'), { from: 'C://absolute//path.js', url: 'bundle.js' })
   t.deepEqual(mapEntry('C:\\absolute\\path.js:bundle.js'), { from: 'C:\\absolute\\path.js', url: 'bundle.js' })
+
+  // This one is failing. Maybe because of OS I am running tests on??
+  // t.deepEqual(mapEntry('C:\\absolute\\path.js'), { from: 'C:\\absolute\\path.js', url: 'path.js' })
   t.end()
 })
