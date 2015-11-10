@@ -4,6 +4,7 @@ var mapEntry = require('../lib/map-entry')
 test('should map entry paths', function (t) {
   t.deepEqual(mapEntry('foo.js'), { from: 'foo.js', url: 'foo.js' })
   t.deepEqual(mapEntry('foo/bar.js'), { from: 'foo/bar.js', url: 'bar.js' })
+  t.deepEqual(mapEntry('./foo/bar.js'), { from: './foo/bar.js', url: 'bar.js' })
   t.deepEqual(mapEntry('foo/bar.js:bundle.js'), { from: 'foo/bar.js', url: 'bundle.js' })
   t.deepEqual(mapEntry('foo/bar.js:bundle.js?foo'), { from: 'foo/bar.js', url: 'bundle.js?foo' })
   t.deepEqual(mapEntry('f\\bar.js:bundle.js?foo'), { from: 'f\\bar.js', url: 'bundle.js?foo' })
