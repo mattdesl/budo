@@ -97,10 +97,10 @@ budo index.js --live=*.{html,css}
 Budo also supports multiple entry points; they will all get concatenated into a single bundle. If you aren't using a colon separator (`:`), the entry point will default to the first path. Or, you can explicitly set the path with the `--serve` option, as below:
 
 ```sh
-budo test/*.js --serve static/bundle.js
+budo test/one.js test/two.js --serve static/bundle.js
 ```
 
-<sup>*Note:* This uses unix glob expansion and may not work on Windows.</sup>
+Note the path here is relative to your `--dir` folder from where the `index.html` is being served.
 
 ## browserify arguments
 
@@ -109,6 +109,8 @@ Everything after the `--` argument will not be parsed/manipulated, and will be p
 ```sh
 budo main.js --live -- -t babelify -t glslify
 ```
+
+You can also add a [`"browserify"` field](https://github.com/substack/browserify-handbook#browserifytransform-field) to your `package.json` file, and budo will use that config. This is not typically recommended for modules, but it can be useful when building applications.
 
 ## launch
 

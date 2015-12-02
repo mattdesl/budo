@@ -1,6 +1,6 @@
 {
   "name": "budo",
-  "version": "6.0.4",
+  "version": "6.1.1",
   "description": "a browserify server for rapid prototyping",
   "main": "index.js",
   "bin": {
@@ -13,6 +13,7 @@
     "url": "https://github.com/mattdesl"
   },
   "dependencies": {
+    "async": "^1.5.0",
     "bole": "^2.0.0",
     "browserify": "^12.0.1",
     "chokidar": "^1.0.1",
