@@ -71,6 +71,8 @@ All settings are optional.
   - can be a `reporter(err)` function which takes an Error and returns the new bundle contents
 - `pushstate` (Boolean)
   - enable push state support, which defaults 404 routes to the index (default `false`)
+- `verbose` (Boolean)
+  - also print `'debug'` level messages to garnish; such as the pending state of the bundle and how many files changed in the last update.
 - `defaultIndex` (Function)
   - a function `fn(params)` that returns a Readable stream, takes the following `params`:  
   `{ entry: opts.serve, title: opts.title, css: opts.css }`

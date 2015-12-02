@@ -1,3 +1,19 @@
+# 7.0.0
+
+Fixes previous patch and also updates to garnish redesign, leading to new log styles. 
+
+Since various ndjson flags have changed, this is a potentially breaking change.
+
+Also added a `--verbose` / `-v` option like watchify, which adds some additional debug messages.
+
+# 6.1.1
+
+Fixes live reload for directory routes like `localhost:9966/mydir`.
+
+# 6.1.0
+
+Search for `index.html` across all static `--dir` folders, finding the first one.
+
 # 6.0.0
 
 ##### Major Changes
