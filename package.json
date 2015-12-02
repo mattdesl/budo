@@ -19,7 +19,7 @@
     "chokidar": "^1.0.1",
     "ecstatic": "^1.0.0",
     "events": "^1.0.2",
-    "garnish": "^4.1.1",
+    "garnish": "^5.0.0",
     "get-ports": "^1.0.2",
     "inject-lr-script": "^1.0.0",
     "internal-ip": "^1.0.1",

@@ -16,7 +16,7 @@ budo index.js
 
 Open [http://localhost:9966/](http://localhost:9966/) to see the bundled result of `index.js`. 
 
-<center><img src="http://i.imgur.com/pLjzE3u.png" width="80%"></center>
+<center><img src="http://i.imgur.com/Pvus8vy.png" width="75%" /></center>
 
 Saving `index.js` will be incremental, which means it will be fast even if your app spans hundreds of modules. 
 
