@@ -31,7 +31,8 @@ Then open [http://localhost:9966/](http://localhost:9966/) to see the content in
 
 By default, budo pretty-prints to terminal with [garnish](https://github.com/mattdesl/garnish).
 
-<center><img src="http://i.imgur.com/pLjzE3u.png" width="80%"></center>
+
+<center><img src="http://i.imgur.com/Pvus8vy.png" width="75%" /></center>
 
 See [docs](#docs) for more details. PRs/suggestions/comments welcome.
 
