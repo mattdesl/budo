@@ -61,8 +61,8 @@ test('user can build their own server', function (t) {
   t.plan(5)
   var stream = ndjson.parse()
   stream.on('data', function (data) {
-    if (data.name === 'http' && data.url === '/foo.js') {
-      t.equal(data.type, 'middleware')
+    if (data.url === '/foo.js') {
+      t.equal(data.type, 'middleware', 'got middleware')
     }
   })
 
