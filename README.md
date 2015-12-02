@@ -86,6 +86,7 @@ Options:
   --title          optional title for default index.html
   --css            optional stylesheet href for default index.html
   --ndjson         print ndjson instead of pretty-printed logs
+  --verbose, -v    also include debug messages
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
   --no-portfind    will not attempt auto-portfinding

@@ -1,6 +1,6 @@
 {
   "name": "budo",
-  "version": "6.2.0",
+  "version": "6.1.1",
   "description": "a browserify server for rapid prototyping",
   "main": "index.js",
   "bin": {
@@ -53,8 +53,8 @@
   },
   "scripts": {
     "test": "standard && tape test/test*.js | tap-spec",
-    "start": "./bin/cmd.js example/app.js:bundle.js --dir example -- -t babelify",
-    "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live -- -t babelify"
+    "start": "./bin/cmd.js example/app.js:bundle.js -v --dir example -- -t babelify",
+    "live": "./bin/cmd.js example/app.js:bundle.js --dir example --verbose --live -- -t babelify"
   },
   "keywords": [
     "browserify",
