@@ -52,7 +52,7 @@
     "win-spawn": "^2.0.0"
   },
   "scripts": {
-    "test": "standard && tape test/test*.js | tap-spec",
+    "test": "standard && tape test/test*.js",
     "start": "./bin/cmd.js example/app.js:bundle.js --dir example -- -t babelify",
     "live": "./bin/cmd.js example/app.js:bundle.js --dir example --live -- -t babelify"
   },
