@@ -46,6 +46,14 @@ function budoCLI (args, opts) {
     argv.livePort = parseInt(argv.livePort, 10)
   }
 
+  // port and livePort must be valid numbers
+  if (isNaN(argv.port)) {
+    delete argv.port
+  }
+  if (isNaN(argv.livePort)) {
+    delete argv.livePort
+  }
+
   // opts.live can be a glob or a boolean
   if (typeof argv.live === 'string' && /(true|false)/.test(argv.live)) {
     argv.live = argv.live === 'true'
