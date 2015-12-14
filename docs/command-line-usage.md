@@ -143,3 +143,19 @@ By default, budo's server will listen on your internal IP. This address is the f
 This makes it easy to test during development across devices.
 
 You can specify another address with the `--host` flag.
+
+## pushstate
+
+You can set a `--pushstate` flag to make the server capable for HTML5 pushState Single-Page Applications.
+
+Now, any 404 requests (such as `/foo/bar/blah`) will get routed to the home `index.html`.
+
+It is suggested you add a `<base>` in your `index.html` for this to work with nested paths:
+
+```html
+<head>
+  <base href="/">
+  <!-- styles, scripts, etc... -->
+  <link rel="stylesheet" href="main.css">
+</head>
+```

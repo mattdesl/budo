@@ -71,6 +71,7 @@ All settings are optional.
   - can be a `reporter(err)` function which takes an Error and returns the new bundle contents
 - `pushstate` (Boolean)
   - enable push state support, which defaults 404 routes to the index (default `false`)
+  - Recommended you also add something like `<base href="/">` to your HTML `<head>`
 - `verbose` (Boolean)
   - also print `'debug'` level messages to garnish; such as the pending state of the bundle and how many files changed in the last update.
 - `defaultIndex` (Function)
