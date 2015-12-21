@@ -1,3 +1,20 @@
+# 7.1.0
+
+Added `--watch-glob` option which allows you to override the default watch glob without having to go through the `live()` / `watch()` API
+
+# 7.0.4
+
+Small patch [#117](https://github.com/mattdesl/budo/pull/117) to fix a failing test in 7.0.3.
+
+# 7.0.3
+
+- Bole no longer double-logs on shut-down and re-start.
+- Fixed issue with request sizes being logged incorrectly in terminal
+
+# 7.0.1 .. 7.0.2
+
+Small patches for [#110](https://github.com/mattdesl/budo/pull/110) and [#111](https://github.com/mattdesl/budo/pull/111).
+
 # 7.0.0
 
 Fixes previous patch and also updates to garnish redesign, leading to new log styles. 

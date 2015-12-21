@@ -44,6 +44,9 @@ All settings are optional.
   - whether to set up a default LiveReload integration (see [LiveReload](#livereload))
   - if a string is specified, only filenames matching that glob
     will trigger LiveReload events
+- `watchGlob` (Array|String)
+  - a glob string or array of glob strings to use as the default when `opts.live` is specified, or when `live()` is called without arguments
+  - defaults to `'**/*.{html,css}'`
 - `open` (Boolean)
   - whether to launch the browser (default `false`)
 - `dir` (String|Array)
@@ -184,7 +187,18 @@ If `opts.live` was not specified, and `b.watch()` was never set up, this event w
 
 # examples
 
-#### LiveReload
+#### http server
+
+A static HTTP server with no browserify capabilities, LiveReload integration, and a custom glob to watch for.
+
+```js
+budo({
+  live: true,
+  watchGlob: '{src,examples}/**/*.{html,css,js}'
+})
+```
+
+#### custom LiveReload
 
 Setting `opts.live` will provide a default configuration for live reloading. You can also specify a string to narrow the LiveReload triggers to a certain glob:
 
