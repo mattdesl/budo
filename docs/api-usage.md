@@ -94,7 +94,7 @@ For example, running the following script from the command line would behave lik
 var args = process.argv.slice(2)
 var babelify = require('babelify')
 
-var budo = require('budo')(args, {
+var budo = require('budo').cli(args, {
   // additional overrides for our custom tool
   pushstate: true,
   browserify: {
