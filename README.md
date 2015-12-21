@@ -90,7 +90,8 @@ Options:
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
   --no-portfind    will not attempt auto-portfinding
-  --no-error-handler  disable default DOM error handling
+  --no-error-handler    disable default DOM error handling
+  --watch-glob, --wg    glob(s) to watch for reloads, default '**/*.{html,css}'
 ```
 
 By default, messages will be printed to `process.stdout`, and `--debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively. 
