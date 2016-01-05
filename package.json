@@ -1,5 +1,5 @@
 {
-  "name": "budo",
+  "name": "budo-marcuswestin-fix",
   "version": "7.0.4",
   "description": "a browserify server for rapid prototyping",
   "main": "index.js",
@@ -76,7 +76,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/mattdesl/budo.git"
+    "url": "git://github.com/marcuswestin/budo.git"
   },
   "homepage": "https://github.com/mattdesl/budo",
   "bugs": {
