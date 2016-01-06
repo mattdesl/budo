@@ -176,4 +176,4 @@ Example with [livereactload](https://github.com/milankinen/livereactload):
 budo index.js:bundle.js -- -t babelify -p livereactload
 ```
 
-Make sure to disable the `--live` flag, otherwise it will trigger hard reloads.
+Make sure you don't pass a `--live` flag to budo, otherwise it will trigger hard reloads on file save.
