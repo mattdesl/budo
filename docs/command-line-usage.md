@@ -159,3 +159,21 @@ It is suggested you add a `<base>` in your `index.html` for this to work with ne
   <link rel="stylesheet" href="main.css">
 </head>
 ```
+
+## hot module replacement
+
+The following can integrate easily with budo:
+
+- Generic HMR: [browserify-hmr](https://github.com/AgentME/browserify-hmr)
+- React: [livereactload](https://github.com/milankinen/livereactload)
+- Vue: [vueify](https://github.com/vuejs/vueify) (to be used with `browserify-hmr`)
+
+You can usually follow the steps in those tools, except instead of using `watchify`, we will use `budo` and pass our browserify options after a full stop `--`.
+
+Example with [livereactload](https://github.com/milankinen/livereactload):
+
+```sh
+budo index.js:bundle.js -- -t babelify -p livereactload
+```
+
+Make sure to disable the `--live` flag, otherwise it will trigger hard reloads.

@@ -34,7 +34,7 @@ By default, budo pretty-prints to terminal with [garnish](https://github.com/mat
 
 <center><img src="http://i.imgur.com/Pvus8vy.png" width="75%" /></center>
 
-See [docs](#docs) for more details. PRs/suggestions/comments welcome.
+See [docs](#docs) for more details and integrations, such as [React Hot Module Replacement](./docs/command-line-usage.md#hot-module-replacement). PRs/suggestions/comments welcome.
 
 ## features
 
