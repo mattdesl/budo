@@ -5,7 +5,7 @@ var request = require('request')
 
 var file = path.join(__dirname, 'fixtures', 'app.js')
 
-test('custom middleware with next()', function (t) {
+test('custom middleware', function (t) {
   t.plan(1)
   var b = budo(file, {
     middleware: middleware
@@ -28,21 +28,28 @@ test('custom middleware with next()', function (t) {
   }
 })
 
-test('custom middleware without next()', function (t) {
-  t.plan(3)
+test('stacking middlewares', function (t) {
+  t.plan(2)
   var b = budo(file, {
-    middleware: middleware,
+    middleware: [
+      function (req, res, next) {
+        t.equal(req.url, '/api')
+        next()
+      },
+      function (req, res, next) {
+        if (req.url === '/api') {
+          res.end('api contents')
+        } else {
+          next()
+        }
+      }
+    ],
     serve: 'bundle.js'
   }).on('connect', function (ev) {
-    request.get({ uri: ev.uri + 'bundle.js' }, function (err, resp, body) {
+    request.get({ uri: ev.uri + 'api' }, function (err, resp, body) {
       b.close()
       if (err) return t.fail(err)
-      t.equal(resp.statusCode, 200, 'status code 200')
-      t.equal(resp.headers['content-type'], 'application/javascript; charset=utf-8', 'gets bundle.js')
+      t.equal(body, 'api contents')
     })
   })
-
-  function middleware (req) {
-    t.equal(req.url, '/bundle.js', 'middleware reached')
-  }
 })
