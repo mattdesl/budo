@@ -67,8 +67,8 @@ All settings are optional.
 - `browserifyArgs` (Array)
   - an array of command-line arguments passed to browserify
   - if specified, this will be used to construct the new instance
-- `middleware` (Function)
-  - an optional `fn(req, res, next)` function for the server which is run before other routes
+- `middleware` (Array|Function)
+  - an optional function or array of `fn(req, res, next)` functions for the server which is run before other routes; using `connect` style middleware
 - `errorHandler` (Boolean|Function)
   - whether to include a DOM-based reporter build/syntax errors (default `true`)
   - can be a `reporter(err)` function which takes an Error and returns the new bundle contents
@@ -237,7 +237,7 @@ app
 
 #### middleware
 
-Using `middleware` to create a small non-static server.
+Using `middleware` to create a small non-static server. This can be an array of functions, or just a single function.
 
 ```js
 var url = require('url')
@@ -248,7 +248,7 @@ var app = budo('./app.js', {
       res.statusCode = 200
       res.end('hello world')
     } else {
-      // fall through to other budo routes
+      // fall through to other routes
       next()
     }
   }

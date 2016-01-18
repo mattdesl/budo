@@ -112,5 +112,5 @@ function getHTMLNoLive () {
 }
 
 function getHTML () {
-  return '<!doctype html><head><title>budo</title><meta charset="utf-8"></head><body><script type="text/javascript" src="http://localhost:35729/livereload.js?snipver=1"></script><script src="app.js"></script></body></html>'
+  return '<!doctype html><head><title>budo</title><meta charset="utf-8"></head><body><script type="text/javascript" src="//localhost:35729/livereload.js?snipver=1" async="" defer=""></script><script src="app.js"></script></body></html>'
 }
