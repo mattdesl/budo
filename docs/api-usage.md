@@ -78,10 +78,10 @@ All settings are optional.
 - `verbose` (Boolean)
   - also print `'debug'` level messages to garnish; such as the pending state of the bundle and how many files changed in the last update.
 - `defaultIndex` (Function)
-  - a function `fn(params)` that returns a Readable stream, takes the following `params`:  
+  - a function `fn(params, req)` that returns a Readable stream, takes the following `params`:  
   `{ entry: opts.serve, title: opts.title, css: opts.css }`
   - defaults to [simple-html-index](https://github.com/mattdesl/simple-html-index)
-  
+
 ### `b = budo.cli(args[, opts])`
 
 Runs budo as a command-line tool, from the specified array of arguments and an optional `opts` object for overrides. The options are the same as above.
