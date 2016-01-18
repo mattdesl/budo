@@ -1,3 +1,17 @@
+# 8.0.0
+
+The server code has been refactored to use connect/express-style middleware stacking. Fixes [#80](https://github.com/mattdesl/budo/issues/80), [#79](https://github.com/mattdesl/budo/issues/79), [#124](https://github.com/mattdesl/budo/issues/124), [#128](https://github.com/mattdesl/budo/issues/128).
+
+##### Major Changes
+
+Functions for `opts.middleware` now assumes the following signature, and will not behave differently based on the number of arguments you specify:
+
+  - `middleware(req, res, next)`
+
+##### Minor Changes
+
+The `middleware` options can now be an array of functions, or a single function.
+
 # 7.1.0
 
 Added `--watch-glob` option which allows you to override the default watch glob without having to go through the `live()` / `watch()` API
