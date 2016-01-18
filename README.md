@@ -23,6 +23,9 @@ budo index.js --open
 # enable LiveReload on HTML/CSS/JS file changes
 budo index.js --live
 
+# default html will use src="static/bundle.js"
+budo src/index.js:static/bundle.js
+
 # pass some options to browserify
 budo index.js --live -- -t babelify
 ```
