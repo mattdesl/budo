@@ -12,7 +12,7 @@ test('should trigger echo', function (t) {
   var proc = spawn(cli, [ src, '--onupdate', 'echo FOO BAR', '--no-stream' ])
 
   proc.stdout.on('data', function (buf) {
-    t.equal(buf.toString(), 'FOO BAR\n')
+    t.equal(buf.toString().trim(), 'FOO BAR')
     proc.on('exit', function () {
       t.ok(true, 'closed')
     })

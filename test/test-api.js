@@ -77,7 +77,7 @@ test('entry mapping', function (t) {
 
 test('--serve allows explicit bundle renaming', function (t) {
   t.plan(2)
-  t.timeoutAfter(2000)
+  t.timeoutAfter(5000)
 
   var app = budo(['test/fixtures/app', 'test/fixtures/with space.js'], {
     serve: 'static/foo.js'
