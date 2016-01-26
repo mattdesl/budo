@@ -6,6 +6,7 @@ var xtend = require('xtend')
 var browserify = require('browserify')
 var path = require('path')
 var vm = require('vm')
+var mapEntry = require('../lib/map-entry')
 
 test('serves app.js', run('test/fixtures/app.js'))
 test('entry mapping to bundle.js', run('test/fixtures/app.js:bundle.js'))
@@ -101,7 +102,7 @@ function matches (t, entries, opt) {
         debug: opt.debug
       }, opt.browserify))
       entries.forEach(function (entry) {
-        entry = entry.split(':')[0]
+        entry = mapEntry(entry).from
         b.add(path.resolve(entry))
       })
 
