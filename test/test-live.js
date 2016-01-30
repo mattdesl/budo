@@ -135,13 +135,13 @@ function matchesHTML (t, uri, html, cb) {
 }
 
 function getHTMLNoLive () {
-  return '<!doctype html><head><title>budo</title><meta charset="utf-8"></head><body><script src="app.js"></script></body></html>'
+  return '<!doctype html><head><title>budo</title><meta charset="utf-8"></head><body><script src="/app.js"></script></body></html>'
 }
 
 function getHTML () {
-  return '<!doctype html><head><title>budo</title><meta charset="utf-8"></head><body><script type="text/javascript" src="//localhost:35729/livereload.js?snipver=1" async="" defer=""></script><script src="app.js"></script></body></html>'
+  return '<!doctype html><head><title>budo</title><meta charset="utf-8"></head><body><script type="text/javascript" src="//localhost:35729/livereload.js?snipver=1" async="" defer=""></script><script src="/app.js"></script></body></html>'
 }
 
 function getHTMLWithHost (ip) {
-  return '<!doctype html><head><title>budo</title><meta charset="utf-8"></head><body><script type="text/javascript" src="//' + ip + ':35729/livereload.js?snipver=1" async="" defer=""></script><script src="app.js"></script></body></html>'
+  return '<!doctype html><head><title>budo</title><meta charset="utf-8"></head><body><script type="text/javascript" src="//' + ip + ':35729/livereload.js?snipver=1" async="" defer=""></script><script src="/app.js"></script></body></html>'
 }
