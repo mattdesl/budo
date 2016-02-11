@@ -20,6 +20,7 @@
     "events": "^1.0.2",
     "garnish": "^5.0.0",
     "get-ports": "^1.0.2",
+    "inject-lr-script": "^2.0.0",
     "internal-ip": "^1.0.1",
     "micromatch": "^2.2.0",
     "minimist": "^1.1.0",
