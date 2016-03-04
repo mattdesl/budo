@@ -6,7 +6,7 @@ The API mirrors the CLI except you must provide a `stream` for logging, and it p
 
 Sets up a new instance of `budo`, where `entry` is a path or or array of paths.
 
-`entry` can be optional -- if no entry paths are given, budo simply acts as a static HTTP server with optional LiveReload. 
+`entry` can be optional -- if no entry paths are given, budo simply acts as a static HTTP server with optional LiveReload.
 
 The return value is an event emitter.
 
@@ -34,16 +34,18 @@ All settings are optional.
 
 - `port` (Number)
   - the base port to use for the development server (default `9966`)
-- `livePort` (Number) 
+- `livePort` (Number)
   - the base port to use for the LiveReload server (default `35729`)
-- `portfind` (Boolean) 
+- `portfind` (Boolean)
   - whether to use portfinding to find the next available ports (default `true`)
 - `host` (String)
   - the host to listen on (default `'localhost'`)
-- `live` (Boolean|String) 
+- `live` (Boolean|String)
   - whether to set up a default LiveReload integration (see [LiveReload](#livereload))
   - if a string is specified, only filenames matching that glob
     will trigger LiveReload events
+- `cors` (Boolean)
+  - Set the header to use CORS (`Access-Control-Allow-Origin: *`)
 - `watchGlob` (Array|String)
   - a glob string or array of glob strings to use as the default when `opts.live` is specified, or when `live()` is called without arguments
   - defaults to `'**/*.{html,css}'`
@@ -117,7 +119,7 @@ If `path` is undefined, this is treated as a hard page reload.
 
 #### `b.live([opt])`
 
-If `live` was not specified, you can manually enable the LiveReload server with the specified `opt` options: 
+If `live` was not specified, you can manually enable the LiveReload server with the specified `opt` options:
 
 - `port` defaults to the `ev.livePort` from the `'connect'` event
 - `host` defaults to the `ev.host` from the `'connect'` event
@@ -127,7 +129,7 @@ See [LiveReload](#livereload) for an example.
 
 #### `b.watch([globs, chokidarOpts])`
 
-If `live` was not specified, you can manually enabe [chokidar's](https://github.com/paulmillr/chokidar) file watching with the specified `globs` (array or string) and options. 
+If `live` was not specified, you can manually enabe [chokidar's](https://github.com/paulmillr/chokidar) file watching with the specified `globs` (array or string) and options.
 
 `globs` defaults to watching `**/*.{html,css}`.
 
@@ -233,7 +235,7 @@ app
   .on('update', function (buf) {
     console.log('bundle finished --> %d bytes', buf.length)
   })
-``` 
+```
 
 #### middleware
 
@@ -278,4 +280,4 @@ gulp.task('dev', function(cb) {
 })
 ```
 
-Now running `gulp dev` will spin up a server on 9966, spawn watchify, and incrementally rebundle during development. It will stub out an `index.html` and serve the browserified contents of `index.js` and write pretty-printed logs to `stdout`. 
+Now running `gulp dev` will spin up a server on 9966, spawn watchify, and incrementally rebundle during development. It will stub out an `index.html` and serve the browserified contents of `index.js` and write pretty-printed logs to `stdout`.
