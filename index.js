@@ -53,7 +53,6 @@ function budoCLI (args, opts) {
 
   if (typeof argv.cors === 'string' && /(true|false)/.test(argv.cors)) {
     argv.cors = argv.cors === 'true'
-    console.log('-------CORS...........')
   }
 
   // CLI only option for executing a child process
