@@ -28,6 +28,9 @@ budo src/index.js:static/bundle.js
 
 # pass some options to browserify
 budo index.js --live -- -t babelify
+
+# set the header to use CORS (`Access-Control-Allow-Origin: *`)
+budo index.js --live --cors
 ```
 
 Then open [http://localhost:9966/](http://localhost:9966/) to see the content in action.
@@ -97,7 +100,7 @@ Options:
   --watch-glob, --wg    glob(s) to watch for reloads, default '**/*.{html,css}'
 ```
 
-By default, messages will be printed to `process.stdout`, and `--debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively. 
+By default, messages will be printed to `process.stdout`, and `--debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively.
 
 Everything after `--` is passed directly to browserify. Example:
 
