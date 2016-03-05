@@ -110,3 +110,21 @@ function port (expected, opt) {
       .on('error', t.fail.bind(t))
   }
 }
+
+test('serve with CORS enable', function (t) {
+  t.plan(2)
+  var app = budo(entry, { dir: __dirname, cors: true })
+    .on('connect', function (ev) {
+      request.get({
+        uri: ev.uri + 'favicon.ico'
+      }, function (err, resp) {
+        if (err) t.fail(err)
+        t.equal(resp.headers['access-control-allow-origin'], '*')
+        app.close()
+      })
+    })
+    .on('exit', function () {
+      t.ok(true, 'closed')
+    })
+    .on('error', t.fail.bind(t))
+})
