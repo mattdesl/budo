@@ -91,6 +91,7 @@ Options:
   --poll=N         use polling for file watch, with optional interval N
   --title          optional title for default index.html
   --css            optional stylesheet href for default index.html
+  --cors           set header to use CORS (Access-Control-Allow-Origin: *)
   --ndjson         print ndjson instead of pretty-printed logs
   --verbose, -v    also include debug messages
   --no-stream      do not print messages to stdout
