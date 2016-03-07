@@ -51,10 +51,6 @@ function budoCLI (args, opts) {
     argv.live = argv.live === 'true'
   }
 
-  if (typeof argv.cors === 'string' && /(true|false)/.test(argv.cors)) {
-    argv.cors = argv.cors === 'true'
-  }
-
   // CLI only option for executing a child process
   var instance = budo(entries, argv).on('error', exit)
   var onUpdates = [].concat(argv.onupdate).filter(Boolean)
