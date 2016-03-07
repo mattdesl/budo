@@ -46,6 +46,12 @@ All settings are optional.
     will trigger LiveReload events
 - `cors` (Boolean)
   - Set the header to use CORS (`Access-Control-Allow-Origin: *`)
+- `ssl` (Boolean)
+  - Creates an HTTPS server instead of HTTP
+- `cert` (String)
+  - The SSL public certificate file path (default `'cert.pem'`)
+- `key` (String)
+  - The SSL private key file path (default `'key.pem'`)
 - `watchGlob` (Array|String)
   - a glob string or array of glob strings to use as the default when `opts.live` is specified, or when `live()` is called without arguments
   - defaults to `'**/*.{html,css}'`
