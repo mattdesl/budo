@@ -1,3 +1,27 @@
+# 8.2.0
+
+Add support for SSL (HTTPS) with `--ssl`, `--cert` and `--key` options.
+
+# 8.1.0
+
+Add `--cors` flag to enable `Access-Control-Allow-Origin: *`
+
+# 8.0.4
+
+Bump required deps.
+
+# 8.0.3
+
+Fix `opts.live` as a string, allowing an array of options to be passed to filter file names.
+
+# 8.0.2
+
+Fix flow so that bundling events start after server connects, also updated upstream in watchify-middleware.
+
+# 8.0.1
+
+Fix parsing issue with LiveReload resp modifier.
+
 # 8.0.0
 
 The server code has been refactored to use connect/express-style middleware stacking. Fixes [#80](https://github.com/mattdesl/budo/issues/80), [#79](https://github.com/mattdesl/budo/issues/79), [#124](https://github.com/mattdesl/budo/issues/124), [#128](https://github.com/mattdesl/budo/issues/128).
