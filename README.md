@@ -29,8 +29,8 @@ budo src/index.js:static/bundle.js
 # pass some options to browserify
 budo index.js --live -- -t babelify
 
-# set the header to use CORS (`Access-Control-Allow-Origin: *`)
-budo index.js --live --cors
+# use HTTPS and enable CORS headers
+budo index.js --ssl --cors --cert=cert.pem --key=key.pem
 ```
 
 Then open [http://localhost:9966/](http://localhost:9966/) to see the content in action.
@@ -91,6 +91,9 @@ Options:
   --poll=N         use polling for file watch, with optional interval N
   --title          optional title for default index.html
   --css            optional stylesheet href for default index.html
+  --ssl, -S        create an HTTPS server instead of HTTP
+  --cert, -C       the cert for SSL (default cert.pem)
+  --key, -K        the key for SSL (default key.pem)
   --cors           set header to use CORS (Access-Control-Allow-Origin: *)
   --ndjson         print ndjson instead of pretty-printed logs
   --verbose, -v    also include debug messages
