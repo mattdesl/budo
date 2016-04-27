@@ -23,7 +23,7 @@ budo('./src/index.js', {
   browserify: {
     transform: babelify   // use ES6
   }
-}).on('connnect', function(ev) {
+}).on('connect', function(ev) {
   //...
 })
 ```
