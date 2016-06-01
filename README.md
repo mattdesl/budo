@@ -102,6 +102,7 @@ Options:
   --no-portfind    will not attempt auto-portfinding
   --no-error-handler    disable default DOM error handling
   --watch-glob, --wg    glob(s) to watch for reloads, default '**/*.{html,css}'
+  --proxy path@url      proxy requests on given path to url (eg: --proxy /api@http://localhost:3000/api)
 ```
 
 By default, messages will be printed to `process.stdout`, and `--debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively.
