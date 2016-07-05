@@ -45,7 +45,7 @@
     "brfs": "^1.4.0",
     "canvas-loop": "^1.0.4",
     "ndjson": "^1.4.1",
-    "request": "^2.53.0",
+    "request": "^2.64.0",
     "standard": "^5.2.1",
     "tap-spec": "^4.1.0",
     "tape": "^4.0.0",
