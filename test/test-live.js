@@ -4,7 +4,6 @@ var path = require('path')
 var request = require('request')
 var fs = require('fs')
 var source = fs.readFileSync(path.join(__dirname, 'fixtures', 'app.js'), 'utf8')
-var internalIp = require('internal-ip')
 
 test('should inject LiveReload snippet', function (t) {
   t.plan(4)
@@ -103,7 +102,7 @@ test('LiveReload snippet host should default to budo host', function (t) {
   t.plan(2)
   t.timeoutAfter(10000)
 
-  var addr = internalIp()
+  var addr = 'localhost'
   var entry = path.join(__dirname, 'fixtures', 'app.js')
   var app = budo(entry, {
     dir: __dirname,

@@ -1,12 +1,11 @@
 var test = require('tape')
 var budo = require('../')
 var through = require('through2')
-var internalIp = require('internal-ip')
 
 test('uses internal IP when no host is given', function (t) {
   t.plan(3)
   t.timeoutAfter(10000)
-  var internal = internalIp()
+  var internal = 'localhost'
 
   var app = budo('test/fixtures/app.js', {
     dir: __dirname,
