@@ -12,6 +12,7 @@ Options:
   --live-port, -L  the LiveReload port, default 35729
   --open, -o       launch the browser once connected
   --pushstate, -P  always render the index page instead of a 404 page
+  --base           set the base path for the generated HTML, default to '/'
   --onupdate       a shell command to trigger on bundle update
   --poll=N         use polling for file watch, with optional interval N
   --title          optional title for default index.html
