@@ -160,6 +160,8 @@ It is suggested you add a `<base>` in your `index.html` for this to work with ne
 </head>
 ```
 
+If you let budo generate a default HTML page, you can add the `<base>` tag using `--base` or `--base /my-path`.
+
 ## hot module replacement
 
 The following can integrate easily with budo:
