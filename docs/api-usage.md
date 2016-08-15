@@ -83,6 +83,8 @@ All settings are optional.
 - `pushstate` (Boolean)
   - enable push state support, which defaults 404 routes to the index (default `false`)
   - Recommended you also add something like `<base href="/">` to your HTML `<head>`
+- `base` (Boolean|String)
+  - add `<base href="/">` to the generated default HTML page if set to true, or uses the specified path if it's a string
 - `verbose` (Boolean)
   - also print `'debug'` level messages to garnish; such as the pending state of the bundle and how many files changed in the last update.
 - `defaultIndex` (Function)
