@@ -29,7 +29,7 @@
     "resolve": "^1.1.6",
     "resp-modifier": "^6.0.0",
     "serve-static": "^1.10.0",
-    "simple-html-index": "^1.1.0",
+    "simple-html-index": "^1.4.0",
     "stacked": "^1.1.1",
     "stdout-stream": "^1.4.0",
     "strip-ansi": "^3.0.0",
