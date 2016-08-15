@@ -77,6 +77,8 @@ All settings are optional.
   - if specified, this will be used to construct the new instance
 - `middleware` (Array|Function)
   - an optional function or array of `fn(req, res, next)` functions for the server which is run before other routes; using `connect` style middleware
+- `serverCallback` (Function)
+  - an optional function `fn(server)` that is called with reference to the server instance for external use - to attach socket.io for example
 - `errorHandler` (Boolean|Function)
   - whether to include a DOM-based reporter build/syntax errors (default `true`)
   - can be a `reporter(err)` function which takes an Error and returns the new bundle contents
