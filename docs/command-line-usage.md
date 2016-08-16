@@ -179,3 +179,27 @@ budo index.js:bundle.js -- -t babelify -p livereactload
 ```
 
 Make sure you don't pass a `--live` flag to budo, otherwise it will trigger hard reloads on file save.
+
+## SSL and HTTPS
+
+To get HTTPS working, you can specify a `--ssl` flag:
+
+```sh
+budo index.js --ssl
+```
+
+This will generate a self-signed certificate that expires after one day, and runs the server on `https`.
+
+You can also [generate your own self-signed certificate](https://support.solarwinds.com/Success_Center/Virtualization_Manager_%28VMAN%29/Accept_a_self-signed_certificate) and specify the file paths manually:
+
+```sh
+budo index.js --ssl --cert=mycert.pem --key=mykey.pem
+```
+
+For best results, such as LiveReload support, ensure you open the actual IP in your browser, such as `https://192.168.1.7:9966/` (the IP should be listed in terminal).
+
+In Chrome and some other browsers, you may still need to accept the certificate to test it locally. You can do so by clicking "Advanced" and then "Proceed", as in this screen shot:
+
+<img src="http://i.imgur.com/FPXMnnx.png" width="75%" />
+
+You may also want to *Allow invalid certificates for resources loaded from localhost*, see this flag: [chrome://flags/#allow-insecure-localhost](chrome://flags/#allow-insecure-localhost).
