@@ -30,17 +30,16 @@ budo src/index.js:static/bundle.js
 budo index.js --live -- -t babelify
 
 # use HTTPS and enable CORS headers
-budo index.js --ssl --cors --cert=cert.pem --key=key.pem
+budo index.js --ssl --cors
 ```
 
 Then open [http://localhost:9966/](http://localhost:9966/) to see the content in action.
 
 By default, budo pretty-prints to terminal with [garnish](https://github.com/mattdesl/garnish).
 
-
 <center><img src="http://i.imgur.com/Pvus8vy.png" width="75%" /></center>
 
-See [docs](#docs) for more details and integrations, such as [React Hot Module Replacement](./docs/command-line-usage.md#hot-module-replacement). PRs/suggestions/comments welcome.
+See [docs](#docs) for more details and integrations, such as [React Hot Module Replacement](./docs/command-line-usage.md#hot-module-replacement), [Pushstate Servers](./docs/command-line-usage.md#pushstate) and [HTTPS](./docs/command-line-usage.md#ssl-and-https). PRs/suggestions/comments welcome.
 
 ## features
 

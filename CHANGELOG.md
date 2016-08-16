@@ -1,3 +1,21 @@
+# 9.0.0
+
+When `--ssl` is specified without a `--cert` and `--key` option, budo will use [pem](https://www.npmjs.com/package/pem) to generate a self-signed certificate. This is a breaking change from previous versions, but more convenient for most users.
+
+Also updated docs with more SSL info.
+
+# 8.4.0
+
+Add `--base` flag for working with push state servers.
+
+# 8.3.0
+
+Bump to latest browserify.
+
+# 8.2.2
+
+Fix shorthand for `--serve` (`-s`).
+
 # 8.2.0
 
 Add support for SSL (HTTPS) with `--ssl`, `--cert` and `--key` options.
