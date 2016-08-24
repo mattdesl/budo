@@ -89,6 +89,23 @@ test('--serve allows explicit bundle renaming', function (t) {
     })
 })
 
+test('bundles if entries passed via browserify opts', function (t) {
+  t.plan(2)
+  t.timeoutAfter(5000)
+
+  var app = budo({
+    serve: 'static/foo.js',
+    browserify: {
+      entries: ['test/fixtures/app', 'test/fixtures/with space.js']
+    }
+  })
+    .on('connect', function (ev) {
+      t.equal(ev.serve, 'static/foo.js', 'mapping matches')
+      t.deepEqual(ev.entries, [], 'from matches')
+      app.close()
+    })
+})
+
 test('sets watch() and live() by default with live: true', function (t) {
   t.plan(4)
   t.timeoutAfter(3000)
