@@ -58,7 +58,7 @@
   },
   "scripts": {
     "test": "standard && tape test/test*.js | tap-spec",
-    "start": "./bin/cmd.js example/app.js:bundle.js -v --dir example -- -t babelify",
+    "start": "node ./bin/cmd.js example/app.js:bundle.js -v --dir example -- -t babelify",
     "pushstate": "./bin/cmd.js example/app.js:bundle.js -v --dir example --live --pushstate -- -t babelify",
     "live": "./bin/cmd.js example/app.js:bundle.js --dir example --verbose --live -- -t babelify"
   },

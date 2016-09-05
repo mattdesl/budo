@@ -1,35 +1,44 @@
-var parseArgs = require('./lib/parse-args')
-var budo = require('./lib/budo')
-var color = require('term-color')
-var stdout = require('stdout-stream')
-var exec = require('child_process').exec
+'use strict'
 
-module.exports = budo
-module.exports.cli = budoCLI
+const parseArgs = require('./lib/parse-args')
+const budo = require('./lib/budo')
+const color = require('term-color')
+const stdout = require('stdout-stream')
+const exec = require('child_process').exec
 
-function budoCLI (args, opts) {
-  var argv = parseArgs(args, opts)
+const execFunc = (cmd) => () => {
+  const p = exec(cmd)
+  p.stderr.pipe(process.stderr)
+  p.stdout.pipe(process.stdout)
+}
 
+const exit = (err) => {
+  console.log(color.red('ERROR'), err.message)
+  process.exit(1)
+}
+
+const budoCLI = (args, opts) => {
+  const argv = parseArgs(args, opts)
   // if no stream is specified, default to stdout
   if (argv.stream !== false) {
     argv.stream = stdout
   }
 
-  var entries = argv._
+  const entries = argv._
   delete argv._
 
   argv.browserifyArgs = argv['--']
   delete argv['--']
 
   if (argv.version) {
-    console.log('budo v' + require('./package.json').version)
-    console.log('browserify v' + require('browserify/package.json').version)
-    console.log('watchify v' + require('watchify-middleware').getWatchifyVersion())
+    console.log(`budo v ${require('./package.json').version}`)
+    console.log(`browserify v ${require('browserify/package.json').version}`)
+    console.log(`watchify v ${require('watchify-middleware').getWatchifyVersion()}`)
     return null
   }
 
   if (argv.help) {
-    var help = require('path').join(__dirname, 'bin', 'help.txt')
+    const help = require('path').join(__dirname, 'bin', 'help.txt')
     require('fs').createReadStream(help)
       .pipe(process.stdout)
     return null
@@ -52,24 +61,14 @@ function budoCLI (args, opts) {
   }
 
   // CLI only option for executing a child process
-  var instance = budo(entries, argv).on('error', exit)
-  var onUpdates = [].concat(argv.onupdate).filter(Boolean)
-  onUpdates.forEach(function (cmd) {
+  const instance = budo(entries, argv).on('error', exit)
+  const onUpdates = [].concat(argv.onupdate).filter(Boolean)
+  onUpdates.forEach((cmd) => {
     instance.on('update', execFunc(cmd))
   })
 
   return instance
 }
 
-function execFunc (cmd) {
-  return function run () {
-    var p = exec(cmd)
-    p.stderr.pipe(process.stderr)
-    p.stdout.pipe(process.stdout)
-  }
-}
-
-function exit (err) {
-  console.log(color.red('ERROR'), err.message)
-  process.exit(1)
-}
+module.exports = budo
+module.exports.cli = budoCLI
