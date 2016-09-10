@@ -165,7 +165,8 @@ Called once the budo server connects. The callback is passed an `event` object t
   host: 'localhost',              // defaults to localhost
   port: 9966,                     // the port we're running on
   livePort: 35729,                // the next available LiveReload port
-  entries: [ 'entry file.js' ]    // an array of entry file paths
+  entries: [ 'entry file.js' ],   // an array of entry file paths
+  server: HTTPServer              // the HTTP/HTTPS server
 }
 ```
 
