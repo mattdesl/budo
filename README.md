@@ -57,9 +57,9 @@ Below is an example of how syntax errors look during development, using the [bab
 
 ## docs
 
-- [command line usage](docs/command-line-usage.md)
-- [API usage](docs/api-usage.md)
-- [running tests and examples](docs/tests-and-examples.md)
+- [command line usage](./docs/command-line-usage.md)
+- [API usage](./docs/api-usage.md)
+- [running tests and examples](./docs/tests-and-examples.md)
 - [rapid prototyping with budō](http://mattdesl.svbtle.com/rapid-prototyping)
 - [experimental script injection with budo-chrome](https://github.com/mattdesl/budo-chrome)
 
