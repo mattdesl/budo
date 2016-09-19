@@ -6,8 +6,8 @@ var path = require('path')
 var entryMap = require('../lib/map-entry')
 
 // an HTML page with no <script> entry
-var defaultIndex = '<!DOCTYPE html><html lang="en"><head><title>budo</title><meta charset="utf-8"></head><body></body></html>'
-var scriptIndex = '<!DOCTYPE html><html lang="en"><head><title>budo</title><meta charset="utf-8"></head><body><script src="foo.js"></script></body></html>'
+var defaultIndex = '<!DOCTYPE html><html lang="en" dir="ltr"><head><title>budo</title><meta charset="utf-8"></head><body></body></html>'
+var scriptIndex = '<!DOCTYPE html><html lang="en" dir="ltr"><head><title>budo</title><meta charset="utf-8"></head><body><script src="foo.js"></script></body></html>'
 
 test('accept "." entry point', function (t) {
   // currently we can't test budo('.') because the index.js
