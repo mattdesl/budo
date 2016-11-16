@@ -17,6 +17,7 @@
     "browserify": "^13.0.1",
     "chokidar": "^1.0.1",
     "connect-pushstate": "^1.0.0",
+    "escape-html": "^1.0.3",
     "events": "^1.0.2",
     "garnish": "^5.0.0",
     "get-ports": "^1.0.2",
