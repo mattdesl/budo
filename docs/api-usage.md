@@ -80,6 +80,8 @@ All settings are optional.
 - `errorHandler` (Boolean|Function)
   - whether to include a DOM-based reporter build/syntax errors (default `true`)
   - can be a `reporter(err)` function which takes an Error and returns the new bundle contents
+- `forceDefaultIndex` (Boolean)
+  - whether to always generate index.html instead of serving a static file, if one is present (default: `false`)
 - `pushstate` (Boolean)
   - enable push state support, which defaults 404 routes to the index (default `false`)
   - Recommended you also add something like `<base href="/">` to your HTML `<head>`
