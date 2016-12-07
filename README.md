@@ -97,6 +97,7 @@ Options:
   --cors           set header to use CORS (Access-Control-Allow-Origin: *)
   --ndjson         print ndjson instead of pretty-printed logs
   --verbose, -v    also include debug messages
+  --force-default-index always serve a generated index.html instead of a static one
   --no-stream      do not print messages to stdout
   --no-debug       do not use inline source maps
   --no-portfind    will not attempt auto-portfinding
