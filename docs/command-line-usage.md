@@ -16,7 +16,7 @@ budo index.js
 
 Open [http://localhost:9966/](http://localhost:9966/) to see the bundled result of `index.js`. 
 
-<center><img src="http://i.imgur.com/Pvus8vy.png" width="75%" /></center>
+<center><img src="../screenshots/terminal.png" width="75%" /></center>
 
 Saving `index.js` will be incremental, which means it will be fast even if your app spans hundreds of modules. 
 
@@ -132,7 +132,7 @@ budo index.js --onupdate "standard | notify-error"
 
 Now, when you save the bundle, `standard` will run on your directory. If lint errors are found, they will print to the console and show an alert notification:
 
-<img src="http://i.imgur.com/NWnDp4v.png" width="50%" />
+<img src="../screenshots/notify-error.png" width="50%" />
 
 The flag is only available in the command-line.
 
@@ -200,6 +200,6 @@ For best results, such as LiveReload support, ensure you open the actual IP in y
 
 In Chrome and some other browsers, you may still need to accept the certificate to test it locally. You can do so by clicking "Advanced" and then "Proceed", as in this screen shot:
 
-<img src="http://i.imgur.com/FPXMnnx.png" width="75%" />
+<img src="../screenshots/ssl-error.png" width="75%" />
 
 You may also want to *Allow invalid certificates for resources loaded from localhost*, see this flag: [chrome://flags/#allow-insecure-localhost](chrome://flags/#allow-insecure-localhost).

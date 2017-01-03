@@ -8,6 +8,7 @@ test.js
 demo/
 docs/
 example/
+screenshots/
 .npmignore
 .tmp
 LICENSE.md
