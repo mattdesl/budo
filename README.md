@@ -37,7 +37,7 @@ Then open [http://localhost:9966/](http://localhost:9966/) to see the content in
 
 By default, budo pretty-prints to terminal with [garnish](https://github.com/mattdesl/garnish).
 
-<center><img src="http://i.imgur.com/Pvus8vy.png" width="75%" /></center>
+<center><img src="screenshots/terminal.png" width="75%" /></center>
 
 See [docs](#docs) for more details and integrations, such as [React Hot Module Replacement](./docs/command-line-usage.md#hot-module-replacement), [Pushstate Servers](./docs/command-line-usage.md#pushstate) and [HTTPS](./docs/command-line-usage.md#ssl-and-https). PRs/suggestions/comments welcome.
 
@@ -53,7 +53,7 @@ At a glance:
 
 Below is an example of how syntax errors look during development, using the [babelify](https://github.com/babel/babelify) transform.
 
-![babelify](http://i.imgur.com/ZlfJL1i.png)
+<center><img src="screenshots/build-error.png" width="75%" /></center>
 
 ## docs
 
