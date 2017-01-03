@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>budo</title>
+</head>
+<body>
+  <div id="overlay-box">
+    <div class="row"><span class="error">ParseError: Unexpected token</span>
+    <div class="row"><span class="location">Line 3, column 2</span></div>
+    <div class="row"><span class="path">/projects/budo-modules/test-budo-html/test</span></div>
+    <div class="row"><div class="hr"></div>
+    <span class="source">console.log(Array.isArray(x) res.push());
+                             ^</span></div>
+  </div>
+  <script>
+  var overlayBox = document.querySelector('#overlay-box')
+  Object.assign(overlayBox.style, {
+    position: 'fixed',
+    width: '100%',
+    height: '100%',
+    zIndex: '100000000',
+    top: '0',
+    left: '0',
+    padding: '20px',
+    margin: '0px',
+    'box-sizing': 'border-box',
+    background: '#fff',
+    'font-size': '14px',
+    'font-family': 'monospace',
+  })
+  
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.row'))
+  rows.forEach(x => {
+    Object.assign(x.style, {
+    })
+  })
+  
+  var spans = Array.prototype.slice.call(document.querySelectorAll('span'))
+  spans.forEach(x => {
+    Object.assign(x.style, {
+      'word-wrap': 'break-word',
+      'white-space': 'pre-wrap',
+      'box-sizing': 'border-box',
+      display: 'inline-block',
+      margin: '0',
+      'vertical-align': 'bottom'
+    })
+  })
+
+  Object.assign(document.querySelector('.error').style, {
+    color: '#ff2e2e',
+    'font-size': '16px',
+  })
+
+  Object.assign(document.querySelector('.location').style, {
+    'padding-top': '10px',
+    'padding-bottom': '0px',
+    color: 'hsl(0, 0%, 50%)',
+    'font-size': '12px',
+    'font-weight': 'bold'
+  })
+
+  Object.assign(document.querySelector('.hr').style, {
+    background: 'hsl(0, 0%, 90%)',
+    width: '100%',
+    height: '2px',
+    padding: '0',
+    'margin-bottom': '5px',
+    'margin-top': '10px',
+  })
+  
+  Object.assign(document.querySelector('.source').style, {
+    // color: '#b93a3a',
+    'font-weight': 'bold',
+    'font-size': '14px',
+    'padding-left': '0px'
+  })
+  
+  Object.assign(document.querySelector('.path').style, {
+    'font-style': 'italic',
+  })
+  </script>
+</body>
+</html>
