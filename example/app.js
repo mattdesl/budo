@@ -1,4 +1,4 @@
-/*globals Image*/
+/* globals Image */
 import createLoop from 'canvas-loop'
 import createContext from '2d-context'
 
