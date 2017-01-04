@@ -235,17 +235,19 @@ To get at rusted certificate, you can use [LetsEncrypt](https://letsencrypt.org/
 
 4. Now open the DevTools and click the Security tab. You should see an error like the one below:
 
-  <img src="" />
+  <img src="https://raw.githubusercontent.com/mattdesl/budo/master/screenshots/ssl-ios-1.png" width="100%" />
 
   Click the `View Certificate` button, and in the new window Drag & Drop the certificate thumbnail to your desktop.
 
+  <img src="https://raw.githubusercontent.com/mattdesl/budo/master/screenshots/ssl-ios-2.png" width="50%" />
+
 5. This will create a file like `192.168.1.50.cer` on your desktop. AirDrop, email, or otherwise transfer this to your iOS device.
 
-  <img src="" />
+  <img src="https://raw.githubusercontent.com/mattdesl/budo/master/screenshots/ssl-ios-3.png" width="70%" />
 
 6. Accept the file and `Install` the certificate. This will add the certificate to your `General > Profiles` page.
 
-  <img src="" />
+  <img src="https://raw.githubusercontent.com/mattdesl/budo/master/screenshots/ssl-ios-4.png" width="30%" />
 
 Now you should be able to open the same URL on your iPhone for WebSockets and LiveReload to work correctly! :tada:
 
@@ -253,10 +255,10 @@ Now you should be able to open the same URL on your iPhone for WebSockets and Li
 
 You can follow the steps in [SSL on iOS](#SSL-on-iOS) to trust a self-signed certificate file, like `192.168.1.50.cer`, for your desktop as well.
 
-After generating the `.cer` file, you can double-click it top open it in Keychain. Double-click the listed certificate in Keychain to modify its settings:
+After generating the `.cer` file, you can double-click it top open it in Keychain. Double-click the listed certificate in Keychain to modify its settings.
 
-<img src="" />
+<img src="https://raw.githubusercontent.com/mattdesl/budo/master/screenshots/ssl-osx-1.png" width="50%" />
 
 Click the arrow to the left of `Trust` to expand it, and select "Always Trust" from the drop-down.
 
-Close the window (you may be prompted for the password) and the certificate will no longer give you errors in Chrome and other browsers! :fire:
+Close the window (you may be prompted for your root password) and the certificate will no longer give you errors in Chrome and other browsers! :fire:
