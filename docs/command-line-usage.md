@@ -190,7 +190,7 @@ budo index.js --ssl
 
 This will generate a self-signed certificate that expires after one day, and runs the server on `https`.
 
-You can also [generate your own self-signed certificate](https://support.solarwinds.com/Success_Center/Virtualization_Manager_%28VMAN%29/Accept_a_self-signed_certificate) and specify the file paths manually:
+You can also [generate your own self-signed certificate](#SSL-on-iOS) and specify the file paths manually:
 
 ```sh
 budo index.js --ssl --cert=mycert.pem --key=mykey.pem
@@ -203,3 +203,60 @@ In Chrome and some other browsers, you may still need to accept the certificate 
 <img src="https://raw.githubusercontent.com/mattdesl/budo/master/screenshots/ssl-error.png" width="75%" />
 
 You may also want to *Allow invalid certificates for resources loaded from localhost*, see this flag: [chrome://flags/#allow-insecure-localhost](chrome://flags/#allow-insecure-localhost).
+
+## SSL on iOS
+
+Recent versions of iOS will not support WebSockets for untrusted self-signed certificates. The HTTPS server will work, but LiveReload will not connect.
+
+To get at rusted certificate, you can use [LetsEncrypt](https://letsencrypt.org/) if you have a domain. Or, you can follow these steps to get LiveReload working on iOS with a self-signed certificate. The steps assume an OSX computer.
+
+1. Find your internal IP, this should be listed in the terminal when budo starts, and in System Preferences > Network e.g. `192.168.1.50`.
+
+  > **Tip:** You may want to use a [static IP](http://www.macinstruct.com/node/550) to avoid these steps in the future.
+
+2. You need to create a new certificate and key with this IP using the `openssl` commands.
+
+  ```sh
+  openssl genrsa -out server.key 2048
+  openssl req -new -x509 -sha256 -key server.key -out server.cer -days 365 -subj /CN=192.168.1.50
+  ```
+
+  The `CN` field should be set to your IP in step 1.
+
+  > <sup>See [here](https://devcenter.heroku.com/articles/ssl-certificate-self) if you don't have OpenSSL installed.</sup>
+
+3. Now run budo with these to confirm it works:
+
+  ```sh
+  budo --ssl --cert=server.cer --key=server.key
+  ```
+
+  And paste the full URL in chrome, such as `https://192.168.1.50:9966/`
+
+4. Now open the DevTools and click the Security tab. You should see an error like the one below:
+
+  <img src="" />
+
+  Click the `View Certificate` button, and in the new window Drag & Drop the certificate thumbnail to your desktop.
+
+5. This will create a file like `192.168.1.50.cer` on your desktop. AirDrop, email, or otherwise transfer this to your iOS device.
+
+  <img src="" />
+
+6. Accept the file and `Install` the certificate. This will add the certificate to your `General > Profiles` page.
+
+  <img src="" />
+
+Now you should be able to open the same URL on your iPhone for WebSockets and LiveReload to work correctly! :tada:
+
+## Trusted Certificate on OSX
+
+You can follow the steps in [SSL on iOS](#SSL-on-iOS) to trust a self-signed certificate file, like `192.168.1.50.cer`, for your desktop as well.
+
+After generating the `.cer` file, you can double-click it top open it in Keychain. Double-click the listed certificate in Keychain to modify its settings:
+
+<img src="" />
+
+Click the arrow to the left of `Trust` to expand it, and select "Always Trust" from the drop-down.
+
+Close the window (you may be prompted for the password) and the certificate will no longer give you errors in Chrome and other browsers! :fire:
