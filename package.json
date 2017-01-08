@@ -21,7 +21,6 @@
     "events": "^1.0.2",
     "garnish": "^5.0.0",
     "get-ports": "^1.0.2",
-    "http-proxy": "^1.14.0",
     "inject-lr-script": "^2.1.0",
     "internal-ip": "^1.0.1",
     "micromatch": "^2.2.0",
@@ -32,14 +31,12 @@
     "pem": "^1.8.3",
     "reload-css": "^1.0.0",
     "resolve": "^1.1.6",
-    "resp-modifier": "^6.0.0",
     "serve-static": "^1.10.0",
     "simple-html-index": "^1.4.0",
     "stacked": "^1.1.1",
     "stdout-stream": "^1.4.0",
     "strip-ansi": "^3.0.0",
     "term-color": "^1.0.1",
-    "tiny-lr": "^0.2.0",
     "url-trim": "^1.0.0",
     "watchify-middleware": "^1.6.0",
     "ws": "^1.1.1",
@@ -62,6 +59,7 @@
     "win-spawn": "^2.0.0"
   },
   "scripts": {
+    "compress-live-client": "mkdir -p build/ && browserify -r ./lib/reload/client.js -s livereload | uglifyjs -cm > build/bundled-livereload-client.js",
     "test": "standard && tape test/test*.js | tap-spec",
     "start": "./bin/cmd.js example/app.js:bundle.js --live -v --dir example -- -t [ babelify --presets [ es2015 ] ]",
     "pushstate": "./bin/cmd.js example/app.js:bundle.js -v --dir example --live --pushstate -- -t [ babelify --presets [ es2015 ] ]"
