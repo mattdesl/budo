@@ -5,3 +5,4 @@ node_modules
 bundle.js
 bundle-expected.js
 .tmp
+build
