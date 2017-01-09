@@ -33,4 +33,5 @@ function mkdir (path, cb) {
 function error (err) {
   console.error('ERROR: Could not bundle LiveReload client, budo ' +
     'will fall back to browserifying it on the fly.')
+  console.error(err)
 }
