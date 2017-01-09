@@ -98,6 +98,8 @@ test('should not inject LiveReload snippet', function (t) {
     })
 })
 
+// Not sure how to test the browser-based LiveReload client API...
+
 function matchesHTML (t, uri, html, cb) {
   request.get({ uri: uri + 'index.html' }, function (err, resp, body) {
     if (err) t.fail(err)
