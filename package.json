@@ -56,10 +56,11 @@
     "tape": "^4.0.0",
     "through2": "^2.0.0",
     "tree-kill": "^1.0.0",
+    "uglify-js": "^2.7.5",
     "win-spawn": "^2.0.0"
   },
   "scripts": {
-    "bundle-live-client": "mkdir -p build/ && browserify -r ./lib/reload/client.js -s livereload | uglifyjs -cm > build/bundled-livereload-client.js",
+    "bundle-live-client": "node bin/bundle-livereload-client.js",
     "prepublish": "npm run bundle-live-client",
     "test": "standard && tape test/test*.js | tap-spec",
     "live": "node example/live.js example/app.js:bundle.js --dir example -- -t [ babelify --presets [ es2015 ] ]",
