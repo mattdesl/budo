@@ -1,7 +1,7 @@
 var parseArgs = require('./lib/parse-args')
 var budo = require('./lib/budo')
 var color = require('term-color')
-var stdout = require('stdout-stream')
+var stdoutStream = require('stdout-stream')
 var exec = require('child_process').exec
 
 module.exports = budo
@@ -12,7 +12,7 @@ function budoCLI (args, opts) {
 
   // if no stream is specified, default to stdout
   if (argv.stream !== false) {
-    argv.stream = stdout
+    argv.stream = /^win/.test(process.platform) ? process.stdout : stdoutStream
   }
 
   var entries = argv._
