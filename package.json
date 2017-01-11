@@ -13,7 +13,7 @@
     "url": "https://github.com/mattdesl"
   },
   "dependencies": {
-    "bole": "^2.0.0",
+    "bole": "^3.0.2",
     "browserify": "^13.0.1",
     "chokidar": "^1.0.1",
     "connect-pushstate": "^1.0.0",
