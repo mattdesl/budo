@@ -9,9 +9,7 @@ var html = '<!DOCTYPE html><html lang="en" dir="ltr"><head><title>budo</title><m
 test('pushstate', function (t) {
   t.plan(1)
   var b = budo(file, {
-    port: 9966,
-    pushstate: true,
-    portfind: false
+    pushstate: true
   }).on('connect', function (ev) {
     request({ uri: ev.uri + '/foobar' }, function (err, resp, body) {
       b.close()
