@@ -1,6 +1,7 @@
 var test = require('tape')
 var budo = require('../')
 var defaultHtml = require('simple-html-index')
+var URL = require('url')
 
 var request = require('request')
 var entry = 'test/fixtures/app.js'
@@ -120,6 +121,28 @@ test('serve with CORS enable', function (t) {
       }, function (err, resp) {
         if (err) t.fail(err)
         t.equal(resp.headers['access-control-allow-origin'], '*')
+        app.close()
+      })
+    })
+    .on('exit', function () {
+      t.ok(true, 'closed')
+    })
+    .on('error', t.fail.bind(t))
+})
+
+test('serve with SSL enable', function (t) {
+  t.plan(3)
+  var app = budo(entry, { dir: __dirname, ssl: true })
+    .on('connect', function (ev) {
+      t.equal(URL.parse(ev.uri).protocol, 'https:')
+      request.get({
+        rejectUnauthorized: false,
+        uri: ev.uri + 'favicon.ico'
+      }, function (err, resp) {
+        if (err) {
+          t.fail(err)
+        }
+        t.equal(resp.statusCode, 200)
         app.close()
       })
     })
