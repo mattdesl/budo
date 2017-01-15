@@ -94,6 +94,7 @@ Options:
   --ssl, -S        create an HTTPS server instead of HTTP
   --cert, -C       the cert for SSL (default cert.pem)
   --key, -K        the key for SSL (default key.pem)
+  --middleware, -m name of or path to module to use as middleware
   --cors           set header to use CORS (Access-Control-Allow-Origin: *)
   --ndjson         print ndjson instead of pretty-printed logs
   --verbose, -v    also include debug messages
