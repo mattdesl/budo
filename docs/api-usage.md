@@ -75,8 +75,9 @@ All settings are optional.
 - `browserifyArgs` (Array)
   - an array of command-line arguments passed to browserify
   - if specified, this will be used to construct the new instance
-- `middleware` (Array|Function)
+- `middleware` (Array|Function|String)
   - an optional function or array of `fn(req, res, next)` functions for the server which is run before other routes; using `connect` style middleware
+  - you can specify a string (like `some-module` or `./foo/bar.js`) and budo will try to resolve and require it as a module, expecting it to export a middleware function
 - `errorHandler` (Boolean|Function)
   - whether to include a DOM-based reporter build/syntax errors (default `true`)
   - can be a `reporter(err)` function which takes an Error and returns the new bundle contents
@@ -250,7 +251,7 @@ app
 
 #### middleware
 
-Using `middleware` to create a small non-static server. This can be an array of functions, or just a single function.
+Using `middleware` to create a small non-static server. This can be an array of functions, or just a single function. You can also specify strings as arguments, for example, if you want to publish a middleware function on npm.
 
 ```js
 var url = require('url')

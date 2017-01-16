@@ -262,3 +262,27 @@ After generating the `.cer` file, you can double-click it top open it in Keychai
 Click the arrow to the left of `Trust` to expand it, and select "Always Trust" from the drop-down.
 
 Close the window (you may be prompted for your root password) and the certificate will no longer give you errors in Chrome and other browsers! :fire:
+
+## Middleware Modules
+
+In the command line, you can specify a custom middleware function with the `--middleware` or `-m` flag. This is a path, much like you would place inside a `require()` call, to a module in your local `node_modules` or a local file from the current working directory you are running budo in.
+
+```sh
+budo --middleware ./api.js
+```
+
+And then, in `api.js`:
+
+```js
+// Middlewares should export a function with (req, res, next) arguments
+module.exports = function (req, res, next) {
+  if (req.url === '/api') {
+    // we've hit the API route!
+    res.write('Hello, world!')
+    res.end()
+  } else {
+    // continue onto other routes
+    next()
+  }
+}
+```
