@@ -53,3 +53,17 @@ test('stacking middlewares', function (t) {
     })
   })
 })
+
+test('middleware as string', function (t) {
+  t.plan(1)
+  var b = budo(file, {
+    middleware: './test/fixtures/middleware',
+    serve: 'bundle.js'
+  }).on('connect', function (ev) {
+    request.get({ uri: ev.uri + 'middleware' }, function (err, resp, body) {
+      b.close()
+      if (err) return t.fail(err)
+      t.equal(body, 'middleware')
+    })
+  })
+})
