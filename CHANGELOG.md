@@ -1,3 +1,42 @@
+# 9.4.7
+
+- Make HTTP logging more accurate: previously the time and byte size was not correct
+
+# 9.4.5 .. 9.4.6
+
+- Small tweaks to frontend build error styling
+- Add `pushstate` flag as a boolean so it doesn't swallow entry
+
+# 9.4.3
+
+- Disable cache control for `serve-static`, I've found this greatly reduces load time
+- Slight change to `package.json` scripts so they work on Windows
+
+# 9.4.2
+
+- Improve Windows terminal color support, fixes [#179](https://github.com/mattdesl/budo/issues/179)
+
+# 9.4.0
+
+- Improve build error parsing and rendering
+
+# 9.3.0
+
+- Add `force-default-index` to CLI [#188](https://github.com/mattdesl/budo/pull/188)
+
+# 9.2.2
+
+- Minimize XSS risks in URLs on 404 [#182](https://github.com/mattdesl/budo/pull/183)
+
+# 9.2.0
+
+- Improved `--cors` flag in middleware stack [#172](https://github.com/mattdesl/budo/pull/172)
+
+# 9.1.0
+
+- Support `browserify: { entries: [] }` in API options [#167](https://github.com/mattdesl/budo/pull/167)
+- The `connect` event also returns a `server` instance, so you can use it with things like SocketIO
+
 # 9.0.0
 
 When `--ssl` is specified without a `--cert` and `--key` option, budo will use [pem](https://www.npmjs.com/package/pem) to generate a self-signed certificate. This is a breaking change from previous versions, but more convenient for most users.
