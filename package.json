@@ -36,6 +36,7 @@
     "stacked": "^1.1.1",
     "stdout-stream": "^1.4.0",
     "strip-ansi": "^3.0.0",
+    "subarg": "^1.0.0",
     "term-color": "^1.0.1",
     "tiny-lr": "^0.2.0",
     "url-trim": "^1.0.0",
@@ -64,6 +65,7 @@
     "test": "standard && tape test/test*.js | tap-spec",
     "custom": "node example/api-example.js example/app.js:bundle.js --dir example",
     "start": "node bin/cmd.js example/app.js:bundle.js --live --dir example -- -t [ babelify --presets [ es2015 ] ]",
+    "middleware": "node bin/cmd.js example/app.js:bundle.js -l -d example -m [ ./example/middleware.js zomg --foo bar ] -- -t [ babelify --presets [ es2015 ] ]",
     "pushstate": "node bin/cmd.js example/app.js:bundle.js --dir example --live --pushstate -- -t [ babelify --presets [ es2015 ] ]"
   },
   "keywords": [

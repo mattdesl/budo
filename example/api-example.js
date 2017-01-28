@@ -1,4 +1,3 @@
-var path = require('path')
 var serveIndex = require('serve-index')
 var compress = require('compression')
 
