@@ -50,7 +50,7 @@ test('should serve /index.html when a directory is given', function (t) {
 
 test('allow static-test/ to open static-test.html', function (t) {
   var expected = '<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="UTF-8"><title>static-test</title></head><body></body></html>'
-  t.plan(2)
+  t.plan(3)
   var app = budo({
     dir: __dirname,
     staticOptions: {
@@ -64,7 +64,13 @@ test('allow static-test/ to open static-test.html', function (t) {
     }, function (err, resp, body) {
       if (err) return t.fail(err)
       t.equal(body.toString(), expected, 'static-test looks for static-test.html')
-      app.close()
+      request.get({
+        uri: ev.uri + 'fixtures/static-test-extension/'
+      }, function (err, resp, body) {
+        if (err) return t.fail(err)
+        t.equal(body.toString(), expected, 'static-test/ looks for static-test.html')
+        app.close()
+      })
     })
   })
   .on('exit', function () {
