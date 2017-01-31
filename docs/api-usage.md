@@ -93,6 +93,9 @@ All settings are optional.
   - a function `fn(params, req)` that returns a Readable stream, takes the following `params`:  
   `{ entry: opts.serve, title: opts.title, css: opts.css }`
   - defaults to [simple-html-index](https://github.com/mattdesl/simple-html-index)
+- `staticOptions` (Object)
+  - an object passed to [serve-static](https://www.npmjs.com/package/serve-static) options
+  - this object is merged with the default options: `{ cacheControl: false }`
 
 ### `b = budo.cli(args[, opts])`
 
@@ -266,6 +269,29 @@ var app = budo('./app.js', {
     }
   }
 })
+```
+
+#### Folders Mapping to `.html` Files
+
+Let's say your dev server should map `localhost:9966/about` and `localhost:9966/about/` to an HTML file called `localhost:9966/about.html`. You can specify options to the underlying static middleware and remove trailing slashes like so:
+
+```js
+// dev.js
+var slashes = require('connect-slashes')
+
+require('budo').cli({
+  middleware: slashes(false),
+  staticOptions: {
+    index: false,
+    extensions: [ 'html', 'htm' ]
+  }
+})
+```
+
+Now you can run the above `dev.js` file just like you would budo:
+
+```sh
+node dev.js src/index.js:bundle.js --live -- -t babelify
 ```
 
 #### LiveReloading LESS content

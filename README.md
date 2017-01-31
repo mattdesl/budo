@@ -6,9 +6,9 @@
 [![Downloads][downloads-image]][downloads-url]
 [![js-standard-style][standard-image]][standard-url]
 
-This is a browserify development server inspired by [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd), but specifically focused on incremental reloading, LiveReload integration (including CSS injection), and other high-level features.
+This is a [browserify](https://github.com/substack/node-browserify) development server focused on incremental reloading, LiveReload integration (including CSS injection) and other high-level features for rapid prototyping.
 
-To install:
+To install it globally:
 
 ```sh
 npm install budo -g
@@ -50,6 +50,8 @@ At a glance:
 - watches HTML and CSS files for changes; CSS is injected without reloading the page
 - can emit [ndjson](http://ndjson.org) logs to use another pretty-printer, like [bistre](https://github.com/hughsk/bistre).
 - provides clear error messaging during development in DOM and console
+- supports SSL and can generate a self-signed certificate
+- the rich API allows you to build more complex development tools on top of budo
 
 Below is an example of how syntax errors look during development, using the [babelify](https://github.com/babel/babelify) transform.
 
@@ -144,6 +146,8 @@ budō combines several smaller and less opinionated modules.
 - [watchify-middleware](https://www.npmjs.com/package/watchify-middleware) - the underlying request handler for serving incremental reloads
 - [watchify-server](https://www.npmjs.com/package/watchify-server) - a less opinionated alternative to budo, built on the same underlying modules
 - [simple-html-index](https://www.npmjs.com/package/simple-html-index) - a stream for a default `index.html` file
+
+Also, special thanks to [beefy](https://github.com/chrisdickinson/beefy) and [wzrd](https://github.com/maxogden/wzrd) which originally inspired budo.
 
 ## License
 
