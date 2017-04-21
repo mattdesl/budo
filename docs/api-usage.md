@@ -40,10 +40,11 @@ All settings are optional.
   - whether to use portfinding to find the next available ports (default `true`)
 - `host` (String)
   - the host to listen on (default `'localhost'`)
-- `live` (Boolean|String)
+- `live` (Boolean|String|Object)
   - whether to set up a default LiveReload integration (see [LiveReload](#livereload))
   - if a string is specified, only filenames matching that glob
     will trigger LiveReload events
+  - object will be passed along to the [`live()`](#bliveopt) function
 - `cors` (Boolean)
   - Set the header to use CORS (`Access-Control-Allow-Origin: *`)
 - `ssl` (Boolean)
@@ -134,9 +135,12 @@ If `path` is undefined, this is treated as a hard page reload.
 
 If `live` was not specified, you can manually enable the LiveReload server with the specified `opt` options:
 
-- `port` defaults to the `ev.livePort` from the `'connect'` event
-- `host` defaults to the `ev.host` from the `'connect'` event
-- `plugin` if true, the HTML will not have the LiveReload script injected into it
+- `plugin` if true, the HTML will not have the LiveReload script injected into it, default false
+- `path` the script URL for the LiveReload client, defaults to `'/budo/livereload.js'`
+- `include` a path or array of paths to files that should be added to the LiveReload client, defaults to an empty array
+- `cache` whether to cache the LiveReload client file (faster) or re-bundle it on each request (easier to develop LiveReload clients), default `true`
+- `debug` whether to add source maps to the bundled LiveReload client, default `false`
+- `expose` whether to expose `require('budo-livereload')` on the global context, default false
 
 See [LiveReload](#livereload) for an example.
 
@@ -169,7 +173,6 @@ Called once the budo server connects. The callback is passed an `event` object t
   dir: 'app',                     // the working directory being served
   host: 'localhost',              // defaults to localhost
   port: 9966,                     // the port we're running on
-  livePort: 35729,                // the next available LiveReload port
   entries: [ 'entry file.js' ],   // an array of entry file paths
   server: HTTPServer              // the HTTP/HTTPS server
 }
@@ -214,42 +217,6 @@ budo({
 })
 ```
 
-#### custom LiveReload
-
-Setting `opts.live` will provide a default configuration for live reloading. You can also specify a string to narrow the LiveReload triggers to a certain glob:
-
-```js
-budo('index.js', {
-  live: '*.{css,html}'
-})
-```
-
-Using the `live()` and `watch()` methods instead of passing `opts.live`, you can fine-tune reloading for your use case. The following only triggers LiveReload events on CSS changes.
-
-```js
-var budo = require('budo')
-var path = require('path')
-var app = budo('index.js')
-
-app
-  // listen to CSS file changes with some chokidar options
-  .watch('**/*.css', { interval: 300, usePolling: true })
-  // start LiveReload server
-  .live()
-  // handle file changes
-  .on('watch', function(type, file) {
-    // tell LiveReload to inject some CSS
-    if (path.extname(file) === '.css') {
-      app.reload(file)
-    }
-  })
-  .on('pending', function () {
-    console.log('bundle...')
-  })
-  .on('update', function (buf) {
-    console.log('bundle finished --> %d bytes', buf.length)
-  })
-```
 
 #### middleware
 
@@ -293,10 +260,6 @@ Now you can run the above `dev.js` file just like you would budo:
 ```sh
 node dev.js src/index.js:bundle.js --live -- -t babelify
 ```
-
-#### LiveReloading LESS content
-
-You can use `opts.middleware` to compile LESS on the fly, without having to change the CSS paths in your `index.html` file. See [budo-less](https://github.com/mattdesl/budo-less) for an example of this.
 
 # build tools
 

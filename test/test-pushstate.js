@@ -9,9 +9,7 @@ var html = '<!DOCTYPE html><html lang="en" dir="ltr"><head><title>budo</title><m
 test('pushstate flag', function (t) {
   t.plan(1)
   var b = budo(file, {
-    port: 9966,
-    pushstate: true,
-    portfind: false
+    pushstate: true
   }).on('connect', function (ev) {
     request({ uri: ev.uri + '/foobar' }, function (err, resp, body) {
       b.close()
@@ -25,8 +23,7 @@ test('pushstate serve static', function (t) {
   t.plan(1)
   var b = budo(file, {
     port: 9966,
-    pushstate: true,
-    portfind: false
+    pushstate: true
   }).on('connect', function (ev) {
     request({ uri: ev.uri + 'app.js' }, function (err, resp, body) {
       b.close()
@@ -40,9 +37,9 @@ test('pushstate-allow', function (t) {
   t.plan(1)
   var b = budo(file, {
     port: 9966,
-    pushstate: true,
-    pushstateAllow: '/app.js',
-    portfind: false
+    pushstate: {
+      allow: '/app.js'
+    }
   }).on('connect', function (ev) {
     request({ uri: ev.uri + '/app.js' }, function (err, resp, body) {
       b.close()
@@ -56,8 +53,9 @@ test('pushstate-disallow', function (t) {
   t.plan(2)
   var b = budo(file, {
     port: 9966,
-    pushstateDisallow: '/foo.bar',
-    portfind: false
+    pushstate: {
+      disallow: '/foo.bar'
+    }
   }).on('connect', function (ev) {
     request({ uri: ev.uri + '/foo.bar' }, function (err, resp, body) {
       b.close()

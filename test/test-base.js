@@ -9,9 +9,7 @@ var html = '<!DOCTYPE html><html lang="en" dir="ltr"><head><title>budo</title><m
 test('base default', function (t) {
   t.plan(1)
   var b = budo(file, {
-    port: 9966,
-    base: true,
-    portfind: false
+    base: true
   }).on('connect', function (ev) {
     request({ uri: ev.uri }, function (err, resp, body) {
       b.close()
@@ -24,9 +22,7 @@ test('base default', function (t) {
 test('base with value', function (t) {
   t.plan(1)
   var b = budo(file, {
-    port: 9966,
-    base: '/xyz',
-    portfind: false
+    base: '/xyz'
   }).on('connect', function (ev) {
     request({ uri: ev.uri }, function (err, resp, body) {
       b.close()
