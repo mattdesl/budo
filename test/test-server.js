@@ -28,9 +28,10 @@ test('should serve on --dir', function (t) {
 })
 
 test('support defaultIndex stream', function (t) {
-  t.plan(3)
+  t.plan(4)
 
-  function html (opt) {
+  function html (opt, req) {
+    t.equal(req.url, '/')
     return defaultHtml({
       entry: opt.entry,
       title: 'foobar',

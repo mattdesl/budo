@@ -45,7 +45,7 @@ See [docs](#docs) for more details and integrations, such as [React Hot Module R
 
 At a glance:
 
-- stubs a default `index.html`
+- serves a default `index.html`
 - fast incremental bundling, suspending the response until the new source is ready
 - watches HTML and CSS files for changes; CSS is injected without reloading the page
 - can emit [ndjson](http://ndjson.org) logs to use another pretty-printer, like [bistre](https://github.com/hughsk/bistre).
@@ -105,6 +105,7 @@ Options:
   --no-portfind    will not attempt auto-portfinding
   --no-error-handler    disable default DOM error handling
   --watch-glob, --wg    glob(s) to watch for reloads, default '**/*.{html,css}'
+  --static-options      subarg options to pass to serve-static module
 ```
 
 By default, messages will be printed to `process.stdout`, and `--debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively.
