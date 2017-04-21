@@ -39,6 +39,17 @@ function budoCLI (args, opts) {
     console.error(color.yellow('WARNING'), '--outfile has been removed in budo@3.0')
   }
 
+  if (typeof argv.pushstate === 'string') {
+    // support backwards compatibility with CLI like this:
+    //    budo -P index.js:bundle.js
+    var newEntry = argv.pushstate
+    argv.pushstate = argv.P = true
+    entries.unshift(newEntry)
+    console.error(color.yellow('WARNING'), '\nAs of budo@10.x, --pushstate should come ' +
+        'after your JS entries.\nExample:\n' +
+        '  budo index.js:bundle.js --pushstate')
+  }
+
   if (typeof argv.port === 'string') {
     argv.port = parseInt(argv.port, 10)
   }
