@@ -1,5 +1,4 @@
 // An example of custom a LiveReload extension
-
 var budo = require('../')
 
 var liveOpts = {

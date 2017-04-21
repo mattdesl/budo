@@ -41,7 +41,7 @@ All settings are optional.
 - `host` (String)
   - the host to listen on (default `'localhost'`)
 - `live` (Boolean|String|Object)
-  - whether to set up a default LiveReload integration (see [LiveReload](#livereload))
+  - whether to set up a default LiveReload integration (see [LiveReload](./live-reload.md))
   - if a string is specified, only filenames matching that glob
     will trigger LiveReload events
   - object will be passed along to the [`live()`](#bliveopt) function
@@ -142,7 +142,7 @@ If `live` was not specified, you can manually enable the LiveReload server with 
 - `debug` whether to add source maps to the bundled LiveReload client, default `false`
 - `expose` whether to expose `require('budo-livereload')` on the global context, default false
 
-See [LiveReload](#livereload) for an example.
+See [LiveReload](./live-reload.md) for details.
 
 #### `b.watch([globs, chokidarOpts])`
 
@@ -150,7 +150,7 @@ If `live` was not specified, you can manually enabe [chokidar's](https://github.
 
 `globs` defaults to watching `**/*.{html,css}`.
 
-See [LiveReload](#livereload) for an example.
+See [LiveReload](./live-reload.md) for details.
 
 ## events
 

@@ -65,7 +65,7 @@ For local tools, we need to use [npm-scripts](https://docs.npmjs.com/misc/script
 ```sh
   "scripts": {
     "start": "budo index.js"
-  },
+  }
 ```
 
 Now running the following will start the development server:
@@ -161,6 +161,14 @@ It is suggested you add a `<base>` in your `index.html` for this to work with ne
 ```
 
 If you let budo generate a default HTML page, you can add the `<base>` tag using `--base` or `--base /my-path`.
+
+The `--pushstate` flag also supports subarg syntax, with options passed down to [connect-pushstate](https://www.npmjs.com/package/connect-pushstate). For example:
+
+```sh
+budo index.js:bundle.js --pushstate [ --disallow foo/bar ] --live
+```
+
+> :warning: As of budo@10.x the command has to be specified *after* the index/JS entries.
 
 ## hot module replacement
 

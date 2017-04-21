@@ -3,12 +3,11 @@
 var client = require('budo-livereload')
 console.log('[LiveReload] Custom Script Attached!')
 
-// You can send a string / object to the server
-console.log('[LiveReload] Sending message to server...')
+// You can send a string / object to the WebSocketServer
+console.log('[LiveReload] Sending message to WebSocketServer...')
 client.send({ event: 'foo', message: 'Hello world!' })
 
-// Or receive parsed JSON data
+// Or receive parsed JSON data from the WebSocketServer
 client.listen(function (data) {
-  console.log('[LiveReload] Message form server: ' + data)
+  console.log('[LiveReload] Message form WebSocketServer: ' + data)
 })
-
