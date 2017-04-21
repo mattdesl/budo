@@ -1,3 +1,24 @@
+# 10.x
+
+:tada:
+
+#### Breaking Changes
+
+- Upgraded to `browserify@14`
+- Major overhaul to LiveReload backend to make it faster and more robust [#194](https://github.com/mattdesl/budo/issues/194)
+  - No longer uses `tiny-lr` or the old school LiveReload stuff, so it no longer supports some of the feature set from that tool
+  - No longer supports the LiveReload browser plugin
+  - Budo runs everything on a single port/server instead of a second server for LiveReload
+  - `/budo/livereload.js` now serves the LiveReload client
+- The `--pushstate` boolean argument should now come *after* entries in the CLI, as it supports subarg options. Using it before entries will still work but may throw a warning.
+
+#### Other Changes
+
+- `opts.staticOptions` is now passed onto `serve-static` module
+- `opts.pushstate` (boolean or object) is now passed onto `connect-pushstate` module
+- CLI now supports subarg syntax for commands like `--static-options` and `--pushstate`
+- `defaultIndex` function now accepts a `req` as the second parameter
+
 # 9.4.7
 
 - Make HTTP logging more accurate: previously the time and byte size was not correct
