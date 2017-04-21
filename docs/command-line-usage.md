@@ -216,7 +216,7 @@ You may also want to *Allow invalid certificates for resources loaded from local
 
 Recent versions of iOS will not support WebSockets for untrusted self-signed certificates. The HTTPS server will work, but LiveReload will not connect.
 
-To get at rusted certificate, you can use [LetsEncrypt](https://letsencrypt.org/) if you have a domain. Or, you can follow these steps to get LiveReload working on iOS with a self-signed certificate. The steps assume an OSX computer.
+To get at trusted certificate, you can use [LetsEncrypt](https://letsencrypt.org/) if you have a domain. Or, you can follow these steps to get LiveReload working on iOS with a self-signed certificate. The steps assume an OSX computer.
 
 1. Find your internal IP, this should be listed in the terminal when budo starts, and in System Preferences > Network e.g. `192.168.1.50`.
 
