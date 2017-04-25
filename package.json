@@ -68,6 +68,7 @@
     "test": "standard && tape test/test*.js | tap-spec",
     "live": "node example/live.js example/app.js:bundle.js --dir example -- -t [ babelify --presets [ es2015 ] ]",
     "start": "node bin/cmd.js example/app.js:bundle.js --live -v --dir example -- -t [ babelify --presets [ es2015 ] ]",
+    "ssl": "node bin/cmd.js example/app.js:bundle.js --ssl --live -v --dir example -- -t [ babelify --presets [ es2015 ] ]",
     "pushstate": "node bin/cmd.js example/app.js:bundle.js -v --dir example --live --pushstate -- -t [ babelify --presets [ es2015 ] ]"
   },
   "keywords": [
