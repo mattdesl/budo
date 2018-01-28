@@ -31,6 +31,9 @@ budo index.js --live -- -t babelify
 
 # use HTTPS and enable CORS headers
 budo index.js --ssl --cors
+
+# LiveReload public directory without any bundling
+budo --dir public/ --live
 ```
 
 Then open [http://localhost:9966/](http://localhost:9966/) to see the content in action.

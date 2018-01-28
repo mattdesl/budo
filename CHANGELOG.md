@@ -1,3 +1,9 @@
+# 11.x
+
+#### Breaking Changes
+
+- Upgraded to `browserify@15`, set supported node version to `>= 4`
+
 # 10.x
 
 :tada:
