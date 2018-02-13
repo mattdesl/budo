@@ -6,7 +6,7 @@ var internalIp = require('internal-ip')
 test('uses internal IP when no host is given', function (t) {
   t.plan(3)
   t.timeoutAfter(10000)
-  var internal = internalIp()
+  var internal = internalIp.v4.sync()
 
   var app = budo('test/fixtures/app.js', {
     dir: __dirname,

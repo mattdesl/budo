@@ -22,7 +22,7 @@
     "garnish": "^5.0.0",
     "get-ports": "^1.0.2",
     "inject-lr-script": "^2.1.0",
-    "internal-ip": "^1.0.1",
+    "internal-ip": "^3.0.1",
     "micromatch": "^2.2.0",
     "on-finished": "^2.3.0",
     "on-headers": "^1.0.1",
