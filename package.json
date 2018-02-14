@@ -1,6 +1,6 @@
 {
   "name": "budo",
-  "version": "11.1.1",
+  "version": "11.1.2",
   "description": "a browserify server for rapid prototyping",
   "main": "index.js",
   "bin": {
