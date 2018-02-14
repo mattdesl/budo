@@ -206,6 +206,24 @@ If `opts.live` was not specified, and `b.watch()` was never set up, this event w
 
 # examples
 
+#### custom CLI wrappers
+
+If you use `budo.cli()` you can create a simple budo CLI wrapper with some pre-defined options and configurations, such as this `dev.js` script:
+
+```js
+require('budo').cli(process.argv.slice(2), {
+  port: 8080,
+  open: true,
+  live: true
+})
+```
+
+Now you can run `dev.js` with regular budo CLI flags:
+
+```sh
+node dev.js src/index.js:bundle.js -- -t babelify
+```
+
 #### http server
 
 A static HTTP server with no browserify capabilities, LiveReload integration, and a custom glob to watch for.
@@ -246,7 +264,7 @@ Let's say your dev server should map `localhost:9966/about` and `localhost:9966/
 // dev.js
 var slashes = require('connect-slashes')
 
-require('budo').cli({
+require('budo').cli(process.argv.slice(2), {
   middleware: slashes(false),
   staticOptions: {
     index: false,
@@ -259,6 +277,52 @@ Now you can run the above `dev.js` file just like you would budo:
 
 ```sh
 node dev.js src/index.js:bundle.js --live -- -t babelify
+```
+
+# configure browserify
+
+If you need more control over the bundler, such as adding `external()`, you can use a browserify plugin. 
+
+For example, to ignore large files when browserifying the [unicode](https://www.npmjs.com/package/unicode) package, write a `dev.js` script like this:
+
+```js
+require('budo').cli(process.argv.slice(2), {
+  browserify: {
+    plugin: bundler => bundler.ignore('unicode/category/So')
+  }
+})
+```
+
+Now, you can call this `dev.js` script from node just like you would with budo CLI:
+
+```sh
+node dev.js src/index.js:bundle.js --live -- -t babelify
+```
+
+Here is a more complex example, where `require('os-arch')` returns the OS architecture of whatever machine is running budo.
+
+```js
+const os = require('os');
+const path = require('path');
+const fromString = require('from2-string');
+
+require('budo').cli(process.argv.slice(2), {
+  browserify: {
+    plugin: bundler => {
+      // A "dynamic" module from Node.js
+      // Keep in mind the result of the stream is cached by browserify!
+      const moduleName = 'os-arch';
+
+      // Give it a fake file name in node_modules
+      const moduleFile = path.resolve(process.cwd(), 'node_modules', moduleName, `${moduleName}.js`);
+
+      const message = os.arch();
+      const stream = fromString(`module.exports = ${JSON.stringify(message)}`);
+      bundler.exclude(moduleName);
+      bundler.require(stream, { file: moduleFile, expose: moduleName });
+    }
+  }
+});
 ```
 
 # build tools
