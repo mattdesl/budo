@@ -30,7 +30,9 @@ test('should inject LiveReload snippet', function (t) {
     .on('connect', function (ev) {
       matchesHTML(t, ev.uri)
       setTimeout(function () {
-        fs.writeFile(entry, source)
+        fs.writeFile(entry, source, function (err) {
+          if (err) t.fail(err)
+        })
       }, 1000)
     })
     .on('exit', function () {
@@ -65,7 +67,9 @@ test('manual LiveReload triggering', function (t) {
     .on('connect', function (ev) {
       matchesHTML(t, ev.uri)
       setTimeout(function () {
-        fs.writeFile(entry, source)
+        fs.writeFile(entry, source, function (err) {
+          if (err) t.fail(err)
+        })
       }, 1000)
     })
     .on('exit', function () {
