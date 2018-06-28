@@ -2,7 +2,7 @@ var test = require('tape')
 var budo = require('../')
 var defaultHtml = require('simple-html-index')
 var URL = require('url')
-
+var vm = require('vm')
 var request = require('request')
 var entry = 'test/fixtures/app.js'
 
@@ -18,6 +18,86 @@ test('should serve on --dir', function (t) {
       }, function (err, resp, body) {
         if (err) t.fail(err)
         t.equal(body.toString(), 'foobar', 'text matches')
+        app.close()
+      })
+    })
+    .on('exit', function () {
+      t.ok(true, 'closed')
+    })
+    .on('error', t.fail.bind(t))
+})
+
+test('should handle --serve', function (t) {
+  t.plan(2)
+  var app = budo(entry, { dir: __dirname, serve: 'foo-bar.js' })
+    .on('connect', function (ev) {
+      request.get({
+        uri: ev.uri + 'foo-bar.js'
+      }, function (err, resp, body) {
+        if (err) t.fail(err)
+        vm.runInNewContext(body.toString(), {
+          console: { log: msg => t.equal(msg, 'from browserify') }
+        })
+        app.close()
+      })
+    })
+    .on('exit', function () {
+      t.ok(true, 'closed')
+    })
+    .on('error', t.fail.bind(t))
+})
+
+test('should handle --serve with leading slash', function (t) {
+  t.plan(2)
+  var app = budo(entry, { dir: __dirname, serve: '/foo-bar.js' })
+    .on('connect', function (ev) {
+      request.get({
+        uri: ev.uri + 'foo-bar.js'
+      }, function (err, resp, body) {
+        if (err) t.fail(err)
+        vm.runInNewContext(body.toString(), {
+          console: { log: msg => t.equal(msg, 'from browserify') }
+        })
+        app.close()
+      })
+    })
+    .on('exit', function () {
+      t.ok(true, 'closed')
+    })
+    .on('error', t.fail.bind(t))
+})
+
+test('should handle :serve syntax without leading slash', function (t) {
+  t.plan(2)
+  var app = budo(entry + ':foo-bar.js', { dir: __dirname })
+    .on('connect', function (ev) {
+      request.get({
+        uri: ev.uri + 'foo-bar.js'
+      }, function (err, resp, body) {
+        if (err) t.fail(err)
+        vm.runInNewContext(body.toString(), {
+          console: { log: msg => t.equal(msg, 'from browserify') }
+        })
+        app.close()
+      })
+    })
+    .on('exit', function () {
+      t.ok(true, 'closed')
+    })
+    .on('error', t.fail.bind(t))
+})
+
+test('should handle :serve syntax with leading slash', function (t) {
+  t.plan(2)
+  var app = budo(entry + ':/foo-bar.js', { dir: __dirname })
+    .on('connect', function (ev) {
+      request.get({
+        uri: ev.uri + 'foo-bar.js'
+      }, function (err, resp, body) {
+        if (err) t.fail(err)
+        vm.runInNewContext(body.toString(), {
+          console: { log: msg => t.equal(msg, 'from browserify') }
+        })
         app.close()
       })
     })
