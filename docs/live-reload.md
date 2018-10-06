@@ -139,6 +139,12 @@ client.send({ event: 'foo', message: 'Hello world!' })
 client.listen(function (data) {
   console.log('[LiveReload] Message form WebSocketServer: ' + data)
 })
+
+// Force a client-side error popup
+client.showError('Some error message')
+
+// Clear any visible client-side error popup
+client.clearError()
 ```
 
 For a full working example, see [example/live.js](../example/live.js) and [example/live-client.js](example/live-client.js).
