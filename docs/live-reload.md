@@ -136,6 +136,7 @@ console.log('[LiveReload] Sending message to WebSocketServer...')
 client.send({ event: 'foo', message: 'Hello world!' })
 
 // Or receive parsed JSON data from the WebSocketServer
+// Can remove an existing listener with client.removeListener(cb)
 client.listen(function (data) {
   console.log('[LiveReload] Message form WebSocketServer: ' + data)
 })
