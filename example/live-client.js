@@ -1,6 +1,6 @@
 // This is a custom LiveReload script that
 // can send and receive custom events.
-var client = require('budo-livereload')
+var client = window['budo-livereload']
 console.log('[LiveReload] Custom Script Attached!')
 
 // You can send a string / object to the WebSocketServer
