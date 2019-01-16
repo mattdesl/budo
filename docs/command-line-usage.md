@@ -204,7 +204,15 @@ You can also [generate your own self-signed certificate](#SSL-on-iOS) and specif
 budo index.js --ssl --cert=mycert.pem --key=mykey.pem
 ```
 
-For best results, such as LiveReload support, ensure you open the actual IP in your browser, such as `https://192.168.1.7:9966/` (the IP should be listed in terminal).
+The easiest way to get SSL working without browser warnings is to use [mkcert](https://github.com/FiloSottile/mkcert) to generate your locally trusted development certificates and specify them for use in budo:
+
+```sh
+mkcert -install  # create a local certificate authority and trust it
+mkcert localhost # create a local certificate for localhost
+budo index.js --ssl --cert=localhost.pem --key=localhost-key.pem
+```
+
+If you don’t want to use mkcert, for best results (such as LiveReload support) ensure you open the actual IP in your browser, such as `https://192.168.1.7:9966/` (the IP should be listed in terminal).
 
 In Chrome and some other browsers, you may still need to accept the certificate to test it locally. You can do so by clicking "Advanced" and then "Proceed", as in this screen shot:
 
