@@ -148,4 +148,4 @@ client.showError('Some error message')
 client.clearError()
 ```
 
-For a full working example, see [example/live.js](../example/live.js) and [example/live-client.js](example/live-client.js).
+For a full working example, see [example/live.js](../example/live.js) and [example/live-client.js](../example/live-client.js).
