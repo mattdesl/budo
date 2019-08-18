@@ -33,7 +33,8 @@ budo index.js --live -- -t babelify
 budo index.js --ssl --cors
 
 # LiveReload public directory without any bundling
-budo --dir public/ --live
+# Add all extensions of file types you want to trigger reloads
+budo --dir public/ --wg **/*.{html,css,js} --live
 ```
 
 Then open [http://localhost:9966/](http://localhost:9966/) to see the content in action.
