@@ -1,6 +1,6 @@
 var parseArgs = require('./lib/parse-args')
 var budo = require('./lib/budo')
-var color = require('term-color')
+var color = require('kolorist')
 var stdoutStream = require('stdout-stream')
 var exec = require('child_process').exec
 
