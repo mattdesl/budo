@@ -14,9 +14,6 @@ var liveOpts = {
 }
 
 budo.cli(process.argv.slice(2), {
-  output: {
-    file: "testfile.js"
-  },
   live: liveOpts
 }).on('connect', function (ev) {
   var wss = ev.webSocketServer
