@@ -7,6 +7,7 @@ var browserify = require('browserify')
 var path = require('path')
 var vm = require('vm')
 var mapEntry = require('../lib/map-entry')
+const sucrasify = require('../lib/sucrasify')
 
 test('serves app.js', run('test/fixtures/app.js'))
 test('entry mapping to bundle.js', run('test/fixtures/app.js:bundle.js'))
@@ -100,7 +101,7 @@ function matches (t, entries, opt) {
     .once('update', function () {
       var b = browserify(xtend({
         debug: opt.debug
-      }, opt.browserify))
+      }, opt.browserify)).transform(sucrasify)
       entries.forEach(function (entry) {
         entry = mapEntry(entry).from
         b.add(path.resolve(entry))

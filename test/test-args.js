@@ -3,6 +3,7 @@ var budo = require('../')
 var browserify = require('browserify')
 var path = require('path')
 var brfs = require('brfs')
+const sucrasify = require('../lib/sucrasify')
 
 var entry = 'test/fixtures/app-brfs.js'
 
@@ -48,5 +49,6 @@ function doBundle (cb) {
     insertGlobals: true
   })
   bundler.add(path.resolve(entry))
+  bundler.transform(sucrasify)
   bundler.bundle(cb)
 }

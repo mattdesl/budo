@@ -67,10 +67,11 @@
     "prepublish": "npm run bundle-live-client",
     "test": "tape test/test*.js | tap-spec",
     "lint-test": "standard && tape test/test*.js | tap-spec",
-    "live": "node example/live.js example/app.js:bundle.js --dir example -- -t ./sucrasify",
-    "start": "node bin/cmd.js example/app.js:bundle.js --live -v --dir example -- -t ./sucrasify",
-    "ssl": "node bin/cmd.js example/app.js:bundle.js --ssl --live -v --dir example -- -t ./sucrasify",
-    "pushstate": "node bin/cmd.js example/app.js:bundle.js -v --dir example --live --pushstate -- -t ./sucrasify"
+    "live": "node example/live.js example/app.js:bundle.js --dir example -- -t ./lib/sucrasify",
+    "live-ts": "node example/live.js example/app.ts:bundle.js --dir example -- -t ./lib/sucrasify",
+    "start": "node bin/cmd.js example/app.js:bundle.js --live -v --dir example -- -t ./lib/sucrasify",
+    "ssl": "node bin/cmd.js example/app.js:bundle.js --ssl --live -v --dir example -- -t ./lib/sucrasify",
+    "pushstate": "node bin/cmd.js example/app.js:bundle.js -v --dir example --live --pushstate -- -t ./lib/sucrasify"
   },
   "keywords": [
     "browserify",

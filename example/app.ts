@@ -3,11 +3,15 @@ import createLoop from 'canvas-loop'
 import createContext from '2d-context'
 
 
-const context = createContext()
-const canvas = context.canvas
+const context = createContext() as CanvasRenderingContext2D
+const canvas = context.canvas as HTMLCanvasElement
 
+type IApp = ReturnType<typeof createLoop> & Partial<NodeJS.EventEmitter> & {
+  shape?: [ width: number, height: number ],
+  scale?: any
+}
 
-const app = createLoop(canvas, {
+const app: IApp = createLoop(canvas, {
   scale: window.devicePixelRatio
 })
 document.body.appendChild(canvas)
