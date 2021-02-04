@@ -31,7 +31,7 @@ app.on('tick', (dt) => {
   context.save()
   context.scale(app.scale, app.scale)
   context.fillRect(Math.sin(time) * 50 + 300, 50, 20, 40)
-  context.fillText('from browserify!', 40, 40)
+  context.fillText('from browserify with typescript!', 40, 40)
   context.drawImage(img, 50, 50)
   context.restore()
 })
