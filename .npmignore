@@ -12,3 +12,5 @@ screenshots/
 .npmignore
 .tmp
 LICENSE.md
+yarn.lock
+package-lock.json

@@ -3,10 +3,40 @@ var budo = require('../')
 var through = require('through2')
 var internalIp = require('internal-ip')
 
-test('uses internal IP when no host is given', function (t) {
+test('uses internal IP when useLocalNetworkIp is true', function (t) {
   t.plan(3)
   t.timeoutAfter(10000)
   var internal = internalIp.v4.sync()
+
+  var app = budo('test/fixtures/app.js', {
+    dir: __dirname,
+    port: 8000,
+    useLocalNetworkIp: true
+  })
+    .on('error', function (err) {
+      t.fail(err)
+    })
+    .on('connect', function (ev) {
+      t.equal(ev.uri, 'http://' + internal + ':8000/', 'uri matches')
+      t.equal(ev.host, internal, 'host defaults to internal ip')
+      app.close()
+    })
+    .on('reload', function () {
+      t.fail('should not have received reload event')
+    })
+    .on('watch', function () {
+      t.fail('should not have received watch event')
+    })
+    .on('exit', function () {
+      t.ok(true, 'closing')
+    })
+})
+
+
+test('uses localhost when no host or useLocalNetworkIp option given', function (t) {
+  t.plan(3)
+  t.timeoutAfter(10000)
+  var internal = "localhost"
 
   var app = budo('test/fixtures/app.js', {
     dir: __dirname,

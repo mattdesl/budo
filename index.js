@@ -1,6 +1,6 @@
 var parseArgs = require('./lib/parse-args')
 var budo = require('./lib/budo')
-var color = require('term-color')
+var color = require('kolorist')
 var stdoutStream = require('stdout-stream')
 var exec = require('child_process').exec
 
@@ -24,7 +24,7 @@ function budoCLI (args, opts) {
   if (argv.version) {
     console.log('budo v' + require('./package.json').version)
     console.log('browserify v' + require('browserify/package.json').version)
-    console.log('watchify v' + require('watchify-middleware').getWatchifyVersion())
+    console.log('watchify v' + require('watchify/package.json').version)
     return null
   }
 

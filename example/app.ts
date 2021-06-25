@@ -3,11 +3,15 @@ import createLoop from 'canvas-loop'
 import createContext from '2d-context'
 
 
-const context = createContext()
-const canvas = context.canvas
+const context = createContext() as CanvasRenderingContext2D
+const canvas = context.canvas as HTMLCanvasElement
 
+type IApp = ReturnType<typeof createLoop> & Partial<NodeJS.EventEmitter> & {
+  shape?: [ width: number, height: number ],
+  scale?: any
+}
 
-const app = createLoop(canvas, {
+const app: IApp = createLoop(canvas, {
   scale: window.devicePixelRatio
 })
 document.body.appendChild(canvas)
@@ -27,7 +31,7 @@ app.on('tick', (dt) => {
   context.save()
   context.scale(app.scale, app.scale)
   context.fillRect(Math.sin(time) * 50 + 300, 50, 20, 40)
-  context.fillText('from browserify!', 40, 40)
+  context.fillText('from browserify with typescript!', 40, 40)
   context.drawImage(img, 50, 50)
   context.restore()
 })
