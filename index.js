@@ -24,7 +24,7 @@ function budoCLI (args, opts) {
   if (argv.version) {
     console.log('budo v' + require('./package.json').version)
     console.log('browserify v' + require('browserify/package.json').version)
-    console.log('watchify v' + require('watchify-middleware').getWatchifyVersion())
+    console.log('watchify v' + require('watchify/package.json').version)
     return null
   }
 
