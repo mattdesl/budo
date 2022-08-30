@@ -64,7 +64,7 @@
   },
   "scripts": {
     "bundle-live-client": "node bin/bundle-livereload-client.js",
-    "prepublish": "npm run bundle-live-client",
+    "prepublishOnly": "npm run bundle-live-client",
     "test": "standard && tape test/test*.js | tap-spec",
     "live": "node example/live.js example/app.js:bundle.js --dir example -- -t [ babelify --presets [ es2015 ] ]",
     "start": "node bin/cmd.js example/app.js:bundle.js --live -v --dir example -- -t [ babelify --presets [ es2015 ] ]",
