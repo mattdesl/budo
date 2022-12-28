@@ -110,6 +110,7 @@ Options:
   --no-error-handler    disable default DOM error handling
   --watch-glob, --wg    glob(s) to watch for reloads, default '**/*.{html,css}'
   --static-options      subarg options to pass to serve-static module
+  --inject-in-head      forces live-reload script to be injected in the head tag
 ```
 
 By default, messages will be printed to `process.stdout`, and `--debug` will be sent to browserify (for source maps). You can turn these off with `--no-stream` and `--no-debug`, respectively.

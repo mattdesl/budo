@@ -6,3 +6,4 @@ bundle.js
 bundle-expected.js
 .tmp
 build
+.vscode
